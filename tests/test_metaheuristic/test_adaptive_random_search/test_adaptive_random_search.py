@@ -94,7 +94,7 @@ def test_adaptive_random_search():
     minimum = ars_search[0][-1]
     print('Variables: ', np.around(variables, 4), ' Minimum Value Found: ', round(minimum, 4))
     assert minimum == pytest.approx(-1.0, abs=0.01)
-    assert list(variables) == [pytest.approx(math.pi, abs=0.01), pytest.approx(math.pi, abs=0.01)]
+    assert list(variables) == [pytest.approx(math.pi, abs=0.1), pytest.approx(math.pi, abs=0.1)]
 
     # ARS - Plot Solution
     plt.style.use('bmh')
