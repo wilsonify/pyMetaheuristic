@@ -1,3 +1,13 @@
+"""
+
+The Salp Swarm Algorithm (SSA) mimics salps to solve optimization problems.
+
+Salps have transparent barrel-shaped body and propulsion movement similar to jellyfishes.
+
+In deep oceans, salps often form a swarm called salp chain. Some believe
+that this is done for achieving better locomotion using rapid coordinated changes and foraging.
+
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.

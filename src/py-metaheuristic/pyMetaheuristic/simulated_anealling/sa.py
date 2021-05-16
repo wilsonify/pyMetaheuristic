@@ -1,3 +1,8 @@
+"""
+Simulated annealing is an optimization algoirthm for solving unconstrained optimization problems.
+The method models the physical process of heating a material and then slowly lowering the temperature
+to decrease defects, thus minimizing the system energy.
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.

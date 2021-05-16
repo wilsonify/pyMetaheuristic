@@ -1,3 +1,15 @@
+"""
+The PSO algorithm inspired from the flocking behavior of birds.
+
+each particle is considered to be a solution for a given optimization problem.
+It is made of two vectors: position and velocity.
+The position vector includes the values for each of the variables in the problem.
+If the problem has two parameters,
+for instance, the particles will have position vectors with two dimensions.
+Each particle will then be able to move in an n-dimensional search space where n is the number of variables.
+To update the position of particles, the second vector (velocity) is considered.
+This vector defines the magnitude and direction of step size for each dimension and each particle independently.
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.

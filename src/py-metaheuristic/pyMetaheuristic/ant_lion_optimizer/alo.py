@@ -1,3 +1,13 @@
+"""
+The Ant Lion Optimizer (ALO) mimics the hunting mechanism of antlions.
+
+Five main steps:
+    * random walk of ants,
+    * building traps,
+    * entrapment of ants in traps,
+    * catching preys,
+    * re-building traps
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.

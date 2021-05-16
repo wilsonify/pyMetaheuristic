@@ -1,3 +1,17 @@
+"""
+The Grey Wolf Optimizer (GWO) mimics the leadership hierarchy and hunting mechanism of grey wolves in nature.
+
+Four types of grey wolves:
+    * alpha
+    * beta
+    * delta
+    * omega
+
+Three steps to perform optimization.
+    * searching
+    * encircling
+    * attacking
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.

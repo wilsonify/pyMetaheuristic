@@ -1,3 +1,12 @@
+"""
+Like a moth to a flame!
+distracted by artificial lights moths lose their natural flying path in deadly spiral flying path.
+
+a moth flies by maintaining a fixed angle with respect to the moon:
+    * when the ligth source is far, a straight line.
+    * when the light source is near, a spiral path.
+
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.

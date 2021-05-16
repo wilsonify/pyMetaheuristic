@@ -1,3 +1,10 @@
+"""
+Whale Optimization Algorithm (WOA)
+This algorithm includes three operators to simulate the bubble-net foraging behavior of humpback whales
+ * searching
+ * encircling
+ * attacking
+"""
 ############################################################################
 
 # Created by: Prof. Valdecy Pereira, D.Sc.
