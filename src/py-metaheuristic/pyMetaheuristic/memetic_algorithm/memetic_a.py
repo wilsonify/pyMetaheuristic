@@ -19,7 +19,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_population(target_function, population_size=5, min_values=(-5, -5), max_values=(5, 5)):
+def initial_population(
+        target_function, population_size=5, min_values=(-5, -5), max_values=(5, 5)
+):
     population = np.zeros((population_size, len(min_values) + 1))
     for i in range(0, population_size):
         for j in range(0, len(min_values)):
@@ -54,7 +56,15 @@ def roulette_wheel(fitness):
 
 
 # Function: Offspring
-def breeding(target_function, population, fitness, min_values=(-5, -5), max_values=(5, 5), mu=1, elite=0):
+def breeding(
+        target_function,
+        population,
+        fitness,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        mu=1,
+        elite=0,
+):
     offspring = np.copy(population)
     b_offspring = 0
     if elite > 0:
@@ -99,7 +109,9 @@ def breeding(target_function, population, fitness, min_values=(-5, -5), max_valu
 
 
 # Function: Crossover Hill Clibing
-def xhc(target_function, offspring, fitness, min_values=(-5, -5), max_values=(5, 5), mu=1):
+def xhc(
+        target_function, offspring, fitness, min_values=(-5, -5), max_values=(5, 5), mu=1
+):
     offspring_xhc = np.zeros((2, len(min_values) + 1))
     b_offspring = 0
     for _ in range(0, offspring.shape[0]):
@@ -154,7 +166,14 @@ def xhc(target_function, offspring, fitness, min_values=(-5, -5), max_values=(5,
 
 
 # Function: Mutation
-def mutation(target_function, offspring, mutation_rate=0.1, eta=1, min_values=(-5, -5), max_values=(5, 5)):
+def mutation(
+        target_function,
+        offspring,
+        mutation_rate=0.1,
+        eta=1,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+):
     d_mutation = 0
     for i in range(0, offspring.shape[0]):
         for j in range(0, offspring.shape[1] - 1):
@@ -180,25 +199,62 @@ def mutation(target_function, offspring, mutation_rate=0.1, eta=1, min_values=(-
 
 
 # MA Function
-def memetic_algorithm(target_function, population_size=5, mutation_rate=0.1, elite=0, min_values=(-5, -5),
-                      max_values=(5, 5), eta=1, mu=1, std=0.1, generations=50):
+def memetic_algorithm(
+        target_function,
+        population_size=5,
+        mutation_rate=0.1,
+        elite=0,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        eta=1,
+        mu=1,
+        std=0.1,
+        generations=50,
+):
     count = 0
-    population = initial_population(target_function=target_function, population_size=population_size,
-                                    min_values=min_values, max_values=max_values)
+    population = initial_population(
+        target_function=target_function,
+        population_size=population_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     fitness = fitness_function(population)
     elite_ind = np.copy(population[population[:, -1].argsort()][0, :])
     while count <= generations:
         print("Generation = ", count, " f(x) = ", round(elite_ind[-1], 4))
-        offspring = breeding(target_function=target_function, population=population, fitness=fitness,
-                             min_values=min_values, max_values=max_values, mu=mu, elite=elite)
-        population = mutation(target_function=target_function, offspring=offspring, mutation_rate=mutation_rate,
-                              eta=eta, min_values=min_values, max_values=max_values)
-        population = xhc(target_function=target_function, offspring=population, fitness=fitness, min_values=min_values,
-                         max_values=max_values, mu=mu)
+        offspring = breeding(
+            target_function=target_function,
+            population=population,
+            fitness=fitness,
+            min_values=min_values,
+            max_values=max_values,
+            mu=mu,
+            elite=elite,
+        )
+        population = mutation(
+            target_function=target_function,
+            offspring=offspring,
+            mutation_rate=mutation_rate,
+            eta=eta,
+            min_values=min_values,
+            max_values=max_values,
+        )
+        population = xhc(
+            target_function=target_function,
+            offspring=population,
+            fitness=fitness,
+            min_values=min_values,
+            max_values=max_values,
+            mu=mu,
+        )
         if (population[:, 0: population.shape[1] - 1].std()) / len(min_values) < std:
             print("Reinitializing Population")
-            population = initial_population(target_function=target_function, population_size=population_size,
-                                            min_values=min_values, max_values=max_values)
+            population = initial_population(
+                target_function=target_function,
+                population_size=population_size,
+                min_values=min_values,
+                max_values=max_values,
+            )
         fitness = fitness_function(population)
         if elite_ind[-1] > population[population[:, -1].argsort()][0, :][-1]:
             elite_ind = np.copy(population[population[:, -1].argsort()][0, :])

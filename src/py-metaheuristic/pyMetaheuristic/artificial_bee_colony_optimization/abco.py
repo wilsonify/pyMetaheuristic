@@ -19,7 +19,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_sources(target_function, food_sources=3, min_values=(-5, -5), max_values=(5, 5)):
+def initial_sources(
+        target_function, food_sources=3, min_values=(-5, -5), max_values=(5, 5)
+):
     sources = np.zeros((food_sources, len(min_values) + 1))
     for i in range(0, food_sources):
         for j in range(0, len(min_values)):
@@ -92,7 +94,14 @@ def employed_bee(target_function, sources, min_values=(-5, -5), max_values=(5, 5
 
 
 # Function: Oulooker
-def outlooker_bee(target_function, searching_in_sources, fitness, trial, min_values=(-5, -5), max_values=(5, 5)):
+def outlooker_bee(
+        target_function,
+        searching_in_sources,
+        fitness,
+        trial,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+):
     improving_sources = np.copy(searching_in_sources)
     new_solution = np.zeros((1, len(min_values)))
     trial_update = np.copy(trial)
@@ -135,33 +144,69 @@ def scouter_bee(target_function, improving_sources, trial_update, limit=3):
 
 
 # ABC Function
-def artificial_bee_colony_optimization(target_function, food_sources=3, iterations=50, min_values=(-5, -5),
-                                       max_values=(5, 5), employed_bees=3, outlookers_bees=3, limit=3):
+def artificial_bee_colony_optimization(
+        target_function,
+        food_sources=3,
+        iterations=50,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        employed_bees=3,
+        outlookers_bees=3,
+        limit=3,
+):
     count = 0
     best_value = float("inf")
-    sources = initial_sources(target_function=target_function, food_sources=food_sources, min_values=min_values,
-                              max_values=max_values)
+    sources = initial_sources(
+        target_function=target_function,
+        food_sources=food_sources,
+        min_values=min_values,
+        max_values=max_values,
+    )
     fitness = fitness_function(sources)
     while count <= iterations:
         if count > 0:
             print("Iteration = ", count, " f(x) = ", best_value)
-        e_bee = employed_bee(target_function=target_function, sources=sources, min_values=min_values,
-                             max_values=max_values)
+        e_bee = employed_bee(
+            target_function=target_function,
+            sources=sources,
+            min_values=min_values,
+            max_values=max_values,
+        )
         for _ in range(0, employed_bees - 1):
-            e_bee = employed_bee(target_function=target_function, sources=e_bee[0], min_values=min_values,
-                                 max_values=max_values)
+            e_bee = employed_bee(
+                target_function=target_function,
+                sources=e_bee[0],
+                min_values=min_values,
+                max_values=max_values,
+            )
         fitness = fitness_function(e_bee[0])
-        o_bee = outlooker_bee(target_function=target_function, searching_in_sources=e_bee[0], fitness=fitness,
-                              trial=e_bee[1], min_values=min_values, max_values=max_values)
+        o_bee = outlooker_bee(
+            target_function=target_function,
+            searching_in_sources=e_bee[0],
+            fitness=fitness,
+            trial=e_bee[1],
+            min_values=min_values,
+            max_values=max_values,
+        )
         for _ in range(0, outlookers_bees - 1):
-            o_bee = outlooker_bee(target_function=target_function, searching_in_sources=o_bee[0], fitness=fitness,
-                                  trial=o_bee[1], min_values=min_values, max_values=max_values)
+            o_bee = outlooker_bee(
+                target_function=target_function,
+                searching_in_sources=o_bee[0],
+                fitness=fitness,
+                trial=o_bee[1],
+                min_values=min_values,
+                max_values=max_values,
+            )
         value = np.copy(o_bee[0][o_bee[0][:, -1].argsort()][0, :])
         if best_value > value[-1]:
             best_solution = np.copy(value)
             best_value = np.copy(value[-1])
-        sources = scouter_bee(target_function=target_function, improving_sources=o_bee[0], trial_update=o_bee[1],
-                              limit=limit)
+        sources = scouter_bee(
+            target_function=target_function,
+            improving_sources=o_bee[0],
+            trial_update=o_bee[1],
+            limit=limit,
+        )
         fitness = fitness_function(sources)
         count = count + 1
     print(best_solution)

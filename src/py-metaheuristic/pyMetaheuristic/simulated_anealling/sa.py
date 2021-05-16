@@ -37,7 +37,9 @@ def epson_vector(guess, mu=0, sigma=1):
 
 
 # Function: Updtade Solution
-def update_solution(target_function, guess, epson, min_values=(-5, -5), max_values=(5, 5)):
+def update_solution(
+        target_function, guess, epson, min_values=(-5, -5), max_values=(5, 5)
+):
     updated_solution = np.copy(guess)
     for j in range(0, guess.shape[1] - 1):
         if guess[0, j] + epson[0, j] > max_values[j]:
@@ -53,9 +55,20 @@ def update_solution(target_function, guess, epson, min_values=(-5, -5), max_valu
 
 
 # SA Function
-def simulated_annealing(target_function, min_values=(-5, -5), max_values=(5, 5), mu=0, sigma=1, initial_temperature=1.0,
-                        temperature_iterations=1000, final_temperature=0.0001, alpha=0.9):
-    guess = initial_guess(target_function=target_function, min_values=min_values, max_values=max_values)
+def simulated_annealing(
+        target_function,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        mu=0,
+        sigma=1,
+        initial_temperature=1.0,
+        temperature_iterations=1000,
+        final_temperature=0.0001,
+        alpha=0.9,
+):
+    guess = initial_guess(
+        target_function=target_function, min_values=min_values, max_values=max_values
+    )
     epson = epson_vector(guess, mu=mu, sigma=sigma)
     best = np.copy(guess)
     fx_best = guess[0, -1]
@@ -72,8 +85,13 @@ def simulated_annealing(target_function, min_values=(-5, -5), max_values=(5, 5),
             )
             fx_old = guess[0, -1]
             epson = epson_vector(guess, mu=mu, sigma=sigma)
-            new_guess = update_solution(target_function=target_function, guess=guess, epson=epson,
-                                        min_values=min_values, max_values=max_values)
+            new_guess = update_solution(
+                target_function=target_function,
+                guess=guess,
+                epson=epson,
+                min_values=min_values,
+                max_values=max_values,
+            )
             fx_new = new_guess[0, -1]
             delta = fx_new - fx_old
             r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)

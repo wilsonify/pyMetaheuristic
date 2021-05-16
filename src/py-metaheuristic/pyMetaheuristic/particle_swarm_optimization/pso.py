@@ -19,7 +19,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((swarm_size, len(min_values) + 1))
     for i in range(0, swarm_size):
         for j in range(0, len(min_values)):
@@ -64,7 +66,9 @@ def velocity_vector(
 
 
 # Function: Updtade Position
-def update_position(target_function, position, velocity, min_values=(-5, -5), max_values=(5, 5)):
+def update_position(
+        target_function, position, velocity, min_values=(-5, -5), max_values=(5, 5)
+):
     for i in range(0, position.shape[0]):
         for j in range(0, position.shape[1] - 1):
             position[i, j] = np.clip(
@@ -75,11 +79,24 @@ def update_position(target_function, position, velocity, min_values=(-5, -5), ma
 
 
 # PSO Function
-def particle_swarm_optimization(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5), iterations=50,
-                                decay=0, w=0.9, c1=2, c2=2):
+def particle_swarm_optimization(
+        target_function,
+        swarm_size=3,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        iterations=50,
+        decay=0,
+        w=0.9,
+        c1=2,
+        c2=2,
+):
     count = 0
-    position = initial_position(target_function=target_function, swarm_size=swarm_size, min_values=min_values,
-                                max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        swarm_size=swarm_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     init_velocity = initial_velocity(
         position, min_values=min_values, max_values=max_values
     )
@@ -87,7 +104,9 @@ def particle_swarm_optimization(target_function, swarm_size=3, min_values=(-5, -
     best_global = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_global[-1])
-        position = update_position(target_function=target_function, position=position, velocity=init_velocity)
+        position = update_position(
+            target_function=target_function, position=position, velocity=init_velocity
+        )
         i_b_matrix = individual_best_matrix(position, i_b_matrix)
         value = np.copy(i_b_matrix[i_b_matrix[:, -1].argsort()][0, :])
         if best_global[-1] > value[-1]:

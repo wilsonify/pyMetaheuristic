@@ -19,7 +19,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, solutions=3, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, solutions=3, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((solutions, len(min_values) + 1))
     for i in range(0, solutions):
         for j in range(0, len(min_values)):
@@ -46,15 +48,25 @@ def update_position(target_function, position, min_values=(-5, -5), max_values=(
 
 
 # RS Function
-def random_search(target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5), iterations=50):
+def random_search(
+        target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
+):
     count = 0
-    position = initial_position(target_function=target_function, solutions=solutions, min_values=min_values,
-                                max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        solutions=solutions,
+        min_values=min_values,
+        max_values=max_values,
+    )
     best_solution = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_solution[-1])
-        position = update_position(target_function=target_function, position=position, min_values=min_values,
-                                   max_values=max_values)
+        position = update_position(
+            target_function=target_function,
+            position=position,
+            min_values=min_values,
+            max_values=max_values,
+        )
         if best_solution[-1] > position[position[:, -1].argsort()][0, :][-1]:
             best_solution = np.copy(position[position[:, -1].argsort()][0, :])
         count = count + 1

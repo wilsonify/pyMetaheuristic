@@ -20,7 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_fireflies(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)):
+def initial_fireflies(
+        target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((swarm_size, len(min_values) + 1))
     for i in range(0, swarm_size):
         for j in range(0, len(min_values)):
@@ -52,8 +54,18 @@ def ligth_value(light_0, x, y, gama=1):
 
 
 # Function: Update Position
-def update_position(target_function, position, x, y, alpha_0=0.2, beta_0=1, gama=1, firefly=0, min_values=(-5, -5),
-                    max_values=(5, 5)):
+def update_position(
+        target_function,
+        position,
+        x,
+        y,
+        alpha_0=0.2,
+        beta_0=1,
+        gama=1,
+        firefly=0,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+):
     for j in range(0, len(x)):
         epson = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1) - (
                 1 / 2
@@ -74,11 +86,23 @@ def update_position(target_function, position, x, y, alpha_0=0.2, beta_0=1, gama
 
 
 # FA Function
-def firefly_algorithm(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5), generations=50,
-                      alpha_0=0.2, beta_0=1, gama=1):
+def firefly_algorithm(
+        target_function,
+        swarm_size=3,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        generations=50,
+        alpha_0=0.2,
+        beta_0=1,
+        gama=1,
+):
     count = 0
-    position = initial_fireflies(target_function=target_function, swarm_size=swarm_size, min_values=min_values,
-                                 max_values=max_values)
+    position = initial_fireflies(
+        target_function=target_function,
+        swarm_size=swarm_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     while count <= generations:
         print(
             "Generation: ",
@@ -98,9 +122,18 @@ def firefly_algorithm(target_function, swarm_size=3, min_values=(-5, -5), max_va
                         position[j, -1], firefly_i, firefly_j, gama=gama
                     )
                     if ligth_i > ligth_j:
-                        position = update_position(target_function=target_function, position=position, x=firefly_i,
-                                                   y=firefly_j, alpha_0=alpha_0, beta_0=beta_0, gama=gama, firefly=i,
-                                                   min_values=min_values, max_values=max_values)
+                        position = update_position(
+                            target_function=target_function,
+                            position=position,
+                            x=firefly_i,
+                            y=firefly_j,
+                            alpha_0=alpha_0,
+                            beta_0=beta_0,
+                            gama=gama,
+                            firefly=i,
+                            min_values=min_values,
+                            max_values=max_values,
+                        )
         count = count + 1
     best_firefly = np.copy(position[position[:, -1].argsort()][0, :])
     print(best_firefly)

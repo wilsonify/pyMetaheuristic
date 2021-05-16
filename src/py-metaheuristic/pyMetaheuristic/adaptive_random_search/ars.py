@@ -20,7 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((solutions, len(min_values) + 1))
     for i in range(0, solutions):
         for j in range(0, len(min_values)):
@@ -30,7 +32,9 @@ def initial_position(target_function, solutions=5, min_values=(-5, -5), max_valu
 
 
 # Function: Steps
-def step(target_function, position, min_values=(-5, -5), max_values=(5, 5), step_size=(0, 0)):
+def step(
+        target_function, position, min_values=(-5, -5), max_values=(5, 5), step_size=(0, 0)
+):
     position_temp = np.copy(position)
     for i in range(position.shape[0]):
         for j in range(position.shape[1] - 1):
@@ -47,8 +51,17 @@ def step(target_function, position, min_values=(-5, -5), max_values=(5, 5), step
 
 
 # Function: Large Steps
-def large_step(target_function, position, min_values=(-5, -5), max_values=(5, 5), step_size=(0, 0), count=0,
-               large_step_threshold=10, factor_1=3, factor_2=1.5):
+def large_step(
+        target_function,
+        position,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        step_size=(0, 0),
+        count=0,
+        large_step_threshold=10,
+        factor_1=3,
+        factor_2=1.5,
+):
     factor = 0
     position_temp = np.copy(position)
     step_size_temp = copy.deepcopy(step_size)
@@ -80,11 +93,20 @@ def adaptive_random_search(
         min_values=(-5, -5),
         max_values=(5, 5),
         step_size_factor=0.05,
-        factor_1=3, factor_2=1.5, iterations=50, large_step_threshold=10, improvement_threshold=25):
+        factor_1=3,
+        factor_2=1.5,
+        iterations=50,
+        large_step_threshold=10,
+        improvement_threshold=25,
+):
     count = 0
     threshold = [0] * solutions
-    position = initial_position(target_function=target_function, solutions=solutions, min_values=min_values,
-                                max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        solutions=solutions,
+        min_values=min_values,
+        max_values=max_values,
+    )
     best_solution = np.copy(position[position[:, -1].argsort()][0, :])
     step_size = []
     for i in range(0, position.shape[0]):
@@ -93,12 +115,24 @@ def adaptive_random_search(
             step_size[i][j] = (max_values[j] - min_values[j]) * step_size_factor
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_solution[-1])
-        position_step = step(target_function=target_function, position=position, min_values=min_values,
-                             max_values=max_values, step_size=step_size)
-        step_large, position_large_step = large_step(target_function=target_function, position=position,
-                                                     min_values=min_values, max_values=max_values, step_size=step_size,
-                                                     count=count, large_step_threshold=large_step_threshold,
-                                                     factor_1=factor_1, factor_2=factor_2)
+        position_step = step(
+            target_function=target_function,
+            position=position,
+            min_values=min_values,
+            max_values=max_values,
+            step_size=step_size,
+        )
+        step_large, position_large_step = large_step(
+            target_function=target_function,
+            position=position,
+            min_values=min_values,
+            max_values=max_values,
+            step_size=step_size,
+            count=count,
+            large_step_threshold=large_step_threshold,
+            factor_1=factor_1,
+            factor_2=factor_2,
+        )
         for i in range(position.shape[0]):
             if (
                     position_step[i, -1] < position[i, -1]

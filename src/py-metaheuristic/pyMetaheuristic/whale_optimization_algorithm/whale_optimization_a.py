@@ -20,7 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, hunting_party=5, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, hunting_party=5, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((hunting_party, len(min_values) + 1))
     for i in range(0, hunting_party):
         for j in range(0, len(min_values)):
@@ -48,8 +50,16 @@ def update_leader(position, leader):
 
 
 # Function: Updtade Position
-def update_position(target_function, position, leader, a_linear_component=2, b_linear_component=1, spiral_param=1,
-                    min_values=(-5, -5), max_values=(5, 5)):
+def update_position(
+        target_function,
+        position,
+        leader,
+        a_linear_component=2,
+        b_linear_component=1,
+        spiral_param=1,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+):
     for i in range(0, position.shape[0]):
         r1_leader = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         r2_leader = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -102,20 +112,31 @@ def whale_optimization_algorithm(
         spiral_param=1,
         min_values=(-5, -5),
         max_values=(5, 5),
-        iterations=50
+        iterations=50,
 ):
     count = 0
-    position = initial_position(target_function=target_function, hunting_party=hunting_party, min_values=min_values,
-                                max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        hunting_party=hunting_party,
+        min_values=min_values,
+        max_values=max_values,
+    )
     leader = leader_position(target_function=target_function, dimension=len(min_values))
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", leader[0, -1])
         a_linear_component = 2 - count * (2 / iterations)
         b_linear_component = -1 + count * (-1 / iterations)
         leader = update_leader(position, leader)
-        position = update_position(target_function=target_function, position=position, leader=leader,
-                                   a_linear_component=a_linear_component, b_linear_component=b_linear_component,
-                                   spiral_param=spiral_param, min_values=min_values, max_values=max_values)
+        position = update_position(
+            target_function=target_function,
+            position=position,
+            leader=leader,
+            a_linear_component=a_linear_component,
+            b_linear_component=b_linear_component,
+            spiral_param=spiral_param,
+            min_values=min_values,
+            max_values=max_values,
+        )
         count = count + 1
     print(leader)
     return leader

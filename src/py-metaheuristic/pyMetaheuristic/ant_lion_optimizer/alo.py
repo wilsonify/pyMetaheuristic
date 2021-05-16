@@ -19,7 +19,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_population(target_function, colony_size=5, min_values=(-5, -5), max_values=(5, 5)):
+def initial_population(
+        target_function, colony_size=5, min_values=(-5, -5), max_values=(5, 5)
+):
     population = np.zeros((colony_size, len(min_values) + 1))
     for i in range(0, colony_size):
         for j in range(0, len(min_values)):
@@ -79,7 +81,15 @@ def combine(population, antlions):
 
 
 # Function: Update Antlion
-def update_ants(target_function, population, antlions, count, iterations, min_values=(-5, -5), max_values=(5, 5)):
+def update_ants(
+        target_function,
+        population,
+        antlions,
+        count,
+        iterations,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+):
     i_ratio = 1
     minimum_c_i = np.zeros((1, population.shape[1]))
     maximum_d_i = np.zeros((1, population.shape[1]))
@@ -153,18 +163,38 @@ def update_ants(target_function, population, antlions, count, iterations, min_va
 
 
 # ALO Function
-def ant_lion_optimizer(target_function, colony_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50):
+def ant_lion_optimizer(
+        target_function,
+        colony_size=5,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        iterations=50,
+):
     count = 0
-    population = initial_population(target_function=target_function, colony_size=colony_size, min_values=min_values,
-                                    max_values=max_values)
-    antlions = initial_population(target_function=target_function, colony_size=colony_size, min_values=min_values,
-                                  max_values=max_values)
+    population = initial_population(
+        target_function=target_function,
+        colony_size=colony_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
+    antlions = initial_population(
+        target_function=target_function,
+        colony_size=colony_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     elite = np.copy(antlions[antlions[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", elite[-1])
-        population, antlions = update_ants(target_function=target_function, population=population, antlions=antlions,
-                                           count=count, iterations=iterations, min_values=min_values,
-                                           max_values=max_values)
+        population, antlions = update_ants(
+            target_function=target_function,
+            population=population,
+            antlions=antlions,
+            count=count,
+            iterations=iterations,
+            min_values=min_values,
+            max_values=max_values,
+        )
         population, antlions = combine(population, antlions)
         value = np.copy(antlions[antlions[:, -1].argsort()][0, :])
         if elite[-1] > value[-1]:

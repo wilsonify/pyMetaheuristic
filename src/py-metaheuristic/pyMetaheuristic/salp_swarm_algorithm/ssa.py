@@ -20,7 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((swarm_size, len(min_values) + 1))
     for i in range(0, swarm_size):
         for j in range(0, len(min_values)):
@@ -48,7 +50,9 @@ def update_food(position, food):
 
 
 # Function: Updtade Position
-def update_position(target_function, position, food, c1=1, min_values=(-5, -5), max_values=(5, 5)):
+def update_position(
+        target_function, position, food, c1=1, min_values=(-5, -5), max_values=(5, 5)
+):
     for i in range(0, position.shape[0]):
         if i <= position.shape[0] / 2:
             for j in range(0, len(min_values)):
@@ -86,17 +90,29 @@ def update_position(target_function, position, food, c1=1, min_values=(-5, -5), 
 
 
 # SSA Function
-def salp_swarm_algorithm(target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50):
+def salp_swarm_algorithm(
+        target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
+):
     count = 0
-    position = initial_position(target_function=target_function, swarm_size=swarm_size, min_values=min_values,
-                                max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        swarm_size=swarm_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     food = food_position(target_function=target_function, dimension=len(min_values))
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", food[0, -1])
         c1 = 2 * math.exp(-((4 * (count / iterations)) ** 2))
         food = update_food(position, food)
-        position = update_position(target_function=target_function, position=position, food=food, c1=c1,
-                                   min_values=min_values, max_values=max_values)
+        position = update_position(
+            target_function=target_function,
+            position=position,
+            food=food,
+            c1=c1,
+            min_values=min_values,
+            max_values=max_values,
+        )
         count = count + 1
     print(food)
     return food

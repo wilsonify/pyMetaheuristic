@@ -29,8 +29,18 @@ def initial_position(target_function, n=3, min_values=(-5, -5), max_values=(5, 5
 
 
 # Function: Velocity
-def velocity(target_function, position, best_global, k0=0, k1=1, k2=2, F=0.9, min_values=(-5, -5), max_values=(5, 5),
-             Cr=0.2):
+def velocity(
+        target_function,
+        position,
+        best_global,
+        k0=0,
+        k1=1,
+        k2=2,
+        F=0.9,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        Cr=0.2,
+):
     v = np.copy(best_global)
     for i in range(0, len(best_global)):
         ri = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -47,9 +57,22 @@ def velocity(target_function, position, best_global, k0=0, k1=1, k2=2, F=0.9, mi
 
 
 # DE Function. DE/Best/1/Bin Scheme.
-def differential_evolution(target_function, n=3, min_values=(-5, -5), max_values=(5, 5), iterations=50, F=0.9, Cr=0.2):
+def differential_evolution(
+        target_function,
+        n=3,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        iterations=50,
+        F=0.9,
+        Cr=0.2,
+):
     count = 0
-    position = initial_position(target_function=target_function, n=n, min_values=min_values, max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        n=n,
+        min_values=min_values,
+        max_values=max_values,
+    )
     best_global = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count)
@@ -58,8 +81,18 @@ def differential_evolution(target_function, n=3, min_values=(-5, -5), max_values
             k2 = int(np.random.randint(position.shape[0], size=1))
             while k1 == k2:
                 k1 = int(np.random.randint(position.shape[0], size=1))
-            vi = velocity(target_function=target_function, position=position, best_global=best_global, k0=i, k1=k1,
-                          k2=k2, F=F, min_values=min_values, max_values=max_values, Cr=Cr)
+            vi = velocity(
+                target_function=target_function,
+                position=position,
+                best_global=best_global,
+                k0=i,
+                k1=k1,
+                k2=k2,
+                F=F,
+                min_values=min_values,
+                max_values=max_values,
+                Cr=Cr,
+            )
             if vi[-1] <= position[i, -1]:
                 for j in range(0, position.shape[1]):
                     position[i, j] = vi[j]

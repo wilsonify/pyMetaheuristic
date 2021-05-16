@@ -20,7 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((solutions, len(min_values) + 1))
     for i in range(0, solutions):
         for j in range(0, len(min_values)):
@@ -30,7 +32,9 @@ def initial_position(target_function, solutions=5, min_values=(-5, -5), max_valu
 
 
 # Function: Updtade Position
-def update_position(target_function, position, destination, r1=2, min_values=(-5, -5), max_values=(5, 5)):
+def update_position(
+        target_function, position, destination, r1=2, min_values=(-5, -5), max_values=(5, 5)
+):
     for i in range(0, position.shape[0]):
         for j in range(0, len(min_values)):
             r2 = (
@@ -71,17 +75,33 @@ def update_position(target_function, position, destination, r1=2, min_values=(-5
 
 
 # SCA Function
-def sine_cosine_algorithm(target_function, solutions=5, a_linear_component=2, min_values=(-5, -5), max_values=(5, 5),
-                          iterations=50):
+def sine_cosine_algorithm(
+        target_function,
+        solutions=5,
+        a_linear_component=2,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        iterations=50,
+):
     count = 0
-    position = initial_position(target_function=target_function, solutions=solutions, min_values=min_values,
-                                max_values=max_values)
+    position = initial_position(
+        target_function=target_function,
+        solutions=solutions,
+        min_values=min_values,
+        max_values=max_values,
+    )
     destination = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", destination[-1])
         r1 = a_linear_component - count * (a_linear_component / iterations)
-        position = update_position(target_function=target_function, position=position, destination=destination, r1=r1,
-                                   min_values=min_values, max_values=max_values)
+        position = update_position(
+            target_function=target_function,
+            position=position,
+            destination=destination,
+            r1=r1,
+            min_values=min_values,
+            max_values=max_values,
+        )
         value = np.copy(position[position[:, -1].argsort()][0, :])
         if destination[-1] > value[-1]:
             destination = np.copy(value)

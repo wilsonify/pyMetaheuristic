@@ -20,7 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
-def initial_position(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)):
+def initial_position(
+        target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
+):
     position = np.zeros((swarm_size, len(min_values) + 1))
     velocity = np.zeros((swarm_size, len(min_values)))
     frequency = np.zeros((swarm_size, 1))
@@ -36,8 +38,22 @@ def initial_position(target_function, swarm_size=3, min_values=(-5, -5), max_val
 
 
 # Function: Updtade Position
-def update_position(target_function, position, velocity, frequency, rate, loudness, best_ind, alpha=0.9, gama=0.9,
-                    fmin=0, fmax=10, count=0, min_values=(-5, -5), max_values=(5, 5)):
+def update_position(
+        target_function,
+        position,
+        velocity,
+        frequency,
+        rate,
+        loudness,
+        best_ind,
+        alpha=0.9,
+        gama=0.9,
+        fmin=0,
+        fmax=10,
+        count=0,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+):
     position_temp = np.zeros((position.shape[0], position.shape[1]))
     for i in range(0, position.shape[0]):
         beta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -84,23 +100,43 @@ def update_position(target_function, position, velocity, frequency, rate, loudne
 
 
 # BA Function
-def bat_algorithm(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5), iterations=50, alpha=0.9,
-                  gama=0.9, fmin=0, fmax=10):
+def bat_algorithm(
+        target_function,
+        swarm_size=3,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        iterations=50,
+        alpha=0.9,
+        gama=0.9,
+        fmin=0,
+        fmax=10,
+):
     count = 0
-    position, velocity, frequency, rate, loudness = initial_position(target_function=target_function,
-                                                                     swarm_size=swarm_size, min_values=min_values,
-                                                                     max_values=max_values)
+    position, velocity, frequency, rate, loudness = initial_position(
+        target_function=target_function,
+        swarm_size=swarm_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     best_ind = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_ind[-1])
-        position, velocity, frequency, rate, loudness, best_ind = update_position(target_function=target_function,
-                                                                                  position=position, velocity=velocity,
-                                                                                  frequency=frequency, rate=rate,
-                                                                                  loudness=loudness, best_ind=best_ind,
-                                                                                  alpha=alpha, gama=gama, fmin=fmin,
-                                                                                  fmax=fmax, count=count,
-                                                                                  min_values=min_values,
-                                                                                  max_values=max_values)
+        position, velocity, frequency, rate, loudness, best_ind = update_position(
+            target_function=target_function,
+            position=position,
+            velocity=velocity,
+            frequency=frequency,
+            rate=rate,
+            loudness=loudness,
+            best_ind=best_ind,
+            alpha=alpha,
+            gama=gama,
+            fmin=fmin,
+            fmax=fmax,
+            count=count,
+            min_values=min_values,
+            max_values=max_values,
+        )
         count = count + 1
     print(best_ind)
     return best_ind
