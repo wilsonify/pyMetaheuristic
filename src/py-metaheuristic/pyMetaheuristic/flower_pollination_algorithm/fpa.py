@@ -16,8 +16,7 @@ import random
 
 # Required Libraries
 import numpy as np
-from scipy.special import gamma
-
+from math import gamma
 
 # Function: Initialize Variables
 def initial_position(target_function, flowers=3, min_values=(-5, -5), max_values=(5, 5)):
