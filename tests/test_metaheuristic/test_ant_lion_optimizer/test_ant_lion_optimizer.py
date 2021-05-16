@@ -63,13 +63,8 @@ def test_ant_lion_optimizer():
     tgt = easom
 
     # ALO - Algorithm
-    alo_search = alo.ant_lion_optimizer(
-        colony_size=cs,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    alo_search = alo.ant_lion_optimizer(target_function=tgt, colony_size=cs, min_values=minv, max_values=maxv,
+                                        iterations=iter)
 
     # ALO - Solution
     variables = alo_search[:-1]

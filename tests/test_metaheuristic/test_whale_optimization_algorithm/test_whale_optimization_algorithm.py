@@ -64,14 +64,8 @@ def test_whale_optimization_algorithm():
     tgt = easom
 
     # WOA - Algorithm
-    woa = whale_optimization_a.whale_optimization_algorithm(
-        hunting_party=hp,
-        spiral_param=par_m,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    woa = whale_optimization_a.whale_optimization_algorithm(target_function=tgt, hunting_party=hp, spiral_param=par_m,
+                                                            min_values=minv, max_values=maxv, iterations=iter)
 
     # WOA - Solution
     variables = woa[0][:-1]

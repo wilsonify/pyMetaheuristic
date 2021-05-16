@@ -68,18 +68,8 @@ def test_memetic_algorithm():
     tgt = easom
 
     # MA - Algorithm
-    ma = memetic_a.memetic_algorithm(
-        population_size=ps,
-        mutation_rate=mr,
-        elite=elt,
-        min_values=minv,
-        max_values=maxv,
-        eta=par_e,
-        mu=par_m,
-        std=par_s,
-        generations=iter,
-        target_function=tgt
-    )
+    ma = memetic_a.memetic_algorithm(target_function=tgt, population_size=ps, mutation_rate=mr, elite=elt,
+                                     min_values=minv, max_values=maxv, eta=par_e, mu=par_m, std=par_s, generations=iter)
 
     # MA - Solution
     variables = ma[:-1]

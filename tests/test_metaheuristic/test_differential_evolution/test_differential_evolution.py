@@ -66,15 +66,8 @@ def test_differential_evolution():
     tgt = easom
 
     # DE - Algorithm
-    de_search = de.differential_evolution(
-        n=n_sols,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        F=par_f,
-        Cr=par_c,
-        target_function=tgt
-    )
+    de_search = de.differential_evolution(target_function=tgt, n=n_sols, min_values=minv, max_values=maxv,
+                                          iterations=iter, F=par_f, Cr=par_c)
 
     # DE - Solution
     variables = de_search[:-1]

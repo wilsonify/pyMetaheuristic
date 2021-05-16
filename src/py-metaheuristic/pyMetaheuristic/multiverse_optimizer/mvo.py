@@ -19,15 +19,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_universes(
-        universes=5, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def initial_universes(target_function, universes=5, min_values=(-5, -5), max_values=(5, 5)):
     cosmos = np.zeros((universes, len(min_values) + 1))
     for i in range(0, universes):
         for j in range(0, len(min_values)):
@@ -53,25 +46,17 @@ def fitness_function(cosmos):
 # Function: Selection
 def roulette_wheel(fitness):
     ix = 0
-    random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
     for i in range(0, fitness.shape[0]):
-        if random <= fitness[i, 1]:
+        if _random <= fitness[i, 1]:
             ix = i
             break
     return ix
 
 
 # Function: Big Bang
-def big_bang(
-        cosmos,
-        fitness,
-        best_universe,
-        wormhole_existence_probability,
-        travelling_distance_rate,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def big_bang(target_function, cosmos, fitness, best_universe, wormhole_existence_probability, travelling_distance_rate,
+             min_values=(-5, -5), max_values=(5, 5)):
     for i in range(0, cosmos.shape[0]):
         for j in range(0, len(min_values)):
             r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -106,20 +91,10 @@ def big_bang(
 
 
 # MVO Function
-def muti_verse_optimizer(
-        universes=5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        iterations=50,
-        target_function=target_function,
-):
+def muti_verse_optimizer(target_function, universes=5, min_values=(-5, -5), max_values=(5, 5), iterations=50):
     count = 0
-    cosmos = initial_universes(
-        universes=universes,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    cosmos = initial_universes(target_function=target_function, universes=universes, min_values=min_values,
+                               max_values=max_values)
     fitness = fitness_function(cosmos)
     best_universe = np.copy(cosmos[cosmos[:, -1].argsort()][0, :])
     wormhole_existence_probability_max = 1.0
@@ -133,16 +108,10 @@ def muti_verse_optimizer(
         travelling_distance_rate = 1 - (
                 math.pow(count, 1 / 6) / math.pow(iterations, 1 / 6)
         )
-        cosmos = big_bang(
-            cosmos=cosmos,
-            fitness=fitness,
-            best_universe=best_universe,
-            wormhole_existence_probability=wormhole_existence_probability,
-            travelling_distance_rate=travelling_distance_rate,
-            min_values=min_values,
-            max_values=max_values,
-            target_function=target_function,
-        )
+        cosmos = big_bang(target_function=target_function, cosmos=cosmos, fitness=fitness, best_universe=best_universe,
+                          wormhole_existence_probability=wormhole_existence_probability,
+                          travelling_distance_rate=travelling_distance_rate, min_values=min_values,
+                          max_values=max_values)
         fitness = fitness_function(cosmos)
         value = np.copy(cosmos[cosmos[:, -1].argsort()][0, :])
         if best_universe[-1] > value[-1]:

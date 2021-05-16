@@ -64,15 +64,8 @@ def test_cross_entropy_method():
     tgt = easom
 
     # CEM - Algorithm
-    cem_search = cem.cross_entropy_method(
-        n=n_sols,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        learning_rate=lr,
-        k_samples=ks,
-        target_function=tgt
-    )
+    cem_search = cem.cross_entropy_method(target_function=tgt, n=n_sols, min_values=minv, max_values=maxv,
+                                          iterations=iter, learning_rate=lr, k_samples=ks)
 
     # CEM - Solution
     variables = cem_search[:-1]

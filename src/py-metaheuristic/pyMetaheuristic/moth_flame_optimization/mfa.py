@@ -19,18 +19,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_moths(
-        swarm_size=3,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def initial_moths(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((swarm_size, len(min_values) + 1))
     for i in range(0, swarm_size):
         for j in range(0, len(min_values)):
@@ -47,16 +37,8 @@ def update_flames(flames, position):
 
 
 # Function: Update Position
-def update_position(
-        position,
-        flames,
-        flame_number=1,
-        b_constant=1,
-        a_linear_component=1,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def update_position(target_function, position, flames, flame_number=1, b_constant=1, a_linear_component=1,
+                    min_values=(-5, -5), max_values=(5, 5)):
     for i in range(0, position.shape[0]):
         for j in range(0, len(min_values)):
             if i <= flame_number:
@@ -88,21 +70,11 @@ def update_position(
 
 
 # MFA Function
-def moth_flame_algorithm(
-        swarm_size=3,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        generations=50,
-        b_constant=1,
-        target_function=target_function,
-):
+def moth_flame_algorithm(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5), generations=50,
+                         b_constant=1):
     count = 0
-    position = initial_moths(
-        swarm_size=swarm_size,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    position = initial_moths(target_function=target_function, swarm_size=swarm_size, min_values=min_values,
+                             max_values=max_values)
     flames = np.copy(position[position[:, -1].argsort()][:, :])
     best_moth = np.copy(flames[0, :])
     while count <= generations:
@@ -111,16 +83,9 @@ def moth_flame_algorithm(
             position.shape[0] - count * ((position.shape[0] - 1) / generations)
         )
         a_linear_component = -1 + count * ((-1) / generations)
-        position = update_position(
-            position,
-            flames,
-            flame_number=flame_number,
-            b_constant=b_constant,
-            a_linear_component=a_linear_component,
-            min_values=min_values,
-            max_values=max_values,
-            target_function=target_function,
-        )
+        position = update_position(target_function=target_function, position=position, flames=flames,
+                                   flame_number=flame_number, b_constant=b_constant,
+                                   a_linear_component=a_linear_component, min_values=min_values, max_values=max_values)
         flames = update_flames(flames, position)
         count = count + 1
         if best_moth[-1] > flames[0, -1]:

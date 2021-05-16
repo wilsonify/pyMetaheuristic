@@ -67,16 +67,8 @@ def test_cuckoo_search():
     tgt = easom
 
     # CS - Algorithm
-    cs = cuckoo_s.cuckoo_search(
-        birds=bd,
-        discovery_rate=dr,
-        alpha_value=av,
-        lambda_value=ld,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    cs = cuckoo_s.cuckoo_search(target_function=tgt, birds=bd, discovery_rate=dr, alpha_value=av, lambda_value=ld,
+                                min_values=minv, max_values=maxv, iterations=iter)
 
     # CS - Solution
     variables = cs[:-1]

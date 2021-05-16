@@ -63,13 +63,8 @@ def test_salp_swarm_algorithm():
     tgt = easom
 
     # SSA - Algorithm
-    ssa_search = ssa.salp_swarm_algorithm(
-        swarm_size=ss,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    ssa_search = ssa.salp_swarm_algorithm(target_function=tgt, swarm_size=ss, min_values=minv, max_values=maxv,
+                                          iterations=iter)
 
     # SSA - Solution
     variables = ssa_search[0][:-1]

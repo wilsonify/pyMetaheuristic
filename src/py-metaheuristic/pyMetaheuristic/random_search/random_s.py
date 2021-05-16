@@ -18,15 +18,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_position(
-        solutions=3, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def initial_position(target_function, solutions=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((solutions, len(min_values) + 1))
     for i in range(0, solutions):
         for j in range(0, len(min_values)):
@@ -36,9 +29,7 @@ def initial_position(
 
 
 # Function: Updtade Position
-def update_position(
-        position, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def update_position(target_function, position, min_values=(-5, -5), max_values=(5, 5)):
     updated_position = np.copy(position)
     for i in range(0, updated_position.shape[0]):
         for j in range(0, len(min_values)):
@@ -55,29 +46,15 @@ def update_position(
 
 
 # RS Function
-def random_search(
-        solutions=5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        iterations=50,
-        target_function=target_function,
-):
+def random_search(target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5), iterations=50):
     count = 0
-    position = initial_position(
-        solutions=solutions,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    position = initial_position(target_function=target_function, solutions=solutions, min_values=min_values,
+                                max_values=max_values)
     best_solution = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_solution[-1])
-        position = update_position(
-            position,
-            min_values=min_values,
-            max_values=max_values,
-            target_function=target_function,
-        )
+        position = update_position(target_function=target_function, position=position, min_values=min_values,
+                                   max_values=max_values)
         if best_solution[-1] > position[position[:, -1].argsort()][0, :][-1]:
             best_solution = np.copy(position[position[:, -1].argsort()][0, :])
         count = count + 1

@@ -25,8 +25,8 @@ def target_function():
 # Function: Initialize Variables
 def initial_flies(
         swarm_size=3,
-        min_values=[-5, -5],
-        max_values=[5, 5],
+        min_values=(-5, -5),
+        max_values=(5, 5),
         target_function=target_function,
 ):
     position = np.zeros((swarm_size, len(min_values) + 1))
@@ -43,8 +43,8 @@ def update_position(
         position,
         neighbour_best,
         swarm_best,
-        min_values=[-5, -5],
-        max_values=[5, 5],
+        min_values=(-5, -5),
+        max_values=(5, 5),
         fly=0,
         target_function=target_function,
 ):
@@ -62,8 +62,8 @@ def update_position(
 # DFO Function
 def dispersive_fly_optimization(
         swarm_size=3,
-        min_values=[-5, -5],
-        max_values=[5, 5],
+        min_values=(-5, -5),
+        max_values=(5, 5),
         generations=50,
         dt=0.2,
         target_function=target_function,

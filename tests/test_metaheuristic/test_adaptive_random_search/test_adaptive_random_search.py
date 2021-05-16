@@ -76,18 +76,9 @@ def test_adaptive_random_search():
     tgt = easom
 
     # ARS - Parameters
-    ars_search = ars.adaptive_random_search(
-        solutions=n_sols,
-        min_values=minv,
-        max_values=maxv,
-        step_size_factor=ssf,
-        factor_1=f1,
-        factor_2=f2,
-        iterations=iter,
-        large_step_threshold=lst,
-        improvement_threshold=ipt,
-        target_function=tgt
-    )
+    ars_search = ars.adaptive_random_search(target_function=tgt, solutions=n_sols, min_values=minv, max_values=maxv,
+                                            step_size_factor=ssf, factor_1=f1, factor_2=f2, iterations=iter,
+                                            large_step_threshold=lst, improvement_threshold=ipt)
 
     # ARS - Solution
     variables = ars_search[0][:-1]
@@ -114,14 +105,14 @@ def test_adaptive_random_search():
 
 @pytest.mark.skip(reason="not implemented")
 def test_initial_position():
-    ars.initial_position()
+    ars.initial_position(target_function)
 
 
 @pytest.mark.skip(reason="not implemented")
 def test_large_step():
-    ars.large_step()
+    ars.large_step(target_function, )
 
 
 @pytest.mark.skip(reason="not implemented")
 def test_step():
-    ars.step()
+    ars.step(target_function, )

@@ -63,13 +63,8 @@ def test_random_search():
     tgt = easom
 
     # RS - Algorithm
-    rs = random_s.random_search(
-        solutions=n_sols,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    rs = random_s.random_search(target_function=tgt, solutions=n_sols, min_values=minv, max_values=maxv,
+                                iterations=iter)
 
     # RS - Solution
     variables = rs[:-1]

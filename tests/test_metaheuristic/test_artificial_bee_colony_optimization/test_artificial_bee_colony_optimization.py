@@ -65,16 +65,9 @@ def test_artificial_bee_colony_optimization():
     tgt = easom
 
     # ABCO - Algorithm
-    abco_search = abco.artificial_bee_colony_optimization(
-        food_sources=fs,
-        iterations=iter,
-        min_values=minv,
-        max_values=maxv,
-        employed_bees=ebee,
-        outlookers_bees=obee,
-        limit=lim,
-        target_function=tgt
-    )
+    abco_search = abco.artificial_bee_colony_optimization(target_function=tgt, food_sources=fs, iterations=iter,
+                                                          min_values=minv, max_values=maxv, employed_bees=ebee,
+                                                          outlookers_bees=obee, limit=lim)
 
     # ABCO - Solution
     variables = abco_search[:-1]

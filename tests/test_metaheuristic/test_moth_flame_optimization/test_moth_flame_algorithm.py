@@ -64,14 +64,8 @@ def test_moth_flame_algorithm():
     tgt = easom
 
     # MFO - Algorithm
-    mfo_search = mfa.moth_flame_algorithm(
-        swarm_size=ss,
-        min_values=minv,
-        max_values=maxv,
-        generations=iter,
-        b_constant=par_b,
-        target_function=tgt
-    )
+    mfo_search = mfa.moth_flame_algorithm(target_function=tgt, swarm_size=ss, min_values=minv, max_values=maxv,
+                                          generations=iter, b_constant=par_b)
 
     # MFO - Solution
     variables = mfo_search[:-1]

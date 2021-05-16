@@ -17,15 +17,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_guess(
-        n=5, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def initial_guess(target_function, n=5, min_values=(-5, -5), max_values=(5, 5)):
     guess = np.zeros((n, len(min_values) + 1))
     for i in range(0, n):
         for j in range(0, len(min_values)):
@@ -51,15 +44,8 @@ def guess_std_calc(guess):
 
 
 # Function: Generate Samples
-def generate_samples(
-        guess,
-        guess_mean,
-        guess_std,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        k_samples=2,
-        target_function=target_function,
-):
+def generate_samples(target_function, guess, guess_mean, guess_std, min_values=(-5, -5), max_values=(5, 5),
+                     k_samples=2):
     guess_ = np.copy(guess)
     guess_sample = guess_[guess_[:, -1].argsort()]
     for i in range(k_samples, guess.shape[0]):
@@ -93,36 +79,17 @@ def update_distribution(guess, guess_mean, guess_std, learning_rate=0.7, k_sampl
 
 
 # CEM Function
-def cross_entropy_method(
-        n=5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        iterations=1000,
-        learning_rate=0.7,
-        k_samples=2,
-        target_function=target_function,
-):
-    guess = initial_guess(
-        n=n,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+def cross_entropy_method(target_function, n=5, min_values=(-5, -5), max_values=(5, 5), iterations=1000,
+                         learning_rate=0.7, k_samples=2):
+    guess = initial_guess(target_function=target_function, n=n, min_values=min_values, max_values=max_values)
     guess_mean = guess_mean_calc(guess)
     guess_std = guess_std_calc(guess)
     best = np.copy(guess[guess[:, -1].argsort()][0, :])
     count = 0
     while count < iterations:
         print("Iteration = ", count, " f(x) = ", best[-1])
-        guess = generate_samples(
-            guess,
-            guess_mean,
-            guess_std,
-            min_values=min_values,
-            max_values=max_values,
-            k_samples=k_samples,
-            target_function=target_function,
-        )
+        guess = generate_samples(target_function=target_function, guess=guess, guess_mean=guess_mean,
+                                 guess_std=guess_std, min_values=min_values, max_values=max_values, k_samples=k_samples)
         guess_mean, guess_std = update_distribution(
             guess,
             guess_mean,

@@ -64,14 +64,8 @@ def test_sine_cosine_algorithm():
     tgt = easom
 
     # SCA - Algorithm
-    sca = sine_cosine_a.sine_cosine_algorithm(
-        solutions=n_sols,
-        a_linear_component=par_a,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    sca = sine_cosine_a.sine_cosine_algorithm(target_function=tgt, solutions=n_sols, a_linear_component=par_a,
+                                              min_values=minv, max_values=maxv, iterations=iter)
 
     # SCA - Solution
     variables = sca[:-1]

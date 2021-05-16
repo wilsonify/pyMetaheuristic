@@ -19,15 +19,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_position(
-        birds=3, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def initial_position(target_function, birds=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((birds, len(min_values) + 1))
     for i in range(0, birds):
         for j in range(0, len(min_values)):
@@ -55,14 +48,7 @@ def levy_flight(mean):
 
 
 # Function: Replace Bird
-def replace_bird(
-        position,
-        alpha_value=0.01,
-        lambda_value=1.5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def replace_bird(target_function, position, alpha_value=0.01, lambda_value=1.5, min_values=(-5, -5), max_values=(5, 5)):
     random_bird = np.random.randint(position.shape[0], size=1)[0]
     new_solution = np.zeros((1, position.shape[1]))
     for j in range(0, position.shape[1] - 1):
@@ -84,13 +70,7 @@ def replace_bird(
 
 
 # Function: Update Positions
-def update_positions(
-        position,
-        discovery_rate=0.25,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def update_positions(target_function, position, discovery_rate=0.25, min_values=(-5, -5), max_values=(5, 5)):
     updated_position = np.copy(position)
     abandoned_nests = math.ceil(discovery_rate * updated_position.shape[0]) + 1
     random_bird_j = np.random.randint(position.shape[0], size=1)[0]
@@ -123,42 +103,19 @@ def update_positions(
 
 
 # CS Function
-def cuckoo_search(
-        birds=3,
-        discovery_rate=0.25,
-        alpha_value=0.01,
-        lambda_value=1.5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        iterations=50,
-        target_function=target_function,
-):
+def cuckoo_search(target_function, birds=3, discovery_rate=0.25, alpha_value=0.01, lambda_value=1.5,
+                  min_values=(-5, -5), max_values=(5, 5), iterations=50):
     count = 0
-    position = initial_position(
-        birds=birds,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    position = initial_position(target_function=target_function, birds=birds, min_values=min_values,
+                                max_values=max_values)
     best_ind = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " of ", iterations, " f(x) = ", best_ind[-1])
-        for i in range(0, position.shape[0]):
-            position = replace_bird(
-                position,
-                alpha_value=alpha_value,
-                lambda_value=lambda_value,
-                min_values=min_values,
-                max_values=max_values,
-                target_function=target_function,
-            )
-        position = update_positions(
-            position,
-            discovery_rate=discovery_rate,
-            min_values=min_values,
-            max_values=max_values,
-            target_function=target_function,
-        )
+        for _ in range(0, position.shape[0]):
+            position = replace_bird(target_function=target_function, position=position, alpha_value=alpha_value,
+                                    lambda_value=lambda_value, min_values=min_values, max_values=max_values)
+        position = update_positions(target_function=target_function, position=position, discovery_rate=discovery_rate,
+                                    min_values=min_values, max_values=max_values)
         value = np.copy(position[position[:, -1].argsort()][0, :])
         if best_ind[-1] > value[-1]:
             best_ind = np.copy(position[position[:, -1].argsort()][0, :])

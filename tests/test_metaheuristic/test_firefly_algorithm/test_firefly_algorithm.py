@@ -66,16 +66,8 @@ def test_firefly_algorithm():
     tgt = easom
 
     # FA - Algorithm
-    fa = firefly_a.firefly_algorithm(
-        swarm_size=ss,
-        min_values=minv,
-        max_values=maxv,
-        generations=iter,
-        alpha_0=alp,
-        beta_0=bet,
-        gama=gam,
-        target_function=tgt
-    )
+    fa = firefly_a.firefly_algorithm(target_function=tgt, swarm_size=ss, min_values=minv, max_values=maxv,
+                                     generations=iter, alpha_0=alp, beta_0=bet, gama=gam)
 
     # FA - Solution
     variables = fa[:-1]

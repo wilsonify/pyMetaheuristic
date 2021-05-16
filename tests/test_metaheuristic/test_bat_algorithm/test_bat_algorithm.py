@@ -67,17 +67,8 @@ def test_bat_algorithm():
     tgt = easom
 
     # BA - Algorithm
-    bat_search = bat_a.bat_algorithm(
-        swarm_size=ss,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        alpha=ap,
-        gama=gm,
-        fmin=fn,
-        fmax=fx,
-        target_function=tgt
-    )
+    bat_search = bat_a.bat_algorithm(target_function=tgt, swarm_size=ss, min_values=minv, max_values=maxv,
+                                     iterations=iter, alpha=ap, gama=gm, fmin=fn, fmax=fx)
 
     # BA - Solution
     variables = bat_search[:-1]

@@ -18,15 +18,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_position(
-        pack_size=5, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def initial_position(target_function, pack_size=5, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((pack_size, len(min_values) + 1))
     for i in range(0, pack_size):
         for j in range(0, len(min_values)):
@@ -36,7 +29,7 @@ def initial_position(
 
 
 # Function: Initialize Alpha
-def alpha_position(dimension=2, target_function=target_function):
+def alpha_position(target_function, dimension=2):
     alpha = np.zeros((1, dimension + 1))
     for j in range(0, dimension):
         alpha[0, j] = 0.0
@@ -45,7 +38,7 @@ def alpha_position(dimension=2, target_function=target_function):
 
 
 # Function: Initialize Beta
-def beta_position(dimension=2, target_function=target_function):
+def beta_position(target_function, dimension=2):
     beta = np.zeros((1, dimension + 1))
     for j in range(0, dimension):
         beta[0, j] = 0.0
@@ -54,7 +47,7 @@ def beta_position(dimension=2, target_function=target_function):
 
 
 # Function: Initialize Delta
-def delta_position(dimension=2, target_function=target_function):
+def delta_position(target_function, dimension=2):
     delta = np.zeros((1, dimension + 1))
     for j in range(0, dimension):
         delta[0, j] = 0.0
@@ -83,16 +76,8 @@ def update_pack(position, alpha, beta, delta):
 
 
 # Function: Updtade Position
-def update_position(
-        position,
-        alpha,
-        beta,
-        delta,
-        a_linear_component=2,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def update_position(target_function, position, alpha, beta, delta, a_linear_component=2, min_values=(-5, -5),
+                    max_values=(5, 5)):
     updated_position = np.copy(position)
     for i in range(0, updated_position.shape[0]):
         for j in range(0, len(min_values)):
@@ -124,37 +109,20 @@ def update_position(
 
 
 # GWO Function
-def grey_wolf_optimizer(
-        pack_size=5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        iterations=50,
-        target_function=target_function,
-):
+def grey_wolf_optimizer(target_function, pack_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50):
     count = 0
-    alpha = alpha_position(dimension=len(min_values), target_function=target_function)
-    beta = beta_position(dimension=len(min_values), target_function=target_function)
-    delta = delta_position(dimension=len(min_values), target_function=target_function)
-    position = initial_position(
-        pack_size=pack_size,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    alpha = alpha_position(target_function=target_function, dimension=len(min_values))
+    beta = beta_position(target_function=target_function, dimension=len(min_values))
+    delta = delta_position(target_function=target_function, dimension=len(min_values))
+    position = initial_position(target_function=target_function, pack_size=pack_size, min_values=min_values,
+                                max_values=max_values)
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", alpha[-1])
         a_linear_component = 2 - count * (2 / iterations)
         alpha, beta, delta = update_pack(position, alpha, beta, delta)
-        position = update_position(
-            position,
-            alpha,
-            beta,
-            delta,
-            a_linear_component=a_linear_component,
-            min_values=min_values,
-            max_values=max_values,
-            target_function=target_function,
-        )
+        position = update_position(target_function=target_function, position=position, alpha=alpha, beta=beta,
+                                   delta=delta, a_linear_component=a_linear_component, min_values=min_values,
+                                   max_values=max_values)
         count = count + 1
     print(alpha[-1])
     return alpha

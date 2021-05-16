@@ -19,15 +19,8 @@ import numpy as np
 from scipy.special import gamma
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_position(
-        flowers=3, min_values=[-5, -5], max_values=[5, 5], target_function=target_function
-):
+def initial_position(target_function, flowers=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((flowers, len(min_values) + 1))
     for i in range(0, flowers):
         for j in range(0, len(min_values)):
@@ -38,7 +31,6 @@ def initial_position(
 
 # Function Levy Distribution
 def levy_flight(beta=1.5):
-    beta = beta
     r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
     r2 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
     sig_num = gamma(1 + beta) * np.sin((np.pi * beta) / 2.0)
@@ -49,16 +41,8 @@ def levy_flight(beta=1.5):
 
 
 # Function: Global Pollination
-def pollination_global(
-        position,
-        best_global,
-        flower=0,
-        gama=0.5,
-        lamb=1.4,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def pollination_global(target_function, position, best_global, flower=0, gama=0.5, lamb=1.4, min_values=(-5, -5),
+                       max_values=(5, 5)):
     x = np.copy(best_global)
     for j in range(0, len(min_values)):
         x[j] = np.clip(
@@ -74,16 +58,8 @@ def pollination_global(
 
 
 # Function: Local Pollination
-def pollination_local(
-        position,
-        best_global,
-        flower=0,
-        nb_flower_1=0,
-        nb_flower_2=1,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def pollination_local(target_function, position, best_global, flower=0, nb_flower_1=0, nb_flower_2=1,
+                      min_values=(-5, -5), max_values=(5, 5)):
     x = np.copy(best_global)
     for j in range(0, len(min_values)):
         r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -100,23 +76,11 @@ def pollination_local(
 
 
 # FPA Function.
-def flower_pollination_algorithm(
-        flowers=3,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        iterations=50,
-        gama=0.5,
-        lamb=1.4,
-        p=0.8,
-        target_function=target_function,
-):
+def flower_pollination_algorithm(target_function, flowers=3, min_values=(-5, -5), max_values=(5, 5), iterations=50,
+                                 gama=0.5, lamb=1.4, p=0.8):
     count = 0
-    position = initial_position(
-        flowers=flowers,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    position = initial_position(target_function=target_function, flowers=flowers, min_values=min_values,
+                                max_values=max_values)
     best_global = np.copy(position[position[:, -1].argsort()][0, :])
     x = np.copy(best_global)
     while count <= iterations:
@@ -128,27 +92,12 @@ def flower_pollination_algorithm(
                 nb_flower_1 = int(np.random.randint(position.shape[0], size=1))
             r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             if r < p:
-                x = pollination_global(
-                    position,
-                    best_global,
-                    flower=i,
-                    gama=gama,
-                    lamb=lamb,
-                    min_values=min_values,
-                    max_values=max_values,
-                    target_function=target_function,
-                )
+                x = pollination_global(target_function=target_function, position=position, best_global=best_global,
+                                       flower=i, gama=gama, lamb=lamb, min_values=min_values, max_values=max_values)
             else:
-                x = pollination_local(
-                    position,
-                    best_global,
-                    flower=i,
-                    nb_flower_1=nb_flower_1,
-                    nb_flower_2=nb_flower_2,
-                    min_values=min_values,
-                    max_values=max_values,
-                    target_function=target_function,
-                )
+                x = pollination_local(target_function=target_function, position=position, best_global=best_global,
+                                      flower=i, nb_flower_1=nb_flower_1, nb_flower_2=nb_flower_2, min_values=min_values,
+                                      max_values=max_values)
             if x[-1] <= position[i, -1]:
                 for j in range(0, position.shape[1]):
                     position[i, j] = x[j]

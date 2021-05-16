@@ -67,17 +67,8 @@ def test_genetic_algorithm():
     tgt = easom
 
     # GA - Algorithm
-    ga_search = ga.genetic_algorithm(
-        population_size=ps,
-        mutation_rate=mr,
-        elite=elt,
-        min_values=minv,
-        max_values=maxv,
-        eta=par_e,
-        mu=par_m,
-        generations=iter,
-        target_function=tgt
-    )
+    ga_search = ga.genetic_algorithm(target_function=tgt, population_size=ps, mutation_rate=mr, elite=elt,
+                                     min_values=minv, max_values=maxv, eta=par_e, mu=par_m, generations=iter)
 
     # GA - Solution
     variables = ga_search[:-1]

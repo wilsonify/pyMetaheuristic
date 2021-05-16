@@ -63,13 +63,8 @@ def test_muti_verse_optimizer():
     tgt = easom
 
     # MVO - Algorithm
-    mvo_search = mvo.muti_verse_optimizer(
-        universes=ss,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    mvo_search = mvo.muti_verse_optimizer(target_function=tgt, universes=ss, min_values=minv, max_values=maxv,
+                                          iterations=iter)
 
     # MVO - Solution
     variables = mvo_search[:-1]

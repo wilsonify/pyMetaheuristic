@@ -69,17 +69,9 @@ def test_simulated_annealing():
 
 
     # SA - Algorithm
-    sa_search = sa.simulated_annealing(
-        min_values=minv,
-        max_values=maxv,
-        mu=par_m,
-        sigma=par_s,
-        initial_temperature=temp_i,
-        temperature_iterations=temp_g,
-        final_temperature=temp_f,
-        alpha=alp,
-        target_function=tgt
-    )
+    sa_search = sa.simulated_annealing(target_function=tgt, min_values=minv, max_values=maxv, mu=par_m, sigma=par_s,
+                                       initial_temperature=temp_i, temperature_iterations=temp_g,
+                                       final_temperature=temp_f, alpha=alp)
 
 
     # SA - Solution

@@ -67,17 +67,8 @@ def test_particle_swarm_optimization():
     tgt = easom
 
     # PSO - Algorithm
-    pso_search = pso.particle_swarm_optimization(
-        swarm_size=ss,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        decay=0,
-        w=par_w,
-        c1=par_c1,
-        c2=par_c2,
-        target_function=tgt
-    )
+    pso_search = pso.particle_swarm_optimization(target_function=tgt, swarm_size=ss, min_values=minv, max_values=maxv,
+                                                 iterations=iter, decay=0, w=par_w, c1=par_c1, c2=par_c2)
 
     # PSO - Solution
     variables = pso_search[:-1]

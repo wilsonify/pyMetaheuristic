@@ -63,13 +63,8 @@ def test_grey_wolf_optimizer():
     tgt = easom
 
     # GWO - Algorithm
-    gwo_search = gwo.grey_wolf_optimizer(
-        pack_size=ps,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        target_function=tgt
-    )
+    gwo_search = gwo.grey_wolf_optimizer(target_function=tgt, pack_size=ps, min_values=minv, max_values=maxv,
+                                         iterations=iter)
 
     # GWO - Solution
     variables = gwo_search[0][:-1]

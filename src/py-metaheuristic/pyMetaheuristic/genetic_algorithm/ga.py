@@ -18,18 +18,8 @@ import random
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
-def initial_population(
-        population_size=5,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def initial_population(target_function, population_size=5, min_values=(-5, -5), max_values=(5, 5)):
     population = np.zeros((population_size, len(min_values) + 1))
     for i in range(0, population_size):
         for j in range(0, len(min_values)):
@@ -55,24 +45,16 @@ def fitness_function(population):
 # Function: Selection
 def roulette_wheel(fitness):
     ix = 0
-    random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
     for i in range(0, fitness.shape[0]):
-        if random <= fitness[i, 1]:
+        if _random <= fitness[i, 1]:
             ix = i
             break
     return ix
 
 
 # Function: Offspring
-def breeding(
-        population,
-        fitness,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        mu=1,
-        elite=0,
-        target_function=target_function,
-):
+def breeding(target_function, population, fitness, min_values=(-5, -5), max_values=(5, 5), mu=1, elite=0):
     offspring = np.copy(population)
     b_offspring = 0
     if elite > 0:
@@ -117,14 +99,7 @@ def breeding(
 
 
 # Function: Mutation
-def mutation(
-        offspring,
-        mutation_rate=0.1,
-        eta=1,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        target_function=target_function,
-):
+def mutation(target_function, offspring, mutation_rate=0.1, eta=1, min_values=(-5, -5), max_values=(5, 5)):
     d_mutation = 0
     for i in range(0, offspring.shape[0]):
         for j in range(0, offspring.shape[1] - 1):
@@ -150,45 +125,19 @@ def mutation(
 
 
 # GA Function
-def genetic_algorithm(
-        population_size=5,
-        mutation_rate=0.1,
-        elite=0,
-        min_values=[-5, -5],
-        max_values=[5, 5],
-        eta=1,
-        mu=1,
-        generations=50,
-        target_function=target_function,
-):
+def genetic_algorithm(target_function, population_size=5, mutation_rate=0.1, elite=0, min_values=(-5, -5),
+                      max_values=(5, 5), eta=1, mu=1, generations=50):
     count = 0
-    population = initial_population(
-        population_size=population_size,
-        min_values=min_values,
-        max_values=max_values,
-        target_function=target_function,
-    )
+    population = initial_population(target_function=target_function, population_size=population_size,
+                                    min_values=min_values, max_values=max_values)
     fitness = fitness_function(population)
     elite_ind = np.copy(population[population[:, -1].argsort()][0, :])
     while count <= generations:
         print("Generation = ", count, " f(x) = ", elite_ind[-1])
-        offspring = breeding(
-            population,
-            fitness,
-            min_values=min_values,
-            max_values=max_values,
-            mu=mu,
-            elite=elite,
-            target_function=target_function,
-        )
-        population = mutation(
-            offspring,
-            mutation_rate=mutation_rate,
-            eta=eta,
-            min_values=min_values,
-            max_values=max_values,
-            target_function=target_function,
-        )
+        offspring = breeding(target_function=target_function, population=population, fitness=fitness,
+                             min_values=min_values, max_values=max_values, mu=mu, elite=elite)
+        population = mutation(target_function=target_function, offspring=offspring, mutation_rate=mutation_rate,
+                              eta=eta, min_values=min_values, max_values=max_values)
         fitness = fitness_function(population)
         value = np.copy(population[population[:, -1].argsort()][0, :])
         if elite_ind[-1] > value[-1]:

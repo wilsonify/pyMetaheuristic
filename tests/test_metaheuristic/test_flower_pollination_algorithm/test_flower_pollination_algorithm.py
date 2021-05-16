@@ -67,16 +67,8 @@ def test_fpa():
 
 
     # FPA - Algorithm
-    fpa_search = fpa.flower_pollination_algorithm(
-        flowers=n_sols,
-        min_values=minv,
-        max_values=maxv,
-        iterations=iter,
-        gama=gam,
-        lamb=1.4,
-        p=par_p,
-        target_function=tgt
-    )
+    fpa_search = fpa.flower_pollination_algorithm(target_function=tgt, flowers=n_sols, min_values=minv, max_values=maxv,
+                                                  iterations=iter, gama=gam, lamb=1.4, p=par_p)
 
 
     # FPA - Solution
