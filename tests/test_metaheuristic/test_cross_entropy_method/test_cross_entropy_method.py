@@ -81,7 +81,7 @@ def test_cross_entropy_method():
     assert minimum == pytest.approx(-1.0, abs=0.05)
     assert list(variables) == [pytest.approx(math.pi, abs=0.05), pytest.approx(math.pi, abs=0.05)]
 
-    # + colab={"base_uri": "https://localhost:8080/", "height": 846} id="8EfC-hEPhRLm" outputId="8d2f4dde-1212-40ba-fa24-22177210456f"
+
     # CEM - Plot Solution
     plt.style.use('bmh')
     fig = plt.figure(figsize=(15, 15))

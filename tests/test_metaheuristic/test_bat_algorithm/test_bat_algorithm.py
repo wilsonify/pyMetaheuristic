@@ -84,7 +84,7 @@ def test_bat_algorithm():
     minimum = bat_search[-1]
     print('Variables: ', np.around(variables, 4), ' Minimum Value Found: ', round(minimum, 4))
     assert minimum == pytest.approx(-1.0, abs=0.05)
-    assert list(variables) == [pytest.approx(math.pi, abs=0.05), pytest.approx(math.pi, abs=0.05)]
+    assert list(variables) == [pytest.approx(math.pi, abs=0.1), pytest.approx(math.pi, abs=0.1)]
 
     # BA - Plot Solution
     plt.style.use('bmh')
