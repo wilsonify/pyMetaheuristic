@@ -7,7 +7,9 @@
 # Lesson: Flower Pollination Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Flower_Pollination_Algorithm, File: Python-MH-Flower Pollination Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Flower_Pollination_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Flower_Pollination_Algorithm,
+# File: Python-MH-Flower Pollination Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Flower_Pollination_Algorithm>
 
 ############################################################################
 

@@ -7,7 +7,9 @@
 # Lesson: Dispersive Flies Optimization
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Dispersive_Flies_Optimization, File: Python-MH-Dispersive Flies Optimization.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Dispersive_Flies_Optimization>
+# PEREIRA, V. (2018). Project: Metaheuristic-Dispersive_Flies_Optimization,
+# File: Python-MH-Dispersive Flies Optimization.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Dispersive_Flies_Optimization>
 
 ############################################################################
 

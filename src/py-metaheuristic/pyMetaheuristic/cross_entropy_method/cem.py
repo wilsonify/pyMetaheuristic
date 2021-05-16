@@ -7,7 +7,9 @@
 # Lesson: Cross Entropy Method
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Cross_Entropy_Method, File: Python-MH-Cross Entropy Method.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Cross_Entropy_Method>
+# PEREIRA, V. (2018). Project: Metaheuristic-Cross_Entropy_Method,
+# File: Python-MH-Cross Entropy Method.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Cross_Entropy_Method>
 
 ############################################################################
 

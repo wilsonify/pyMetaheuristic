@@ -7,7 +7,9 @@
 # Lesson: Genetic Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Genetic_Algorithm, File: Python-MH-Genetic Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Genetic_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Genetic_Algorithm,
+# File: Python-MH-Genetic Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Genetic_Algorithm>
 
 ############################################################################
 

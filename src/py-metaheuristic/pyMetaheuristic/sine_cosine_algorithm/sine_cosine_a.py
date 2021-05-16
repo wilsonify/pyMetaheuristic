@@ -7,7 +7,9 @@
 # Lesson: Sine Cosine Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Sine_Cosine_Algorithm, File: Python-MH-Sine Cosine Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Sine Cosine_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Sine_Cosine_Algorithm,
+# File: Python-MH-Sine Cosine Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Sine Cosine_Algorithm>
 
 ############################################################################
 

@@ -7,7 +7,9 @@
 # Lesson: Cuckoo Search
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Cuckoo_Search, File: Python-MH-Cuckoo Search.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Cuckoo_Search>
+# PEREIRA, V. (2018). Project: Metaheuristic-Cuckoo_Search,
+# File: Python-MH-Cuckoo Search.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Cuckoo_Search>
 
 ############################################################################
 

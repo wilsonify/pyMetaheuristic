@@ -7,7 +7,9 @@
 # Lesson: Firefly Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Firefly_Algorithm, File: Python-MH-Firefly Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Firefly_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Firefly_Algorithm,
+# File: Python-MH-Firefly Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Firefly_Algorithm>
 
 ############################################################################
 

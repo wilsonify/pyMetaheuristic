@@ -7,7 +7,9 @@
 # Lesson: Bat Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Bat_Algorithm, File: Python-MH-Bat Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Bat_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Bat_Algorithm,
+# File: Python-MH-Bat Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Bat_Algorithm>
 
 ############################################################################
 

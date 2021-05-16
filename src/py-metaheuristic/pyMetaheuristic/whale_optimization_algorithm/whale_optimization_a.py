@@ -7,7 +7,9 @@
 # Lesson: Whale Optimization Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Whale_Optimization_Algorithm, File: Python-MH-Whale Optimization Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Whale_Optimization_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Whale_Optimization_Algorithm,
+# File: Python-MH-Whale Optimization Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Whale_Optimization_Algorithm>
 
 ############################################################################
 

@@ -7,7 +7,9 @@
 # Lesson: Random Search
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Random_Search, File: Python-MH-Random Search.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Random_Search>
+# PEREIRA, V. (2018). Project: Metaheuristic-Random_Search,
+# File: Python-MH-Random Search.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Random_Search>
 
 ############################################################################
 

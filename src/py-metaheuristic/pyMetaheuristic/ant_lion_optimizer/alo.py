@@ -7,7 +7,9 @@
 # Lesson: Ant Lion Optimizer
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Ant_Lion_Optimizer, File: Python-MH-Ant_Lion_Optimizer.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Ant_Lion_Optimizer>
+# PEREIRA, V. (2018). Project: Metaheuristic-Ant_Lion_Optimizer,
+# File: Python-MH-Ant_Lion_Optimizer.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Ant_Lion_Optimizer>
 
 ############################################################################
 

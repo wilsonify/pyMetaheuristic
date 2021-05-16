@@ -7,7 +7,9 @@
 # Lesson: Differential Evolution
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Differential_Evolution, File: Python-MH-Differential Evolution.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Differential_Evolution>
+# PEREIRA, V. (2018). Project: Metaheuristic-Differential_Evolution,
+# File: Python-MH-Differential Evolution.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Differential_Evolution>
 
 ############################################################################
 

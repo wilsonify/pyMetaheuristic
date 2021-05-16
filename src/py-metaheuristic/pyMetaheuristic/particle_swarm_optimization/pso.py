@@ -7,7 +7,9 @@
 # Lesson: Particle Swarm Optimization
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Particle_Swarm_Optimization, File: Python-MH-Particle Swarm Optimization.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Particle_Swarm_Optimization>
+# PEREIRA, V. (2018). Project: Metaheuristic-Particle_Swarm_Optimization,
+# File: Python-MH-Particle Swarm Optimization.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Particle_Swarm_Optimization>
 
 ############################################################################
 

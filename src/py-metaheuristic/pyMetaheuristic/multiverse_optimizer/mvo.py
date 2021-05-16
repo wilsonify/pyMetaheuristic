@@ -7,7 +7,9 @@
 # Lesson: Multi-Verse Optimizer
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Multi-Verse_Optimizer, File: Python-MH-Multi-Verse Optimizer.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Multi-Verse_Optimizer>
+# PEREIRA, V. (2018). Project: Metaheuristic-Multi-Verse_Optimizer,
+# File: Python-MH-Multi-Verse Optimizer.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Multi-Verse_Optimizer>
 
 ############################################################################
 

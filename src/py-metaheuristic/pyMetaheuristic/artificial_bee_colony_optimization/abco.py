@@ -7,7 +7,9 @@
 # Lesson: Artificial Bee Colony Optimization
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Artificial_Bee_Colony_Optimization, File: Python-MH-Artificial Bee Colony Optimization.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Artificial_Bee_Colony_Optimization>
+# PEREIRA, V. (2018). Project: Metaheuristic-Artificial_Bee_Colony_Optimization,
+# File: Python-MH-Artificial Bee Colony Optimization.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Artificial_Bee_Colony_Optimization>
 
 ############################################################################
 

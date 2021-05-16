@@ -7,7 +7,9 @@
 # Lesson: Memetic Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Memetic_Algorithm, File: Python-MH-Memetic Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Memetic_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Memetic_Algorithm,
+# File: Python-MH-Memetic Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Memetic_Algorithm>
 
 ############################################################################
 

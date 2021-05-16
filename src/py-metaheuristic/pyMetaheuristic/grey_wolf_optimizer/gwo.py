@@ -7,7 +7,9 @@
 # Lesson: Grey Wolf Optimizer
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Grey_Wolf_Optimizer, File: Python-MH-Grey Wolf Optimizer.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Grey_Wolf_Optimizer>
+# PEREIRA, V. (2018). Project: Metaheuristic-Grey_Wolf_Optimizer,
+# File: Python-MH-Grey Wolf Optimizer.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Grey_Wolf_Optimizer>
 
 ############################################################################
 

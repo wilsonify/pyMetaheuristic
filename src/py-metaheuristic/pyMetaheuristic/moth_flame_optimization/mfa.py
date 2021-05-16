@@ -7,7 +7,9 @@
 # Lesson: Moth Flame Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Moth_Flame_Algorithm, File: Python-MH-Moth Flame Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Moth_Flame_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Moth_Flame_Algorithm,
+# File: Python-MH-Moth Flame Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Moth_Flame_Algorithm>
 
 ############################################################################
 

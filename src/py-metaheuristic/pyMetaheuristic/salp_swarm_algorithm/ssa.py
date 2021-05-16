@@ -7,7 +7,9 @@
 # Lesson: Salp Swarm Algorithm
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Salp_Swarm_Algorithm, File: Python-MH-Salp Swarm Algorithm.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Salp_Swarm_Algorithm>
+# PEREIRA, V. (2018). Project: Metaheuristic-Salp_Swarm_Algorithm,
+# File: Python-MH-Salp Swarm Algorithm.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Salp_Swarm_Algorithm>
 
 ############################################################################
 

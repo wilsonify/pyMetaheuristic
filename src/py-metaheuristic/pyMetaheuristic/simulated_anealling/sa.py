@@ -7,7 +7,9 @@
 # Lesson: Simulated Annealing
 
 # Citation:
-# PEREIRA, V. (2018). Project: Metaheuristic-Simulated_Annealing, File: Python-MH-Simulated Annealing.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Simulated_Annealing>
+# PEREIRA, V. (2018). Project: Metaheuristic-Simulated_Annealing,
+# File: Python-MH-Simulated Annealing.py,
+# GitHub repository: <https://github.com/Valdecy/Metaheuristic-Simulated_Annealing>
 
 ############################################################################
 
