@@ -11,11 +11,12 @@
 
 ############################################################################
 
+import math
+import os
+import random
+
 # Required Libraries
 import numpy as np
-import math
-import random
-import os
 
 
 # Function

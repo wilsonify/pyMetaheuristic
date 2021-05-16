@@ -11,10 +11,10 @@
 
 ############################################################################
 
+import random
+
 # Required Libraries
 import numpy as np
-import math
-import random
 
 
 # Function
