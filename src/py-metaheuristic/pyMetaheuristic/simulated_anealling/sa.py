@@ -1,6 +1,8 @@
 """
-Simulated annealing is an optimization algoirthm for solving unconstrained optimization problems.
-The method models the physical process of heating a material and then slowly lowering the temperature
+Simulated annealing is an optimization algoirthm for solving
+unconstrained optimization problems.
+The method models the physical process of heating a material and
+then slowly lowering the temperature
 to decrease defects, thus minimizing the system energy.
 """
 ############################################################################
@@ -25,30 +27,46 @@ import random
 import numpy as np
 
 
-# Function: Initialize Variables
 def initial_guess(target_function, min_values=(-5, -5), max_values=(5, 5)):
-    n = 1
-    guess = np.zeros((n, len(min_values) + 1))
-    for j in range(0, len(min_values)):
-        guess[0, j] = random.uniform(min_values[j], max_values[j])
+    """
+    Initialize Variables
+    """
+    guess = np.zeros((1, len(min_values) + 1))
+    for j, min_values_j, max_values_j in enumerate(zip(min_values, max_values)):
+        guess[0, j] = random.uniform(min_values_j, max_values_j)
     guess[0, -1] = target_function(guess[0, 0: guess.shape[1] - 1])
     return guess
 
 
-# Function: Epson Vector
 def epson_vector(guess, mu=0, sigma=1):
+    """
+    Epson Vector
+    :param guess:
+    :param mu:
+    :param sigma:
+    :return:
+    """
     epson = np.zeros((1, guess.shape[1] - 1))
-    for j in range(0, guess.shape[1] - 1):
+    for j in range( guess.shape[1] - 1):
         epson[0, j] = float(np.random.normal(mu, sigma, 1))
     return epson
 
 
-# Function: Updtade Solution
 def update_solution(
         target_function, guess, epson, min_values=(-5, -5), max_values=(5, 5)
 ):
+    """
+    Update Solution
+
+    :param target_function:
+    :param guess:
+    :param epson:
+    :param min_values:
+    :param max_values:
+    :return:
+    """
     updated_solution = np.copy(guess)
-    for j in range(0, guess.shape[1] - 1):
+    for j in range( guess.shape[1] - 1):
         if guess[0, j] + epson[0, j] > max_values[j]:
             updated_solution[0, j] = random.uniform(min_values[j], max_values[j])
         elif guess[0, j] + epson[0, j] < min_values[j]:
@@ -61,7 +79,6 @@ def update_solution(
     return updated_solution
 
 
-# SA Function
 def simulated_annealing(
         target_function,
         min_values=(-5, -5),
@@ -73,18 +90,32 @@ def simulated_annealing(
         final_temperature=0.0001,
         alpha=0.9,
 ):
+    """
+    SA Function
+
+    :param target_function:
+    :param min_values:
+    :param max_values:
+    :param mu:
+    :param sigma:
+    :param initial_temperature:
+    :param temperature_iterations:
+    :param final_temperature:
+    :param alpha:
+    :return:
+    """
     guess = initial_guess(
         target_function=target_function, min_values=min_values, max_values=max_values
     )
     epson = epson_vector(guess, mu=mu, sigma=sigma)
     best = np.copy(guess)
     fx_best = guess[0, -1]
-    Temperature = float(initial_temperature)
-    while Temperature > final_temperature:
-        for repeat in range(0, temperature_iterations):
+    temperature = float(initial_temperature)
+    while temperature > final_temperature:
+        for repeat in range( temperature_iterations):
             print(
                 "Temperature = ",
-                round(Temperature, 4),
+                round(temperature, 4),
                 " ; iteration = ",
                 repeat,
                 " ; f(x) = ",
@@ -101,13 +132,13 @@ def simulated_annealing(
             )
             fx_new = new_guess[0, -1]
             delta = fx_new - fx_old
-            r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            p = np.exp(-delta / Temperature)
-            if delta < 0 or r <= p:
+            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            p_value = np.exp(-delta / temperature)
+            if delta < 0 or rand <= p_value:
                 guess = np.copy(new_guess)
             if fx_new < fx_best:
                 fx_best = fx_new
                 best = np.copy(guess)
-        Temperature = alpha * Temperature
+        temperature = alpha * temperature
     print(best)
     return best
