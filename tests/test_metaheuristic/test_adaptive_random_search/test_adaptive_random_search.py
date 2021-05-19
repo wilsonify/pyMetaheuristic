@@ -11,6 +11,7 @@ from pyMetaheuristic.objectives import easom
 
 
 def test_smoke():
+    """is anything on fire"""
     print("is anything on fire?")
     pprint(dir(pyMetaheuristic))
     pprint(dir(adaptive_random_search))

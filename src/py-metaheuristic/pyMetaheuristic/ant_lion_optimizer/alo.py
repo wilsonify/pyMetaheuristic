@@ -35,8 +35,8 @@ def initial_population(
         target_function, colony_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
     population = np.zeros((colony_size, len(min_values) + 1))
-    for i in range(0, colony_size):
-        for j in range(0, len(min_values)):
+    for i in range(colony_size):
+        for j in range(len(min_values)):
             population[i, j] = random.uniform(min_values[j], max_values[j])
         population[i, -1] = target_function(population[i, 0: population.shape[1] - 1])
     return population
@@ -45,13 +45,13 @@ def initial_population(
 # Function: Fitness
 def fitness_function(population):
     fitness = np.zeros((population.shape[0], 2))
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         fitness[i, 0] = 1 / (1 + population[i, -1] + abs(population[:, -1].min()))
     fit_sum = fitness[:, 0].sum()
     fitness[0, 1] = fitness[0, 0]
     for i in range(1, fitness.shape[0]):
         fitness[i, 1] = fitness[i, 0] + fitness[i - 1, 1]
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         fitness[i, 1] = fitness[i, 1] / fit_sum
     return fitness
 
@@ -60,7 +60,7 @@ def fitness_function(population):
 def roulette_wheel(fitness):
     ix = 0
     _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         if _random <= fitness[i, 1]:
             ix = i
             break
@@ -85,8 +85,8 @@ def random_walk(iterations):
 def combine(population, antlions):
     combination = np.vstack([population, antlions])
     combination = combination[combination[:, -1].argsort()]
-    for i in range(0, population.shape[0]):
-        for j in range(0, population.shape[1]):
+    for i in range(population.shape[0]):
+        for j in range(population.shape[1]):
             antlions[i, j] = combination[i, j]
             population[i, j] = combination[i + population.shape[0], j]
     return population, antlions
@@ -123,10 +123,10 @@ def update_ants(
     elif count > 0.95 * iterations:
         w_exploration = 6
         i_ratio = (10 ** w_exploration) * (count / iterations)
-    for i in range(0, population.shape[0]):
+    for i in range(population.shape[0]):
         fitness = fitness_function(antlions)
         ant_lion = roulette_wheel(fitness)
-        for j in range(0, population.shape[1] - 1):
+        for j in range(population.shape[1] - 1):
             minimum_c_i[0, j] = antlions[antlions[:, -1].argsort()][0, j] / i_ratio
             maximum_d_i[0, j] = antlions[antlions[:, -1].argsort()][-1, j] / i_ratio
             elite_antlion[0, j] = antlions[antlions[:, -1].argsort()][0, j]
@@ -182,6 +182,17 @@ def ant_lion_optimizer(
         max_values=(5, 5),
         iterations=50,
 ):
+    """
+
+    :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param colony_size:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :return:
+    """
     count = 0
     population = initial_population(
         target_function=target_function,

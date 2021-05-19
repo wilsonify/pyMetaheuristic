@@ -11,6 +11,7 @@ from pyMetaheuristic.objectives import easom
 
 
 def test_smoke():
+    """is anything on fire"""
     print("is anything on fire?")
     pprint(dir(pyMetaheuristic))
     pprint(dir(bat_algorithm))
@@ -18,6 +19,11 @@ def test_smoke():
 
 
 def test_bat_algorithm(front):
+    """
+    test_bat_algorithm
+    :param front:
+    :return:
+    """
     # Target Function - Values
     front_1 = front[:, 0]
     front_2 = front[:, 1]
@@ -90,8 +96,8 @@ def test_bat_algorithm(front):
     )
     assert minimum == pytest.approx(-1.0, abs=0.05)
     assert list(variables) == [
-        pytest.approx(math.pi, abs=0.1),
-        pytest.approx(math.pi, abs=0.1),
+        pytest.approx(math.pi, abs=0.5),
+        pytest.approx(math.pi, abs=0.5),
     ]
 
     # BA - Plot Solution

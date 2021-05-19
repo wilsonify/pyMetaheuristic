@@ -39,8 +39,8 @@ def initial_position(
         target_function, pack_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
     position = np.zeros((pack_size, len(min_values) + 1))
-    for i in range(0, pack_size):
-        for j in range(0, len(min_values)):
+    for i in range(pack_size):
+        for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
@@ -49,7 +49,7 @@ def initial_position(
 # Function: Initialize Alpha
 def alpha_position(target_function, dimension=2):
     alpha = np.zeros((1, dimension + 1))
-    for j in range(0, dimension):
+    for j in range(dimension):
         alpha[0, j] = 0.0
     alpha[0, -1] = target_function(alpha[0, 0: alpha.shape[1] - 1])
     return alpha
@@ -58,7 +58,7 @@ def alpha_position(target_function, dimension=2):
 # Function: Initialize Beta
 def beta_position(target_function, dimension=2):
     beta = np.zeros((1, dimension + 1))
-    for j in range(0, dimension):
+    for j in range(dimension):
         beta[0, j] = 0.0
     beta[0, -1] = target_function(beta[0, 0: beta.shape[1] - 1])
     return beta
@@ -67,16 +67,16 @@ def beta_position(target_function, dimension=2):
 # Function: Initialize Delta
 def delta_position(target_function, dimension=2):
     delta = np.zeros((1, dimension + 1))
-    for j in range(0, dimension):
+    for j in range(dimension):
         delta[0, j] = 0.0
     delta[0, -1] = target_function(delta[0, 0: delta.shape[1] - 1])
     return delta
 
 
-# Function: Updtade Pack by Fitness
+# Function: Update Pack by Fitness
 def update_pack(position, alpha, beta, delta):
     updated_position = np.copy(position)
-    for i in range(0, position.shape[0]):
+    for i in range(position.shape[0]):
         if updated_position[i, -1] < alpha[0, -1]:
             alpha[0, :] = np.copy(updated_position[i, :])
         if (
@@ -93,7 +93,7 @@ def update_pack(position, alpha, beta, delta):
     return alpha, beta, delta
 
 
-# Function: Updtade Position
+# Function: Update Position
 def update_position(
         target_function,
         position,
@@ -105,8 +105,8 @@ def update_position(
         max_values=(5, 5),
 ):
     updated_position = np.copy(position)
-    for i in range(0, updated_position.shape[0]):
-        for j in range(0, len(min_values)):
+    for i in range(updated_position.shape[0]):
+        for j in range(len(min_values)):
             r1_alpha = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             r2_alpha = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             a_alpha = 2 * a_linear_component * r1_alpha - a_linear_component
@@ -134,10 +134,21 @@ def update_position(
     return updated_position
 
 
-# GWO Function
 def grey_wolf_optimizer(
         target_function, pack_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
 ):
+    """
+    GWO Function
+
+    :param target_function:
+    Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param pack_size:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :return:
+    """
     count = 0
     alpha = alpha_position(target_function=target_function, dimension=len(min_values))
     beta = beta_position(target_function=target_function, dimension=len(min_values))

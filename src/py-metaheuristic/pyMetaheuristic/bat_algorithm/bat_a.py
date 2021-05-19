@@ -30,8 +30,8 @@ def initial_position(
     frequency = np.zeros((swarm_size, 1))
     rate = np.zeros((swarm_size, 1))
     loudness = np.zeros((swarm_size, 1))
-    for i in range(0, swarm_size):
-        for j in range(0, len(min_values)):
+    for i in range(swarm_size):
+        for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
         rate[i, 0] = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -39,7 +39,7 @@ def initial_position(
     return position, velocity, frequency, rate, loudness
 
 
-# Function: Updtade Position
+# Function: Update Position
 def update_position(
         target_function,
         position,
@@ -57,14 +57,14 @@ def update_position(
         max_values=(5, 5),
 ):
     position_temp = np.zeros((position.shape[0], position.shape[1]))
-    for i in range(0, position.shape[0]):
+    for i in range(position.shape[0]):
         beta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         frequency[i, 0] = fmin + (fmax - fmin) * beta
-        for j in range(0, len(max_values)):
+        for j in range(len(max_values)):
             velocity[i, j] = (
                     velocity[i, j] + (position[i, j] - best_ind[j]) * frequency[i, 0]
             )
-        for k in range(0, len(max_values)):
+        for k in range(len(max_values)):
             position_temp[i, k] = position[i, k] + velocity[i, k]
             if position_temp[i, k] > max_values[k]:
                 position_temp[i, k] = max_values[k]
@@ -75,7 +75,7 @@ def update_position(
         position_temp[i, -1] = target_function(position_temp[i, 0: len(max_values)])
         rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         if rand > rate[i, 0]:
-            for L in range(0, len(max_values)):
+            for L in range(len(max_values)):
                 position_temp[i, L] = (
                         best_ind[L] + random.uniform(-1, 1) * loudness.mean()
                 )
@@ -90,7 +90,7 @@ def update_position(
             )
         rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         if rand < position[i, -1] and position_temp[i, -1] <= position[i, -1]:
-            for m in range(0, len(max_values)):
+            for m in range(len(max_values)):
                 position[i, m] = position_temp[i, m]
             position[i, -1] = target_function(position[i, 0: len(max_values)])
             rate[i, 0] = rate[i, 0] * (1 - math.exp(-gama * count))
@@ -113,6 +113,21 @@ def bat_algorithm(
         fmin=0,
         fmax=10,
 ):
+    """
+
+    :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param swarm_size:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :param alpha:
+    :param gama:
+    :param fmin:
+    :param fmax:
+    :return:
+    """
     count = 0
     position, velocity, frequency, rate, loudness = initial_position(
         target_function=target_function,

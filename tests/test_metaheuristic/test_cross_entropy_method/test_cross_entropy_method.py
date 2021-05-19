@@ -11,6 +11,7 @@ from pyMetaheuristic.objectives import easom
 
 
 def test_smoke():
+    """is anything on fire"""
     print("is anything on fire?")
     pprint(dir(pyMetaheuristic))
     pprint(dir(cross_entropy_method))
@@ -18,6 +19,11 @@ def test_smoke():
 
 
 def test_cross_entropy_method(front):
+    """
+    test_cross_entropy_method
+    :param front:
+    :return:
+    """
     # Target Function - Values
     front_1 = front[:, 0]
     front_2 = front[:, 1]

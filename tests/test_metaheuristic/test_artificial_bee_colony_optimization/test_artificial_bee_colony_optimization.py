@@ -11,6 +11,7 @@ from pyMetaheuristic.objectives import easom
 
 
 def test_smoke():
+    """is anything on fire"""
     print("is anything on fire?")
     pprint(dir(pyMetaheuristic))
     pprint(dir(artificial_bee_colony_optimization))
@@ -18,6 +19,11 @@ def test_smoke():
 
 
 def test_artificial_bee_colony_optimization(front):
+    """
+    test_artificial_bee_colony_optimization
+    :param front:
+    :return:
+    """
     # Target Function - Values
     front_1 = front[:, 0]
     front_2 = front[:, 1]

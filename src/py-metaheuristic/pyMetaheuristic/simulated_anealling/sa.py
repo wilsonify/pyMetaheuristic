@@ -32,8 +32,8 @@ def initial_guess(target_function, min_values=(-5, -5), max_values=(5, 5)):
     Initialize Variables
     """
     guess = np.zeros((1, len(min_values) + 1))
-    for j, min_values_j, max_values_j in enumerate(zip(min_values, max_values)):
-        guess[0, j] = random.uniform(min_values_j, max_values_j)
+    for j, min_values_j in enumerate(min_values):
+        guess[0, j] = random.uniform(min_values_j, max_values[j])
     guess[0, -1] = target_function(guess[0, 0: guess.shape[1] - 1])
     return guess
 
@@ -47,7 +47,7 @@ def epson_vector(guess, mu=0, sigma=1):
     :return:
     """
     epson = np.zeros((1, guess.shape[1] - 1))
-    for j in range( guess.shape[1] - 1):
+    for j in range(guess.shape[1] - 1):
         epson[0, j] = float(np.random.normal(mu, sigma, 1))
     return epson
 
@@ -66,7 +66,7 @@ def update_solution(
     :return:
     """
     updated_solution = np.copy(guess)
-    for j in range( guess.shape[1] - 1):
+    for j in range(guess.shape[1] - 1):
         if guess[0, j] + epson[0, j] > max_values[j]:
             updated_solution[0, j] = random.uniform(min_values[j], max_values[j])
         elif guess[0, j] + epson[0, j] < min_values[j]:
@@ -94,6 +94,8 @@ def simulated_annealing(
     SA Function
 
     :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
     :param min_values:
     :param max_values:
     :param mu:
@@ -112,7 +114,7 @@ def simulated_annealing(
     fx_best = guess[0, -1]
     temperature = float(initial_temperature)
     while temperature > final_temperature:
-        for repeat in range( temperature_iterations):
+        for repeat in range(temperature_iterations):
             print(
                 "Temperature = ",
                 round(temperature, 4),

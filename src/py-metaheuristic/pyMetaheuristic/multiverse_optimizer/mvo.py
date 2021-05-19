@@ -32,8 +32,8 @@ def initial_universes(
         target_function, universes=5, min_values=(-5, -5), max_values=(5, 5)
 ):
     cosmos = np.zeros((universes, len(min_values) + 1))
-    for i in range(0, universes):
-        for j in range(0, len(min_values)):
+    for i in range(universes):
+        for j in range(len(min_values)):
             cosmos[i, j] = random.uniform(min_values[j], max_values[j])
         cosmos[i, -1] = target_function(cosmos[i, 0: cosmos.shape[1] - 1])
     return cosmos
@@ -42,13 +42,13 @@ def initial_universes(
 # Function: Fitness
 def fitness_function(cosmos):
     fitness = np.zeros((cosmos.shape[0], 2))
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         fitness[i, 0] = 1 / (1 + cosmos[i, -1] + abs(cosmos[:, -1].min()))
     fit_sum = fitness[:, 0].sum()
     fitness[0, 1] = fitness[0, 0]
     for i in range(1, fitness.shape[0]):
         fitness[i, 1] = fitness[i, 0] + fitness[i - 1, 1]
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         fitness[i, 1] = fitness[i, 1] / fit_sum
     return fitness
 
@@ -57,7 +57,7 @@ def fitness_function(cosmos):
 def roulette_wheel(fitness):
     ix = 0
     _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         if _random <= fitness[i, 1]:
             ix = i
             break
@@ -75,8 +75,8 @@ def big_bang(
         min_values=(-5, -5),
         max_values=(5, 5),
 ):
-    for i in range(0, cosmos.shape[0]):
-        for j in range(0, len(min_values)):
+    for i in range(cosmos.shape[0]):
+        for j in range(len(min_values)):
             r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             if r1 < fitness[i, 1]:
                 white_hole_i = roulette_wheel(fitness)
@@ -108,18 +108,19 @@ def big_bang(
     return cosmos
 
 
-# MVO Function
 def muti_verse_optimizer(
         target_function, universes=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
 ):
     """
+    MVO Function
     Multi-Verse Optimizer to Minimize Functions with Continuous Variables.
-    The function returns:
-    1) An array containing the used value(s) for the target function and the output of the target function f(x).
-    For example, if the function f(x1, x2) is used, then the array would be [x1, x2, f(x1, x2)].
+
 
     :param target_function:
         target_function = Function to be minimized.
+
+        It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
     :param universes:
         universes = The population size. The Default Value is 5.
     :param min_values:
@@ -128,7 +129,13 @@ def muti_verse_optimizer(
         max_values = The maximum value that the variable(s) from a list can have. The default value is 5.
     :param iterations:
         iterations = The total number of iterations. The Default Value is 50.
+
     :return:
+
+    The function returns:
+    1) An array containing the used value(s) for the target function and the output of the target function f(x).
+    For example, if the function f(x1, x2) is used, then the array would be [x1, x2, f(x1, x2)].
+
     """
     count = 0
     cosmos = initial_universes(

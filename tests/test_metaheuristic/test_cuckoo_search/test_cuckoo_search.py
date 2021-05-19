@@ -11,6 +11,7 @@ from pyMetaheuristic.objectives import easom
 
 
 def test_smoke():
+    """is anything on fire"""
     print("is anything on fire?")
     pprint(dir(pyMetaheuristic))
     pprint(dir(cuckoo_search))
@@ -18,9 +19,12 @@ def test_smoke():
 
 
 def test_cuckoo_search(front):
-    # + id="R3FfN00aili3"
-    # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+    """
     # For Instance, suppose that our Target Function is the Easom Function (With two variables x1 and x2. Global Minimum f(x1, x2) = -1 for, x1 = 3.14 and x2 = 3.14)
+
+    :param front:
+    :return:
+    """
 
     # Target Function - Values
     front_1 = front[:, 0]

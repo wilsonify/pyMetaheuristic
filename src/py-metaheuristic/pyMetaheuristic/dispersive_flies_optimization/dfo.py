@@ -19,11 +19,6 @@ import os
 import numpy as np
 
 
-# Function
-def target_function():
-    return
-
-
 # Function: Initialize Variables
 def initial_flies(
         swarm_size=3,
@@ -32,8 +27,8 @@ def initial_flies(
         target_function=target_function,
 ):
     position = np.zeros((swarm_size, len(min_values) + 1))
-    for i in range(0, swarm_size):
-        for j in range(0, len(min_values)):
+    for i in range(swarm_size):
+        for j in range(len(min_values)):
             r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             position[i, j] = min_values[j] + r * (max_values[j] - min_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
@@ -50,7 +45,7 @@ def update_position(
         fly=0,
         target_function=target_function,
 ):
-    for j in range(0, position.shape[1] - 1):
+    for j in range(position.shape[1] - 1):
         r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         position[fly, j] = np.clip(
             (neighbour_best[j] + r * (swarm_best[j] - position[fly, j])),
@@ -61,7 +56,6 @@ def update_position(
     return position
 
 
-# DFO Function
 def dispersive_fly_optimization(
         swarm_size=3,
         min_values=(-5, -5),
@@ -70,6 +64,19 @@ def dispersive_fly_optimization(
         dt=0.2,
         target_function=target_function,
 ):
+    """
+    # DFO Function
+
+    :param swarm_size:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param min_values:
+    :param max_values:
+    :param generations:
+    :param dt:
+    :param target_function:
+    :return:
+    """
     count = 0
     population = initial_flies(
         swarm_size=swarm_size,
@@ -81,7 +88,7 @@ def dispersive_fly_optimization(
     swarm_best = np.copy(population[population[:, -1].argsort()][0, :])
     while count <= generations:
         print("Generation: ", count, " of ", generations, " f(x) = ", swarm_best[-1])
-        for i in range(0, swarm_size):
+        for i in range(swarm_size):
             population = update_position(
                 population,
                 neighbour_best,
@@ -93,7 +100,7 @@ def dispersive_fly_optimization(
             )
             r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             if r < dt:
-                for j in range(0, len(min_values)):
+                for j in range(len(min_values)):
                     r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
                     population[i, j] = min_values[j] + r * (
                             max_values[j] - min_values[j]

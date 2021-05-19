@@ -37,8 +37,8 @@ def initial_position(
         target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
 ):
     position = np.zeros((swarm_size, len(min_values) + 1))
-    for i in range(0, swarm_size):
-        for j in range(0, len(min_values)):
+    for i in range(swarm_size):
+        for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
@@ -47,17 +47,17 @@ def initial_position(
 # Function: Initialize Velocity
 def initial_velocity(position, min_values=(-5, -5), max_values=(5, 5)):
     init_velocity = np.zeros((position.shape[0], len(min_values)))
-    for i in range(0, init_velocity.shape[0]):
-        for j in range(0, init_velocity.shape[1]):
+    for i in range(init_velocity.shape[0]):
+        for j in range(init_velocity.shape[1]):
             init_velocity[i, j] = random.uniform(min_values[j], max_values[j])
     return init_velocity
 
 
 # Function: Individual Best
 def individual_best_matrix(position, i_b_matrix):
-    for i in range(0, position.shape[0]):
+    for i in range(position.shape[0]):
         if i_b_matrix[i, -1] > position[i, -1]:
-            for j in range(0, position.shape[1]):
+            for j in range(position.shape[1]):
                 i_b_matrix[i, j] = position[i, j]
     return i_b_matrix
 
@@ -69,8 +69,8 @@ def velocity_vector(
     r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
     r2 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
     velocity = np.zeros((position.shape[0], init_velocity.shape[1]))
-    for i in range(0, init_velocity.shape[0]):
-        for j in range(0, init_velocity.shape[1]):
+    for i in range(init_velocity.shape[0]):
+        for j in range(init_velocity.shape[1]):
             velocity[i, j] = (
                     w * init_velocity[i, j]
                     + c1 * r1 * (i_b_matrix[i, j] - position[i, j])
@@ -79,12 +79,12 @@ def velocity_vector(
     return velocity
 
 
-# Function: Updtade Position
+# Function: Update Position
 def update_position(
         target_function, position, velocity, min_values=(-5, -5), max_values=(5, 5)
 ):
-    for i in range(0, position.shape[0]):
-        for j in range(0, position.shape[1] - 1):
+    for i in range(position.shape[0]):
+        for j in range(position.shape[1] - 1):
             position[i, j] = np.clip(
                 (position[i, j] + velocity[i, j]), min_values[j], max_values[j]
             )
@@ -92,7 +92,6 @@ def update_position(
     return position
 
 
-# PSO Function
 def particle_swarm_optimization(
         target_function,
         swarm_size=3,
@@ -104,6 +103,22 @@ def particle_swarm_optimization(
         c1=2,
         c2=2,
 ):
+    """
+    # PSO Function
+
+    :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param swarm_size:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :param decay:
+    :param w:
+    :param c1:
+    :param c2:
+    :return:
+    """
     count = 0
     position = initial_position(
         target_function=target_function,

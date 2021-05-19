@@ -26,8 +26,8 @@ def initial_position(
         target_function, flowers=3, min_values=(-5, -5), max_values=(5, 5)
 ):
     position = np.zeros((flowers, len(min_values) + 1))
-    for i in range(0, flowers):
-        for j in range(0, len(min_values)):
+    for i in range(flowers):
+        for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
@@ -56,7 +56,7 @@ def pollination_global(
         max_values=(5, 5),
 ):
     x = np.copy(best_global)
-    for j in range(0, len(min_values)):
+    for j in range(len(min_values)):
         x[j] = np.clip(
             (
                     position[flower, j]
@@ -81,7 +81,7 @@ def pollination_local(
         max_values=(5, 5),
 ):
     x = np.copy(best_global)
-    for j in range(0, len(min_values)):
+    for j in range(len(min_values)):
         r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         x[j] = np.clip(
             (
@@ -95,7 +95,6 @@ def pollination_local(
     return x
 
 
-# FPA Function.
 def flower_pollination_algorithm(
         target_function,
         flowers=3,
@@ -106,6 +105,21 @@ def flower_pollination_algorithm(
         lamb=1.4,
         p=0.8,
 ):
+    """
+    # FPA Function.
+
+    :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param flowers:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :param gama:
+    :param lamb:
+    :param p:
+    :return:
+    """
     count = 0
     position = initial_position(
         target_function=target_function,
@@ -117,7 +131,7 @@ def flower_pollination_algorithm(
     x = np.copy(best_global)
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_global[-1])
-        for i in range(0, position.shape[0]):
+        for i in range(position.shape[0]):
             nb_flower_1 = int(np.random.randint(position.shape[0], size=1))
             nb_flower_2 = int(np.random.randint(position.shape[0], size=1))
             while nb_flower_1 == nb_flower_2:
@@ -146,7 +160,7 @@ def flower_pollination_algorithm(
                     max_values=max_values,
                 )
             if x[-1] <= position[i, -1]:
-                for j in range(0, position.shape[1]):
+                for j in range(position.shape[1]):
                     position[i, j] = x[j]
             value = np.copy(position[position[:, -1].argsort()][0, :])
             if best_global[-1] > value[-1]:

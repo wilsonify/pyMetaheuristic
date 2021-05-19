@@ -11,6 +11,7 @@ from pyMetaheuristic.particle_swarm_optimization import pso
 
 
 def test_smoke():
+    """is anything on fire"""
     print("is anything on fire?")
     pprint(dir(pyMetaheuristic))
     pprint(dir(particle_swarm_optimization))
@@ -18,8 +19,12 @@ def test_smoke():
 
 
 def test_particle_swarm_optimization(front):
-    # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+    """
     # For Instance, suppose that our Target Function is the Easom Function (With two variables x1 and x2. Global Minimum f(x1, x2) = -1 for, x1 = 3.14 and x2 = 3.14)
+
+    :param front:
+    :return:
+    """
 
     # Target Function - Values
     front_1 = front[:, 0]
@@ -76,7 +81,7 @@ def test_particle_swarm_optimization(front):
         min_values=minv,
         max_values=maxv,
         iterations=iterations,
-        decay=0,
+        decay=dc,
         w=par_w,
         c1=par_c1,
         c2=par_c2,

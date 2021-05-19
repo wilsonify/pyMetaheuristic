@@ -24,8 +24,8 @@ import numpy as np
 # Function: Initialize Variables
 def initial_position(target_function, birds=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((birds, len(min_values) + 1))
-    for i in range(0, birds):
-        for j in range(0, len(min_values)):
+    for i in range(birds):
+        for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
@@ -60,7 +60,7 @@ def replace_bird(
 ):
     random_bird = np.random.randint(position.shape[0], size=1)[0]
     new_solution = np.zeros((1, position.shape[1]))
-    for j in range(0, position.shape[1] - 1):
+    for j in range(position.shape[1] - 1):
         new_solution[0, j] = np.clip(
             position[random_bird, j]
             + alpha_value
@@ -93,11 +93,11 @@ def update_positions(
     while random_bird_j == random_bird_k:
         random_bird_j = np.random.randint(position.shape[0], size=1)[0]
     nest_list = list(position.argsort()[-(abandoned_nests - 1):][::-1][0])
-    for i in range(0, updated_position.shape[0]):
-        for j in range(0, len(nest_list)):
+    for i in range(updated_position.shape[0]):
+        for j in range(len(nest_list)):
             rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             if i == nest_list[j] and rand > discovery_rate:
-                for k in range(0, updated_position.shape[1] - 1):
+                for k in range(updated_position.shape[1] - 1):
                     rand = int.from_bytes(os.urandom(8), byteorder="big") / (
                             (1 << 64) - 1
                     )
@@ -117,7 +117,6 @@ def update_positions(
     return updated_position
 
 
-# CS Function
 def cuckoo_search(
         target_function,
         birds=3,
@@ -128,6 +127,21 @@ def cuckoo_search(
         max_values=(5, 5),
         iterations=50,
 ):
+    """
+    CS Function
+
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param target_function:
+    :param birds:
+    :param discovery_rate:
+    :param alpha_value:
+    :param lambda_value:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :return:
+    """
     count = 0
     position = initial_position(
         target_function=target_function,
@@ -138,7 +152,7 @@ def cuckoo_search(
     best_ind = np.copy(position[position[:, -1].argsort()][0, :])
     while count <= iterations:
         print("Iteration = ", count, " of ", iterations, " f(x) = ", best_ind[-1])
-        for _ in range(0, position.shape[0]):
+        for _ in range(position.shape[0]):
             position = replace_bird(
                 target_function=target_function,
                 position=position,

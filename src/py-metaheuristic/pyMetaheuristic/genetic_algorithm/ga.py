@@ -25,8 +25,8 @@ def initial_population(
         target_function, population_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
     population = np.zeros((population_size, len(min_values) + 1))
-    for i in range(0, population_size):
-        for j in range(0, len(min_values)):
+    for i in range(population_size):
+        for j in range(len(min_values)):
             population[i, j] = random.uniform(min_values[j], max_values[j])
         population[i, -1] = target_function(population[i, 0: population.shape[1] - 1])
     return population
@@ -35,13 +35,13 @@ def initial_population(
 # Function: Fitness
 def fitness_function(population):
     fitness = np.zeros((population.shape[0], 2))
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         fitness[i, 0] = 1 / (1 + population[i, -1] + abs(population[:, -1].min()))
     fit_sum = fitness[:, 0].sum()
     fitness[0, 1] = fitness[0, 0]
     for i in range(1, fitness.shape[0]):
         fitness[i, 1] = fitness[i, 0] + fitness[i - 1, 1]
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         fitness[i, 1] = fitness[i, 1] / fit_sum
     return fitness
 
@@ -50,7 +50,7 @@ def fitness_function(population):
 def roulette_wheel(fitness):
     ix = 0
     _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-    for i in range(0, fitness.shape[0]):
+    for i in range(fitness.shape[0]):
         if _random <= fitness[i, 1]:
             ix = i
             break
@@ -71,14 +71,14 @@ def breeding(
     b_offspring = 0
     if elite > 0:
         preserve = np.copy(population[population[:, -1].argsort()])
-        for i in range(0, elite):
-            for j in range(0, offspring.shape[1]):
+        for i in range(elite):
+            for j in range(offspring.shape[1]):
                 offspring[i, j] = preserve[i, j]
     for i in range(elite, offspring.shape[0]):
         parent_1, parent_2 = roulette_wheel(fitness), roulette_wheel(fitness)
         while parent_1 == parent_2:
-            parent_2 = random.sample(range(0, len(population) - 1), 1)[0]
-        for j in range(0, offspring.shape[1] - 1):
+            parent_2 = random.sample(range(len(population) - 1), 1)[0]
+        for j in range(offspring.shape[1] - 1):
             rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             rand_b = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             if rand <= 0.5:
@@ -120,8 +120,8 @@ def mutation(
         max_values=(5, 5),
 ):
     d_mutation = 0
-    for i in range(0, offspring.shape[0]):
-        for j in range(0, offspring.shape[1] - 1):
+    for i in range(offspring.shape[0]):
+        for j in range(offspring.shape[1] - 1):
             probability = int.from_bytes(os.urandom(8), byteorder="big") / (
                     (1 << 64) - 1
             )
@@ -143,7 +143,6 @@ def mutation(
     return offspring
 
 
-# GA Function
 def genetic_algorithm(
         target_function,
         population_size=5,
@@ -155,6 +154,22 @@ def genetic_algorithm(
         mu=1,
         generations=50,
 ):
+    """
+    GA Function
+
+    :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param population_size:
+    :param mutation_rate:
+    :param elite:
+    :param min_values:
+    :param max_values:
+    :param eta:
+    :param mu:
+    :param generations:
+    :return:
+    """
     count = 0
     population = initial_population(
         target_function=target_function,

@@ -26,8 +26,8 @@ def initial_fireflies(
         target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
 ):
     position = np.zeros((swarm_size, len(min_values) + 1))
-    for i in range(0, swarm_size):
-        for j in range(0, len(min_values)):
+    for i in range(swarm_size):
+        for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
@@ -36,7 +36,7 @@ def initial_fireflies(
 # Function: Distance Calculations
 def euclidean_distance(x, y):
     distance = 0
-    for j in range(0, len(x)):
+    for j in range(len(x)):
         distance = (x[j] - y[j]) ** 2 + distance
     return distance ** (1 / 2)
 
@@ -68,7 +68,7 @@ def update_position(
         min_values=(-5, -5),
         max_values=(5, 5),
 ):
-    for j in range(0, len(x)):
+    for j in range(len(x)):
         epson = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1) - (
                 1 / 2
         )
@@ -87,7 +87,6 @@ def update_position(
     return position
 
 
-# FA Function
 def firefly_algorithm(
         target_function,
         swarm_size=3,
@@ -98,6 +97,21 @@ def firefly_algorithm(
         beta_0=1,
         gama=1,
 ):
+    """
+    # FA Function
+
+    :param target_function:
+        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    :param swarm_size:
+    :param min_values:
+    :param max_values:
+    :param generations:
+    :param alpha_0:
+    :param beta_0:
+    :param gama:
+    :return:
+    """
     count = 0
     position = initial_fireflies(
         target_function=target_function,
@@ -112,8 +126,8 @@ def firefly_algorithm(
             " f(x) = ",
             position[position[:, -1].argsort()][0, :][-1],
         )
-        for i in range(0, swarm_size):
-            for j in range(0, swarm_size):
+        for i in range(swarm_size):
+            for j in range(swarm_size):
                 if i != j:
                     firefly_i = np.copy(position[i, 0: position.shape[1] - 1])
                     firefly_j = np.copy(position[j, 0: position.shape[1] - 1])
