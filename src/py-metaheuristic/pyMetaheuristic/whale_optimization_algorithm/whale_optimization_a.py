@@ -1,6 +1,7 @@
 """
 Whale Optimization Algorithm (WOA)
-This algorithm includes three operators to simulate the bubble-net foraging behavior of humpback whales
+This algorithm includes three operators to simulate
+the bubble-net foraging behavior of humpback whales
  * searching
  * encircling
  * attacking
@@ -28,37 +29,53 @@ import random
 import numpy as np
 
 
-# Function: Initialize Variables
 def initial_position(
         target_function, hunting_party=5, min_values=(-5, -5), max_values=(5, 5)
 ):
+    """
+    Initialize Variables
+    :param target_function:
+    :param hunting_party:
+    :param min_values:
+    :param max_values:
+    :return:
+    """
     position = np.zeros((hunting_party, len(min_values) + 1))
-    for i in range(0, hunting_party):
-        for j in range(0, len(min_values)):
+    for i in range(hunting_party):
+        for j, _ in enumerate(min_values):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
 
 
-# Function: Initialize Alpha
 def leader_position(target_function, dimension=2):
+    """
+    Initialize Alpha
+    :param target_function:
+    :param dimension:
+    :return:
+    """
     leader = np.zeros((1, dimension + 1))
-    for j in range(0, dimension):
+    for j in range(dimension):
         leader[0, j] = 0.0
     leader[0, -1] = target_function(leader[0, 0: leader.shape[1] - 1])
     return leader
 
 
-# Function: Updtade Leader by Fitness
 def update_leader(position, leader):
-    for i in range(0, position.shape[0]):
+    """
+    Update Leader by Fitness
+    :param position:
+    :param leader:
+    :return:
+    """
+    for i in range(position.shape[0]):
         if leader[0, -1] > position[i, -1]:
-            for j in range(0, position.shape[1]):
+            for j in range(position.shape[1]):
                 leader[0, j] = position[i, j]
     return leader
 
 
-# Function: Updtade Position
 def update_position(
         target_function,
         position,
@@ -69,14 +86,28 @@ def update_position(
         min_values=(-5, -5),
         max_values=(5, 5),
 ):
-    for i in range(0, position.shape[0]):
+    """
+    Update Position
+    :param target_function:
+    :param position:
+    :param leader:
+    :param a_linear_component:
+    :param b_linear_component:
+    :param spiral_param:
+    :param min_values:
+    :param max_values:
+    :return:
+    """
+    for i in range(position.shape[0]):
         r1_leader = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
         r2_leader = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        p_value = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+
         a_leader = 2 * a_linear_component * r1_leader - a_linear_component
         c_leader = 2 * r2_leader
-        p = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-        for j in range(0, len(min_values)):
-            if p < 0.5:
+
+        for j, _ in enumerate(min_values):
+            if p_value < 0.5:
                 if abs(a_leader) >= 1:
                     rand = int.from_bytes(os.urandom(8), byteorder="big") / (
                             (1 << 64) - 1
@@ -96,13 +127,13 @@ def update_position(
                         min_values[j],
                         max_values[j],
                     )
-            elif p >= 0.5:
-                distance_Leader = abs(leader[0, j] - position[i, j])
+            elif p_value >= 0.5:
+                distance_leader = abs(leader[0, j] - position[i, j])
                 rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
                 m_param = (b_linear_component - 1) * rand + 1
                 position[i, j] = np.clip(
                     (
-                            distance_Leader
+                            distance_leader
                             * math.exp(spiral_param * m_param)
                             * math.cos(m_param * 2 * math.pi)
                             + leader[0, j]
@@ -114,7 +145,6 @@ def update_position(
     return position
 
 
-# WOA Function
 def whale_optimization_algorithm(
         target_function,
         hunting_party=5,
@@ -123,6 +153,17 @@ def whale_optimization_algorithm(
         max_values=(5, 5),
         iterations=50,
 ):
+    """
+    WOA Function
+
+    :param target_function:
+    :param hunting_party:
+    :param spiral_param:
+    :param min_values:
+    :param max_values:
+    :param iterations:
+    :return:
+    """
     count = 0
     position = initial_position(
         target_function=target_function,
