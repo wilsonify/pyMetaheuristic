@@ -17,18 +17,8 @@ def test_smoke():
     pprint(dir(bat_a))
 
 
-def test_bat_algorithm():
+def test_bat_algorithm(front):
     # Target Function - Values
-    x = np.arange(-1, 7, 0.1)
-    front = np.zeros((len(x) ** 2, 3))
-    count = 0
-    for j in range(0, len(x)):
-        for k in range(0, len(x)):
-            front[count, 0] = x[j]
-            front[count, 1] = x[k]
-            count = count + 1
-    for i in range(0, front.shape[0]):
-        front[i, 2] = easom(variables_values=[front[i, 0], front[i, 1]])
     front_1 = front[:, 0]
     front_2 = front[:, 1]
     func_1_values = front[:, -1]
