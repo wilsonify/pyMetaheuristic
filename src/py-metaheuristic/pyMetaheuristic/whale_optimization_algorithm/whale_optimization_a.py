@@ -156,7 +156,10 @@ def whale_optimization_algorithm(
     """
     WOA Function
 
-    :param target_function:
+    :param target_function: It can be any function that needs to be minimize,
+    However it has to have only one argument: 'variables_values'.
+    This Argument must be a list of variables.
+
     :param hunting_party:
     :param spiral_param:
     :param min_values:
