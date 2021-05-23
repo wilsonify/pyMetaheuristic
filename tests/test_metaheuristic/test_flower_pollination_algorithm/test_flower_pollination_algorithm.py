@@ -60,7 +60,7 @@ def test_fpa(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="sC_ozpQAvxDn"
     # FPA - Parameters
@@ -139,4 +139,4 @@ def test_fpa(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

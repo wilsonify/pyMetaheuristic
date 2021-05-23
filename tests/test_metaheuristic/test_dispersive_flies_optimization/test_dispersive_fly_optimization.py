@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import dispersive_flies_optimization
 from pyMetaheuristic.dispersive_flies_optimization import dfo
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""
@@ -60,7 +60,7 @@ def test_dispersive_flies_optimization(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # DFO - Parameters
     ss = 50
@@ -71,14 +71,8 @@ def test_dispersive_flies_optimization(front):
     tgt = easom
 
     # DFO - Algorithm
-    dfo_search = dfo.dispersive_fly_optimization(
-        swarm_size=ss,
-        min_values=minv,
-        max_values=maxv,
-        generations=iterations,
-        dt=dt,
-        target_function=tgt,
-    )
+    dfo_search = dfo.dispersive_fly_optimization(target_function=tgt, swarm_size=ss, min_values=minv, max_values=maxv,
+                                                 generations=iterations, thresh=dt)
 
     # DFO - Solution
     variables = dfo_search[:-1]
@@ -134,4 +128,4 @@ def test_dispersive_flies_optimization(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

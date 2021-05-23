@@ -60,7 +60,7 @@ def test_muti_verse_optimizer(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="0SC_E4Wu3zFe"
     # MVO - Parameters
@@ -133,4 +133,4 @@ def test_muti_verse_optimizer(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

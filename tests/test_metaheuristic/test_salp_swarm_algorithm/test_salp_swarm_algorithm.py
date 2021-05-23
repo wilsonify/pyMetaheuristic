@@ -60,7 +60,7 @@ def test_salp_swarm_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="x4LIGa8w72iG"
     # SSA - Parameters
@@ -133,4 +133,4 @@ def test_salp_swarm_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

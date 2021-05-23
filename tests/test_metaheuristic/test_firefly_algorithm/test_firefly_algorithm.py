@@ -60,7 +60,7 @@ def test_firefly_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="ABmpmFqPt6gd"
     # FA - Parameters
@@ -139,4 +139,4 @@ def test_firefly_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

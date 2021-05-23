@@ -63,7 +63,7 @@ def test_sine_cosine_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="GDwrC2oD_A2b"
     # SCA - Parameters
@@ -138,4 +138,4 @@ def test_sine_cosine_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

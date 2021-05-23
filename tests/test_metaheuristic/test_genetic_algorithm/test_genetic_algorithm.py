@@ -60,7 +60,7 @@ def test_genetic_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="L96zk37oxbpY"
     # GA - Parameters
@@ -141,4 +141,4 @@ def test_genetic_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

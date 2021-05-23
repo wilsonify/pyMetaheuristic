@@ -65,7 +65,7 @@ def test_whale_optimization_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # WOA - Parameters
     hunt_p = 150
@@ -139,4 +139,4 @@ def test_whale_optimization_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

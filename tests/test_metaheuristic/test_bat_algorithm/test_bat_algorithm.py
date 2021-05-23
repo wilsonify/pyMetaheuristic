@@ -58,7 +58,7 @@ def test_bat_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="oiuTf38ddplL"
     # BA - Parameters
@@ -139,4 +139,4 @@ def test_bat_algorithm(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

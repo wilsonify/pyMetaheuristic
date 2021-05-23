@@ -60,7 +60,7 @@ def test_grey_wolf_optimizer(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="X1dliAjdzGGX"
     # GWO - Parameters
@@ -133,4 +133,4 @@ def test_grey_wolf_optimizer(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

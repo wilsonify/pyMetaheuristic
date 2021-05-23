@@ -58,7 +58,7 @@ def test_cross_entropy_method(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # CEM - Parameters
     n_sols = 50
@@ -134,4 +134,4 @@ def test_cross_entropy_method(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

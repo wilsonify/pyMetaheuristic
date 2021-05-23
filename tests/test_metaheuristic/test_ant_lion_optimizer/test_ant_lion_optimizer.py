@@ -59,7 +59,7 @@ def test_ant_lion_optimizer(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="8pa6RqIcEKbT"
     # ALO - Parameters
@@ -127,4 +127,4 @@ def test_ant_lion_optimizer(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

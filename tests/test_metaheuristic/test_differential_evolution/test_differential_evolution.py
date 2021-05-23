@@ -62,7 +62,7 @@ def test_differential_evolution(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="hBdHJ6rCqjAy"
     # DE - Parameters
@@ -139,4 +139,4 @@ def test_differential_evolution(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

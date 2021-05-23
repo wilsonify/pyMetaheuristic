@@ -60,7 +60,7 @@ def test_particle_swarm_optimization(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="B4R0kub441t_"
     # PSO - Parameters
@@ -141,4 +141,4 @@ def test_particle_swarm_optimization(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

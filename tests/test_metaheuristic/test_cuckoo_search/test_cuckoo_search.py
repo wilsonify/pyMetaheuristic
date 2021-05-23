@@ -60,7 +60,7 @@ def test_cuckoo_search(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="AMAqaORfirvJ"
     # CS - Parameters
@@ -139,4 +139,4 @@ def test_cuckoo_search(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

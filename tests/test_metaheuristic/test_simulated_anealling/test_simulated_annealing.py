@@ -60,7 +60,7 @@ def test_simulated_annealing(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="N7pLehPD9Aqp"
     # SA - Parameters
@@ -141,4 +141,4 @@ def test_simulated_annealing(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

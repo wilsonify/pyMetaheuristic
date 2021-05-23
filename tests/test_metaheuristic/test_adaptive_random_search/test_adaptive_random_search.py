@@ -57,7 +57,7 @@ def test_adaptive_random_search(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # ARS - Parameters
     n_sols = 100
@@ -139,4 +139,4 @@ def test_adaptive_random_search(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

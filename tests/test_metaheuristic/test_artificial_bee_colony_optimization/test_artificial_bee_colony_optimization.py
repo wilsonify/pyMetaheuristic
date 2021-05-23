@@ -58,7 +58,7 @@ def test_artificial_bee_colony_optimization(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # ABCO - Parameters
     fs = 20
@@ -136,4 +136,4 @@ def test_artificial_bee_colony_optimization(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")

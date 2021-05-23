@@ -60,7 +60,7 @@ def test_random_search(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
 
     # + id="J0rccYw96kKX"
     # RS - Parameters
@@ -133,4 +133,4 @@ def test_random_search(front):
         zorder=1,
         color="k",
     )
-    plt.show()
+    plt.savefig(f"{os.path.basename(__file__)}.png")
