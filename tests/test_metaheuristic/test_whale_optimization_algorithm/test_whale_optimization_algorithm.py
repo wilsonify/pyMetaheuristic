@@ -4,6 +4,7 @@ run with pytest
 
 """
 import math
+import os
 from pprint import pprint
 
 import numpy as np
@@ -12,7 +13,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import whale_optimization_algorithm
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.whale_optimization_algorithm import whale_optimization_a
-import os
+
 
 def test_smoke():
     """
@@ -76,7 +77,7 @@ def test_whale_optimization_algorithm(front):
     tgt = easom
 
     # WOA - Algorithm
-    woa = whale_optimization_a.whale_optimization_algorithm(
+    woa_instance = whale_optimization_a.WOA(
         target_function=tgt,
         hunting_party=hunt_p,
         spiral_param=par_m,
@@ -84,6 +85,7 @@ def test_whale_optimization_algorithm(front):
         max_values=maxv,
         iterations=iterations,
     )
+    woa = woa_instance.minimize()
 
     # WOA - Solution
     variables = woa[0][:-1]
