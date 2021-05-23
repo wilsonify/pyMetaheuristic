@@ -77,7 +77,10 @@ def dispersive_fly_optimization(
     # DFO Function
 
     :param swarm_size:
-        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+
+    It can be any function that needs to be minimize,
+    However it has to have only one argument: 'variables_values'.
+    This Argument must be a list of variables.
 
     :param min_values:
     :param max_values:
