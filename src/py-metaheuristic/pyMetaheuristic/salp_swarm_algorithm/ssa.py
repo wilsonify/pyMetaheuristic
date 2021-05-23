@@ -33,13 +33,13 @@ import numpy as np
 
 # Function: Initialize Variables
 def initial_position(
-        target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5)
+    target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
     position = np.zeros((swarm_size, len(min_values) + 1))
     for i in range(swarm_size):
         for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
-        position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
+        position[i, -1] = target_function(position[i, 0 : position.shape[1] - 1])
     return position
 
 
@@ -48,7 +48,7 @@ def food_position(target_function, dimension=2):
     food = np.zeros((1, dimension + 1))
     for j in range(dimension):
         food[0, j] = 0.0
-    food[0, -1] = target_function(food[0, 0: food.shape[1] - 1])
+    food[0, -1] = target_function(food[0, 0 : food.shape[1] - 1])
     return food
 
 
@@ -63,7 +63,7 @@ def update_food(position, food):
 
 # Function: Update Position
 def update_position(
-        target_function, position, food, c1=1, min_values=(-5, -5), max_values=(5, 5)
+    target_function, position, food, c1=1, min_values=(-5, -5), max_values=(5, 5)
 ):
     for i in range(position.shape[0]):
         if i <= position.shape[0] / 2:
@@ -73,9 +73,9 @@ def update_position(
                 if c3 >= 0.5:  # c3 < 0.5
                     position[i, j] = np.clip(
                         (
-                                food[0, j]
-                                + c1
-                                * ((max_values[j] - min_values[j]) * c2 + min_values[j])
+                            food[0, j]
+                            + c1
+                            * ((max_values[j] - min_values[j]) * c2 + min_values[j])
                         ),
                         min_values[j],
                         max_values[j],
@@ -83,9 +83,9 @@ def update_position(
                 else:
                     position[i, j] = np.clip(
                         (
-                                food[0, j]
-                                - c1
-                                * ((max_values[j] - min_values[j]) * c2 + min_values[j])
+                            food[0, j]
+                            - c1
+                            * ((max_values[j] - min_values[j]) * c2 + min_values[j])
                         ),
                         min_values[j],
                         max_values[j],
@@ -97,13 +97,13 @@ def update_position(
                     min_values[j],
                     max_values[j],
                 )
-        position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
+        position[i, -1] = target_function(position[i, 0 : position.shape[1] - 1])
     return position
 
 
 # SSA Function
 def salp_swarm_algorithm(
-        target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
+    target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
 ):
     """
 
