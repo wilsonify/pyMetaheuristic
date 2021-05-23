@@ -23,38 +23,38 @@ import numpy as np
 
 # Function: Initialize Variables
 def initial_position(
-        target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)
+    target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)
 ):
     position = np.zeros((solutions, len(min_values) + 1))
     for i in range(solutions):
         for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
-        position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
+        position[i, -1] = target_function(position[i, 0 : position.shape[1] - 1])
     return position
 
 
 # Function: Update Position
 def update_position(
-        target_function, position, destination, r1=2, min_values=(-5, -5), max_values=(5, 5)
+    target_function, position, destination, r1=2, min_values=(-5, -5), max_values=(5, 5)
 ):
     for i in range(position.shape[0]):
         for j in range(len(min_values)):
             r2 = (
-                    2
-                    * math.pi
-                    * (int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1))
+                2
+                * math.pi
+                * (int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1))
             )
             r3 = 2 * (int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1))
             r4 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             if r4 < 0.5:
                 position[i, j] = np.clip(
                     (
-                            position[i, j]
-                            + (
-                                    r1
-                                    * math.sin(r2)
-                                    * abs(r3 * destination[j] - position[i, j])
-                            )
+                        position[i, j]
+                        + (
+                            r1
+                            * math.sin(r2)
+                            * abs(r3 * destination[j] - position[i, j])
+                        )
                     ),
                     min_values[j],
                     max_values[j],
@@ -62,28 +62,28 @@ def update_position(
             else:
                 position[i, j] = np.clip(
                     (
-                            position[i, j]
-                            + (
-                                    r1
-                                    * math.cos(r2)
-                                    * abs(r3 * destination[j] - position[i, j])
-                            )
+                        position[i, j]
+                        + (
+                            r1
+                            * math.cos(r2)
+                            * abs(r3 * destination[j] - position[i, j])
+                        )
                     ),
                     min_values[j],
                     max_values[j],
                 )
-        position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
+        position[i, -1] = target_function(position[i, 0 : position.shape[1] - 1])
     return position
 
 
 # SCA Function
 def sine_cosine_algorithm(
-        target_function,
-        solutions=5,
-        a_linear_component=2,
-        min_values=(-5, -5),
-        max_values=(5, 5),
-        iterations=50,
+    target_function,
+    solutions=5,
+    a_linear_component=2,
+    min_values=(-5, -5),
+    max_values=(5, 5),
+    iterations=50,
 ):
     """
 
