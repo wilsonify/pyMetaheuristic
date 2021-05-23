@@ -40,19 +40,32 @@ import os
 import numpy as np
 
 
-def initial_flies(target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)):
+def initial_flies(
+        target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
+):
     """Initialize Variables"""
     position = np.zeros((swarm_size, len(min_values) + 1))
     for i in range(swarm_size):
         for j, _ in enumerate(min_values):
-            random_int = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            position[i, j] = min_values[j] + random_int * (max_values[j] - min_values[j])
+            random_int = int.from_bytes(os.urandom(8), byteorder="big") / (
+                    (1 << 64) - 1
+            )
+            position[i, j] = min_values[j] + random_int * (
+                    max_values[j] - min_values[j]
+            )
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
     return position
 
 
-def update_position(target_function, position, neighbour_best, swarm_best, min_values=(-5, -5), max_values=(5, 5),
-                    fly=0):
+def update_position(
+        target_function,
+        position,
+        neighbour_best,
+        swarm_best,
+        min_values=(-5, -5),
+        max_values=(5, 5),
+        fly=0,
+):
     """Update Position"""
     for j in range(position.shape[1] - 1):
         random_int = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
@@ -71,7 +84,7 @@ def dispersive_fly_optimization(
         min_values=(-5, -5),
         max_values=(5, 5),
         generations=50,
-        thresh=0.2
+        thresh=0.2,
 ):
     """
     # DFO Function
@@ -90,8 +103,12 @@ def dispersive_fly_optimization(
     :return:
     """
     count = 0
-    population = initial_flies(target_function=target_function, swarm_size=swarm_size, min_values=min_values,
-                               max_values=max_values)
+    population = initial_flies(
+        target_function=target_function,
+        swarm_size=swarm_size,
+        min_values=min_values,
+        max_values=max_values,
+    )
     neighbour_best = np.copy(population[population[:, -1].argsort()][0, :])
     swarm_best = np.copy(population[population[:, -1].argsort()][0, :])
     while count <= generations:
@@ -104,12 +121,16 @@ def dispersive_fly_optimization(
                 swarm_best=swarm_best,
                 min_values=min_values,
                 max_values=max_values,
-                fly=i
+                fly=i,
             )
-            random_number = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            random_number = int.from_bytes(os.urandom(8), byteorder="big") / (
+                    (1 << 64) - 1
+            )
             if random_number < thresh:
                 for j, _ in enumerate(min_values):
-                    random_number = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                    random_number = int.from_bytes(os.urandom(8), byteorder="big") / (
+                            (1 << 64) - 1
+                    )
                     population[i, j] = min_values[j] + random_number * (
                             max_values[j] - min_values[j]
                     )

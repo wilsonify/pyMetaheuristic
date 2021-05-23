@@ -16,7 +16,6 @@
 import os
 import random
 
-# Required Libraries
 import numpy as np
 
 
@@ -77,7 +76,8 @@ def breeding(
     for i in range(elite, offspring.shape[0]):
         parent_1, parent_2 = roulette_wheel(fitness), roulette_wheel(fitness)
         while parent_1 == parent_2:
-            parent_2 = random.sample(range(len(population) - 1), 1)[0]
+            parent_2 = np.random.choice(range(len(population) - 1), 1)[0]
+            print(f"parent_2 = {parent_2}")
         for j in range(offspring.shape[1] - 1):
             rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
             rand_b = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)

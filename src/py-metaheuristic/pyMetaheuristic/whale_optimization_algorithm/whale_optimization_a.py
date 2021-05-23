@@ -39,13 +39,13 @@ class WOA:
     """
 
     def __init__(
-        self,
-        target_function,
-        hunting_party=5,
-        spiral_param=1,
-        min_values=(-5, -5),
-        max_values=(5, 5),
-        iterations=50,
+            self,
+            target_function,
+            hunting_party=5,
+            spiral_param=1,
+            min_values=(-5, -5),
+            max_values=(5, 5),
+            iterations=50,
     ):
         """
 
@@ -81,7 +81,7 @@ class WOA:
                     self.min_values[j], self.max_values[j]
                 )
             self.position[i, -1] = self.target_function(
-                self.position[i, 0 : self.position.shape[1] - 1]
+                self.position[i, 0: self.position.shape[1] - 1]
             )
         return self.position
 
@@ -94,7 +94,7 @@ class WOA:
         for j in range(self.dimension):
             self.leader[0, j] = 0.0
         self.leader[0, -1] = self.target_function(
-            self.leader[0, 0 : self.leader.shape[1] - 1]
+            self.leader[0, 0: self.leader.shape[1] - 1]
         )
         return self.leader
 
@@ -129,7 +129,7 @@ class WOA:
                 if p_value < 0.5:
                     if abs(a_leader) >= 1:
                         rand = int.from_bytes(os.urandom(8), byteorder="big") / (
-                            (1 << 64) - 1
+                                (1 << 64) - 1
                         )
                         rand_leader_index = math.floor(self.position.shape[0] * rand)
                         x_rand = self.position[rand_leader_index, :]
@@ -153,21 +153,21 @@ class WOA:
                 elif p_value >= 0.5:
                     distance_leader = abs(self.leader[0, j] - self.position[i, j])
                     rand = int.from_bytes(os.urandom(8), byteorder="big") / (
-                        (1 << 64) - 1
+                            (1 << 64) - 1
                     )
                     m_param = (b_linear_component - 1) * rand + 1
                     self.position[i, j] = np.clip(
                         (
-                            distance_leader
-                            * math.exp(self.spiral_param * m_param)
-                            * math.cos(m_param * 2 * math.pi)
-                            + self.leader[0, j]
+                                distance_leader
+                                * math.exp(self.spiral_param * m_param)
+                                * math.cos(m_param * 2 * math.pi)
+                                + self.leader[0, j]
                         ),
                         self.min_values[j],
                         self.max_values[j],
                     )
             self.position[i, -1] = self.target_function(
-                self.position[i, 0 : self.position.shape[1] - 1]
+                self.position[i, 0: self.position.shape[1] - 1]
             )
         return self.position
 
