@@ -1,4 +1,5 @@
 import math
+import os
 from pprint import pprint
 
 import numpy as np
@@ -8,7 +9,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import memetic_algorithm
 from pyMetaheuristic.memetic_algorithm import memetic_a
 from pyMetaheuristic.objectives import easom
-import os
+
 
 def test_smoke():
     """is anything on fire"""
@@ -76,7 +77,7 @@ def test_memetic_algorithm(front):
     tgt = easom
 
     # MA - Algorithm
-    ma = memetic_a.memetic_algorithm(
+    ma_inst = memetic_a.Memetic(
         target_function=tgt,
         population_size=ps,
         mutation_rate=mr,
@@ -88,6 +89,7 @@ def test_memetic_algorithm(front):
         std=par_s,
         generations=iterations,
     )
+    ma = ma_inst.minimize()
 
     # MA - Solution
     variables = ma[:-1]
