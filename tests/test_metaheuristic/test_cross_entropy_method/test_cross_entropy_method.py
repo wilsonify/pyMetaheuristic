@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import cross_entropy_method
 from pyMetaheuristic.cross_entropy_method import cem
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

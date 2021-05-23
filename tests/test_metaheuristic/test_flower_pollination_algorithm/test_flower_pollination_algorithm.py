@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import flower_pollination_algorithm
 from pyMetaheuristic.flower_pollination_algorithm import fpa
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

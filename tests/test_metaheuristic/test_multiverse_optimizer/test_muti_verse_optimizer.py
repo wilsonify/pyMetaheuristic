@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import multiverse_optimizer
 from pyMetaheuristic.multiverse_optimizer import mvo
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import particle_swarm_optimization
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.particle_swarm_optimization import pso
-
+import os
 
 def test_smoke():
     """is anything on fire"""

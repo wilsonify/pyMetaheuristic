@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import artificial_bee_colony_optimization
 from pyMetaheuristic.artificial_bee_colony_optimization import abco
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

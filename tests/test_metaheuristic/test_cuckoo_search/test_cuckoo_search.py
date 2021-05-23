@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import cuckoo_search
 from pyMetaheuristic.cuckoo_search import cuckoo_s
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

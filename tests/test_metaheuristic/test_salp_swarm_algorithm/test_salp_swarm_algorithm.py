@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import salp_swarm_algorithm
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.salp_swarm_algorithm import ssa
-
+import os
 
 def test_smoke():
     """is anything on fire"""

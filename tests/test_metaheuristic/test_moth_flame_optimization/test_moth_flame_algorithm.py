@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import moth_flame_optimization
 from pyMetaheuristic.moth_flame_optimization import mfa
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

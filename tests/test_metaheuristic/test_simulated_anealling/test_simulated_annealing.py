@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import simulated_anealling
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.simulated_anealling import sa
-
+import os
 
 def test_smoke():
     """is anything on fire"""

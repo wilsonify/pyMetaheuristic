@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import bat_algorithm
 from pyMetaheuristic.bat_algorithm import bat_a
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

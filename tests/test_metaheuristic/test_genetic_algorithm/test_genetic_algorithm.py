@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import genetic_algorithm
 from pyMetaheuristic.genetic_algorithm import ga
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

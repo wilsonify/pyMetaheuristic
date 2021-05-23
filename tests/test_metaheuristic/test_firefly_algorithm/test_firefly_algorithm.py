@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import firefly_algorithm
 from pyMetaheuristic.firefly_algorithm import firefly_a
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

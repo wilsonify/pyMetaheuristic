@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import differential_evolution
 from pyMetaheuristic.differential_evolution import de
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

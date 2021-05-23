@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import ant_lion_optimizer
 from pyMetaheuristic.ant_lion_optimizer import alo
 from pyMetaheuristic.objectives import easom
-
+import os
 
 def test_smoke():
     """is anything on fire"""

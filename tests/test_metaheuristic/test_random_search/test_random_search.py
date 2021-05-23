@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import random_search
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.random_search import random_s
-
+import os
 
 def test_smoke():
     """is anything on fire"""

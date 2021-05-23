@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import whale_optimization_algorithm
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.whale_optimization_algorithm import whale_optimization_a
-
+import os
 
 def test_smoke():
     """

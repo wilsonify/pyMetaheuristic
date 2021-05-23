@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import sine_cosine_algorithm
 from pyMetaheuristic.objectives import easom
 from pyMetaheuristic.sine_cosine_algorithm import sine_cosine_a
-
+import os
 
 def test_smoke():
     """
