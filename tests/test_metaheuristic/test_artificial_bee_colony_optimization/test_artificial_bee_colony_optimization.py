@@ -1,4 +1,5 @@
 import math
+import os
 from pprint import pprint
 
 import numpy as np
@@ -8,7 +9,7 @@ from matplotlib import pyplot as plt
 from pyMetaheuristic import artificial_bee_colony_optimization
 from pyMetaheuristic.artificial_bee_colony_optimization import abco
 from pyMetaheuristic.objectives import easom
-import os
+
 
 def test_smoke():
     """is anything on fire"""
@@ -71,7 +72,7 @@ def test_artificial_bee_colony_optimization(front):
     tgt = easom
 
     # ABCO - Algorithm
-    abco_search = abco.artificial_bee_colony_optimization(
+    abco_instance = abco.ArtificialBeeColony(
         target_function=tgt,
         food_sources=fs,
         iterations=iterations,
@@ -79,8 +80,9 @@ def test_artificial_bee_colony_optimization(front):
         max_values=maxv,
         employed_bees=ebee,
         outlookers_bees=obee,
-        limit=lim,
+        limit=lim
     )
+    abco_search = abco_instance.minimize()
 
     # ABCO - Solution
     variables = abco_search[:-1]
