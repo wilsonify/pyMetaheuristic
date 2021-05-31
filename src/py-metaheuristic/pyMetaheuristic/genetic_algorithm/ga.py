@@ -85,7 +85,7 @@ def breeding(
             rand = rando()
             rand_b = rando()
             if rand <= 0.5:
-                b_offspring = 2 * (rand_b)
+                b_offspring = 2 * rand_b
                 b_offspring = b_offspring ** (1 / (mu + 1))
             elif rand > 0.5:
                 b_offspring = 1 / (2 * (1 - rand_b))
@@ -134,7 +134,7 @@ def mutation(
                         (1 << 64) - 1
                 )
                 if rand <= 0.5:
-                    d_mutation = 2 * (rand_d)
+                    d_mutation = 2 * rand_d
                     d_mutation = d_mutation ** (1 / (eta + 1)) - 1
                 elif rand > 0.5:
                     d_mutation = 2 * (1 - rand_d)

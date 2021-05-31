@@ -30,7 +30,7 @@ import numpy as np
 from pyMetaheuristic import rando
 
 
-class ArtificialBeeColony():
+class ArtificialBeeColony:
     """
     Initial food sources are produced for all employed bees
     REPEAT

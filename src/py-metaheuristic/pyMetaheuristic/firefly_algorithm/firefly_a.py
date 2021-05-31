@@ -47,14 +47,14 @@ def euclidean_distance(x, y):
 # Function: Beta Value
 def beta_value(x, y, gama=1, beta_0=1):
     rij = euclidean_distance(x, y)
-    beta = beta_0 * math.exp(-gama * (rij) ** 2)
+    beta = beta_0 * math.exp(-gama * rij ** 2)
     return beta
 
 
 # Function: Ligth Intensity
 def ligth_value(light_0, x, y, gama=1):
     rij = euclidean_distance(x, y)
-    light = light_0 * math.exp(-gama * (rij) ** 2)
+    light = light_0 * math.exp(-gama * rij ** 2)
     return light
 
 
