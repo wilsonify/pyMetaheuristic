@@ -32,7 +32,7 @@ in general, converging to high-quality solutions more efficiently than their con
 # GitHub repository: <https://github.com/Valdecy/Metaheuristic-Memetic_Algorithm>
 
 ############################################################################
-
+import math
 import os
 import random
 
@@ -40,7 +40,7 @@ import numpy as np
 from pyMetaheuristic import rando
 
 
-class Memetic():
+class Memetic:
     """
     using the ideas of memetics within a computational framework is called memetic computing
     the traits of universal Darwinism are more appropriately captured.
@@ -146,7 +146,7 @@ class Memetic():
                 rand = rando()
                 rand_b = rando()
                 if rand <= 0.5:
-                    b_offspring = 2 * (rand_b)
+                    b_offspring = 2 * rand_b
                     b_offspring = b_offspring ** (1 / (self.mu + 1))
                 elif rand > 0.5:
                     b_offspring = 1 / (2 * (1 - rand_b))
@@ -183,12 +183,10 @@ class Memetic():
             for j in range(self.offspring.shape[1] - 1):
                 rand = rando()
                 rand_b = rando()
+                b_offspring = 1 / (2 * (1 - rand_b))
                 if rand <= 0.5:
-                    b_offspring = 2 * (rand_b)
-                    b_offspring = b_offspring ** (1 / (self.mu + 1))
-                elif rand > 0.5:
-                    b_offspring = 1 / (2 * (1 - rand_b))
-                    b_offspring = b_offspring ** (1 / (self.mu + 1))
+                    b_offspring = 2 * rand_b
+                b_offspring = b_offspring ** (1 / (self.mu + 1))
                 self.offspring_xhc[0, j] = np.clip(
                     (
                             (1 + b_offspring) * self.offspring[parent_1, j]
@@ -213,17 +211,21 @@ class Memetic():
             self.offspring_xhc[1, -1] = self.target_function(
                 self.offspring_xhc[1, 0: self.offspring_xhc.shape[1] - 1]
             )
-            if self.offspring_xhc[1, -1] < self.offspring_xhc[0, -1]:
+            xhc1_less_xhc0 = self.offspring_xhc[1, -1] < self.offspring_xhc[0, -1]
+            if xhc1_less_xhc0:
                 for k in range(self.offspring.shape[1]):
                     self.offspring_xhc[0, k] = self.offspring_xhc[1, k]
-            if self.offspring[parent_1, -1] < self.offspring[parent_2, -1]:
-                if self.offspring_xhc[0, -1] < self.offspring[parent_1, -1]:
-                    for k in range(self.offspring.shape[1]):
-                        self.offspring[parent_1, k] = self.offspring_xhc[0, k]
-            elif self.offspring[parent_2, -1] < self.offspring[parent_1, -1]:
-                if self.offspring_xhc[0, -1] < self.offspring[parent_2, -1]:
-                    for k in range(self.offspring.shape[1]):
-                        self.offspring[parent_2, k] = self.offspring_xhc[0, k]
+            p1_less_2 = self.offspring[parent_1, -1] < self.offspring[parent_2, -1]
+            p2_less_p1 = (self.offspring[parent_2, -1] < self.offspring[parent_1, -1])
+
+            xhc0_less_p1 = self.offspring_xhc[0, -1] < self.offspring[parent_1, -1]
+            xhc0_less_p2 = (self.offspring_xhc[0, -1] < self.offspring[parent_2, -1])
+            if p1_less_2 and xhc0_less_p1:
+                for k in range(self.offspring.shape[1]):
+                    self.offspring[parent_1, k] = self.offspring_xhc[0, k]
+            elif p2_less_p1 and xhc0_less_p2:
+                for k in range(self.offspring.shape[1]):
+                    self.offspring[parent_2, k] = self.offspring_xhc[0, k]
         return self.offspring
 
     def mutation(self):
@@ -242,7 +244,7 @@ class Memetic():
                             (1 << 64) - 1
                     )
                     if rand <= 0.5:
-                        d_mutation = 2 * (rand_d)
+                        d_mutation = 2 * rand_d
                         d_mutation = d_mutation ** (1 / (self.eta + 1)) - 1
                     elif rand > 0.5:
                         d_mutation = 2 * (1 - rand_d)
@@ -273,3 +275,84 @@ class Memetic():
             count = count + 1
         print(elite_ind)
         return elite_ind
+
+    def plot_target(self, front):
+        from matplotlib import pyplot as plt
+        # Target Function - Values
+        front_1 = front[:, 0]
+        front_2 = front[:, 1]
+        func_1_values = front[:, -1]
+
+        # Target Function - Plot
+        plt.style.use("bmh")
+        fig = plt.figure(figsize=(15, 15))
+        ax = fig.add_subplot(111, projection="3d")
+        ax.set_xlabel("$x_1$", fontsize=25, labelpad=20)
+        ax.set_ylabel("$x_2$", fontsize=25, labelpad=20)
+        ax.set_zlabel("$f(x_1, x_2)$", fontsize=25, labelpad=20)
+        ax.scatter(front_1, front_2, func_1_values, c=func_1_values, s=50, alpha=0.3)
+        ax.scatter(
+            math.pi, math.pi, -1, c="red", s=100, alpha=1, edgecolors="k", marker="o"
+        )
+        ax.text(
+            math.pi - 1.0,
+            math.pi - 1.5,
+            -1,
+            "$x_1 = $" + str(round(math.pi, 2)) + " ; $x_2 = $" + str(round(math.pi, 2)),
+            size=15,
+            zorder=1,
+            color="k",
+        )
+        ax.text(
+            math.pi + 0.5,
+            math.pi - 2.5,
+            -1,
+            "$f(x_1;x_2) = $" + str(-1),
+            size=15,
+            zorder=1,
+            color="k",
+        )
+        plt.savefig(f"{os.path.basename(__file__)}.png")
+
+    def plot_solution(self, front_1, front_2, func_1_values, variables, minimum):
+        from matplotlib import pyplot as plt
+        # MA - Plot Solution
+        plt.style.use("bmh")
+        fig = plt.figure(figsize=(15, 15))
+        ax = fig.add_subplot(111, projection="3d")
+        ax.set_xlabel("$x_1$", fontsize=25, labelpad=20)
+        ax.set_ylabel("$x_2$", fontsize=25, labelpad=20)
+        ax.set_zlabel("$f(x_1, x_2)$", fontsize=25, labelpad=20)
+        ax.scatter(front_1, front_2, func_1_values, c=func_1_values, s=50, alpha=0.3)
+        ax.scatter(
+            variables[0],
+            variables[1],
+            minimum,
+            c="b",
+            s=150,
+            alpha=1,
+            edgecolors="k",
+            marker="s",
+        )
+        ax.text(
+            math.pi - 1.0,
+            math.pi - 1.5,
+            -1,
+            "$x_1 = $"
+            + str(round(variables[0], 2))
+            + " ; $x_2 = $"
+            + str(round(variables[1], 2)),
+            size=15,
+            zorder=1,
+            color="k",
+        )
+        ax.text(
+            math.pi + 0.5,
+            math.pi - 2.5,
+            -1,
+            "$f(x_1;x_2) = $" + str(round(minimum, 4)),
+            size=15,
+            zorder=1,
+            color="k",
+        )
+        plt.savefig(f"{os.path.basename(__file__)}.png")
