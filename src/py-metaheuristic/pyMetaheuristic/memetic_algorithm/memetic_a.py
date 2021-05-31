@@ -96,6 +96,7 @@ class Memetic:
         self.b_offspring = 0
 
         self.offspring = self.breeding()
+        self.elite_ind = np.copy(self.population[self.population[:, -1].argsort()][0, :])
 
     def initial_population(self):
         """initialize population"""
@@ -249,9 +250,8 @@ class Memetic:
         count = 0
         self.population = self.initial_population()
 
-        elite_ind = np.copy(self.population[self.population[:, -1].argsort()][0, :])
         while count <= self.generations:
-            print("Generation = ", count, " f(x) = ", round(elite_ind[-1], 4))
+            print("Generation = ", count, " f(x) = ", round(self.elite_ind[-1], 4))
             self.offspring = self.breeding()
             self.population = self.mutation()
             self.population = self.xhc()
@@ -259,15 +259,26 @@ class Memetic:
                 print("Reinitializing Population")
                 self.population = self.initial_population()
             self.fitness = self.fitness_function()
-            if elite_ind[-1] > self.population[self.population[:, -1].argsort()][0, :][-1]:
-                elite_ind = np.copy(self.population[self.population[:, -1].argsort()][0, :])
+            if self.elite_ind[-1] > self.population[self.population[:, -1].argsort()][0, :][-1]:
+                self.elite_ind = np.copy(self.population[self.population[:, -1].argsort()][0, :])
             count = count + 1
-        print(elite_ind)
-        return elite_ind
+        print(self.elite_ind)
+        return self.elite_ind
 
-    def plot_target(self, front):
+    def plot_target(self):
         """plot target function"""
         from matplotlib import pyplot as plt
+        x_nda = np.arange(-1, 7, 0.1)
+        front = np.zeros((len(x_nda) ** 2, 3))
+        count = 0
+        for x_j in x_nda:
+            for x_k in x_nda:
+                front[count, 0] = x_j
+                front[count, 1] = x_k
+                count = count + 1
+        for i in range(0, front.shape[0]):
+            front[i, 2] = self.target_function(variables_values=[front[i, 0], front[i, 1]])
+
         # Target Function - Values
         front_1 = front[:, 0]
         front_2 = front[:, 1]
@@ -281,9 +292,7 @@ class Memetic:
         ax.set_ylabel("$x_2$", fontsize=25, labelpad=20)
         ax.set_zlabel("$f(x_1, x_2)$", fontsize=25, labelpad=20)
         ax.scatter(front_1, front_2, func_1_values, c=func_1_values, s=50, alpha=0.3)
-        ax.scatter(
-            math.pi, math.pi, -1, c="red", s=100, alpha=1, edgecolors="k", marker="o"
-        )
+        ax.scatter(math.pi, math.pi, -1, c="red", s=100, alpha=1, edgecolors="k", marker="o")
         ax.text(
             math.pi - 1.0,
             math.pi - 1.5,
@@ -304,8 +313,28 @@ class Memetic:
         )
         plt.savefig(f"{os.path.basename(__file__)}.png")
 
-    def plot_solution(self, front_1, front_2, func_1_values, variables, minimum):
+    def plot_solution(self):
         """plot solution from optimizer"""
+
+        x_nda = np.arange(-1, 7, 0.1)
+        front = np.zeros((len(x_nda) ** 2, 3))
+        count = 0
+        for x_j in x_nda:
+            for x_k in x_nda:
+                front[count, 0] = x_j
+                front[count, 1] = x_k
+                count = count + 1
+        for i in range(0, front.shape[0]):
+            front[i, 2] = self.target_function(variables_values=[front[i, 0], front[i, 1]])
+
+        # Target Function - Values
+        front_1 = front[:, 0]
+        front_2 = front[:, 1]
+        func_1_values = front[:, -1]
+
+        variables = self.elite_ind[:-1]
+        minimum = self.elite_ind[-1]
+
         from matplotlib import pyplot as plt
         # MA - Plot Solution
         plt.style.use("bmh")
