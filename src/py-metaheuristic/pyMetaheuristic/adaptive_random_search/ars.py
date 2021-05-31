@@ -21,10 +21,10 @@ import random
 import numpy as np
 
 
-# Function: Initialize Variables
 def initial_position(
         target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)
 ):
+    """Initialize Variables"""
     position = np.zeros((solutions, len(min_values) + 1))
     for i in range(solutions):
         for j in range(len(min_values)):
@@ -33,10 +33,10 @@ def initial_position(
     return position
 
 
-# Function: Steps
 def step(
         target_function, position, min_values=(-5, -5), max_values=(5, 5), step_size=(0, 0)
 ):
+    """non-large Steps"""
     position_temp = np.copy(position)
     for i in range(position.shape[0]):
         for j in range(position.shape[1] - 1):
@@ -52,7 +52,6 @@ def step(
     return position_temp
 
 
-# Function: Large Steps
 def large_step(
         target_function,
         position,
@@ -64,6 +63,7 @@ def large_step(
         factor_1=3,
         factor_2=1.5,
 ):
+    """Large Steps"""
     factor = 0
     position_temp = np.copy(position)
     step_size_temp = copy.deepcopy(step_size)
@@ -176,3 +176,97 @@ def adaptive_random_search(
         count = count + 1
     print(best_solution)
     return best_solution, position
+
+
+def Target_Function_Plot(front_1, front_2, func_1_values):
+    """
+    plot the target function
+    :param front_1:
+    :param front_2:
+    :param func_1_values:
+    :return:
+    """
+    from matplotlib import pyplot as plt
+    import math
+    plt.style.use("bmh")
+    fig = plt.figure(figsize=(15, 15))
+    ax = fig.add_subplot(111, projection="3d")
+    ax.set_xlabel("$x_1$", fontsize=25, labelpad=20)
+    ax.set_ylabel("$x_2$", fontsize=25, labelpad=20)
+    ax.set_zlabel("$f(x_1, x_2)$", fontsize=25, labelpad=20)
+    ax.scatter(front_1, front_2, func_1_values, c=func_1_values, s=50, alpha=0.3)
+    ax.scatter(
+        math.pi, math.pi, -1, c="red", s=100, alpha=1, edgecolors="k", marker="o"
+    )
+    ax.text(
+        math.pi - 1.0,
+        math.pi - 1.5,
+        -1,
+        "$x_1 = $" + str(round(math.pi, 2)) + " ; $x_2 = $" + str(round(math.pi, 2)),
+        size=15,
+        zorder=1,
+        color="k",
+    )
+    ax.text(
+        math.pi + 0.5,
+        math.pi - 2.5,
+        -1,
+        "$f(x_1;x_2) = $" + str(-1),
+        size=15,
+        zorder=1,
+        color="k",
+    )
+    plt.savefig(f"{os.path.basename(__file__)}.png")
+
+
+def ARS_Solution_Plot(minimum, variables, front_1, front_2, func_1_values):
+    """
+    plot a solution found by optimizer
+    :param minimum:
+    :param variables:
+    :param front_1:
+    :param front_2:
+    :param func_1_values:
+    :return:
+    """
+    from matplotlib import pyplot as plt
+    import math
+    plt.style.use("bmh")
+    fig = plt.figure(figsize=(15, 15))
+    ax = fig.add_subplot(111, projection="3d")
+    ax.set_xlabel("$x_1$", fontsize=25, labelpad=20)
+    ax.set_ylabel("$x_2$", fontsize=25, labelpad=20)
+    ax.set_zlabel("$f(x_1, x_2)$", fontsize=25, labelpad=20)
+    ax.scatter(front_1, front_2, func_1_values, c=func_1_values, s=50, alpha=0.3)
+    ax.scatter(
+        variables[0],
+        variables[1],
+        minimum,
+        c="b",
+        s=150,
+        alpha=1,
+        edgecolors="k",
+        marker="s",
+    )
+    ax.text(
+        math.pi - 1.0,
+        math.pi - 1.5,
+        -1,
+        "$x_1 = $"
+        + str(round(variables[0], 2))
+        + " ; $x_2 = $"
+        + str(round(variables[1], 2)),
+        size=15,
+        zorder=1,
+        color="k",
+    )
+    ax.text(
+        math.pi + 0.5,
+        math.pi - 2.5,
+        -1,
+        "$f(x_1;x_2) = $" + str(round(minimum, 4)),
+        size=15,
+        zorder=1,
+        color="k",
+    )
+    plt.savefig(f"{os.path.basename(__file__)}.png")
