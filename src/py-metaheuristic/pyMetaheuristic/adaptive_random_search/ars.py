@@ -179,7 +179,7 @@ def adaptive_random_search(
     return best_solution, position
 
 
-def Target_Function_Plot(front_1, front_2, func_1_values):
+def target_function_plot(front_1, front_2, func_1_values):
     """
     plot the target function
     :param front_1:
@@ -220,7 +220,7 @@ def Target_Function_Plot(front_1, front_2, func_1_values):
     plt.savefig(f"{os.path.basename(__file__)}.png")
 
 
-def ARS_Solution_Plot(minimum, variables, front_1, front_2, func_1_values):
+def ars_solution_plot(minimum, variables, front_1, front_2, func_1_values):
     """
     plot a solution found by optimizer
     :param minimum:
