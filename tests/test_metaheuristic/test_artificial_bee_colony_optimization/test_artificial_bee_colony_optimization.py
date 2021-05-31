@@ -95,8 +95,8 @@ def test_artificial_bee_colony_optimization(front):
     )
     assert minimum == pytest.approx(-1.0, abs=0.0001)
     assert list(variables) == [
-        pytest.approx(math.pi, abs=0.0001),
-        pytest.approx(math.pi, abs=0.0001),
+        pytest.approx(math.pi, abs=0.001),
+        pytest.approx(math.pi, abs=0.001),
     ]
 
     # ABCO - Plot Solution
