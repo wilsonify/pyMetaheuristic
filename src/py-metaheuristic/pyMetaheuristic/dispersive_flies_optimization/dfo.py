@@ -38,6 +38,7 @@ import os
 
 # Required Libraries
 import numpy as np
+from pyMetaheuristic import rando
 
 
 def initial_flies(
@@ -68,7 +69,7 @@ def update_position(
 ):
     """Update Position"""
     for j in range(position.shape[1] - 1):
-        random_int = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        random_int = rando()
         position[fly, j] = np.clip(
             (neighbour_best[j] + random_int * (swarm_best[j] - position[fly, j])),
             min_values[j],

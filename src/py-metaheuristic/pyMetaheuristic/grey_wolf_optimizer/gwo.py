@@ -35,6 +35,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, pack_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -107,20 +110,20 @@ def update_position(
     updated_position = np.copy(position)
     for i in range(updated_position.shape[0]):
         for j in range(len(min_values)):
-            r1_alpha = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            r2_alpha = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r1_alpha = rando()
+            r2_alpha = rando()
             a_alpha = 2 * a_linear_component * r1_alpha - a_linear_component
             c_alpha = 2 * r2_alpha
             distance_alpha = abs(c_alpha * alpha[0, j] - position[i, j])
             x1 = alpha[0, j] - a_alpha * distance_alpha
-            r1_beta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            r2_beta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r1_beta = rando()
+            r2_beta = rando()
             a_beta = 2 * a_linear_component * r1_beta - a_linear_component
             c_beta = 2 * r2_beta
             distance_beta = abs(c_beta * beta[0, j] - position[i, j])
             x2 = beta[0, j] - a_beta * distance_beta
-            r1_delta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            r2_delta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r1_delta = rando()
+            r2_delta = rando()
             a_delta = 2 * a_linear_component * r1_delta - a_linear_component
             c_delta = 2 * r2_delta
             distance_delta = abs(c_delta * delta[0, j] - position[i, j])

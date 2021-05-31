@@ -25,7 +25,7 @@ import random
 
 # Required Libraries
 import numpy as np
-
+from pyMetaheuristic import rando
 
 # Function: Initialize Variables
 def initial_universes(
@@ -56,7 +56,7 @@ def fitness_function(cosmos):
 # Function: Selection
 def roulette_wheel(fitness):
     ix = 0
-    _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    _random = rando()
     for i in range(fitness.shape[0]):
         if _random <= fitness[i, 1]:
             ix = i
@@ -77,13 +77,13 @@ def big_bang(
 ):
     for i in range(cosmos.shape[0]):
         for j in range(len(min_values)):
-            r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r1 = rando()
             if r1 < fitness[i, 1]:
                 white_hole_i = roulette_wheel(fitness)
                 cosmos[i, j] = cosmos[white_hole_i, j]
-            r2 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r2 = rando()
             if r2 < wormhole_existence_probability:
-                r3 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                r3 = rando()
                 if r3 <= 0.5:
                     rand = int.from_bytes(os.urandom(8), byteorder="big") / (
                             (1 << 64) - 1

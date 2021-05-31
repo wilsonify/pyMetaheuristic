@@ -31,6 +31,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_moths(
         target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -64,7 +67,7 @@ def update_position(
         for j in range(len(min_values)):
             if i <= flame_number:
                 flame_distance = abs(flames[i, j] - position[i, j])
-                rnd_1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                rnd_1 = rando()
                 rnd_2 = (a_linear_component - 1) * rnd_1 + 1
                 position[i, j] = (
                         flame_distance
@@ -74,7 +77,7 @@ def update_position(
                 )
             elif i > flame_number:
                 flame_distance = abs(flames[i, j] - position[i, j])
-                rnd_1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                rnd_1 = rando()
                 rnd_2 = (a_linear_component - 1) * rnd_1 + 1
                 position[i, j] = np.clip(
                     (

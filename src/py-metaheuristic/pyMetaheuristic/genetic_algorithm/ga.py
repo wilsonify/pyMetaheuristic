@@ -20,6 +20,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_population(
         target_function, population_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -48,7 +51,7 @@ def fitness_function(population):
 # Function: Selection
 def roulette_wheel(fitness):
     ix = 0
-    _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    _random = rando()
     for i in range(fitness.shape[0]):
         if _random <= fitness[i, 1]:
             ix = i
@@ -79,8 +82,8 @@ def breeding(
             parent_2 = np.random.choice(range(len(population) - 1), 1)[0]
             print(f"parent_2 = {parent_2}")
         for j in range(offspring.shape[1] - 1):
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            rand_b = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
+            rand_b = rando()
             if rand <= 0.5:
                 b_offspring = 2 * (rand_b)
                 b_offspring = b_offspring ** (1 / (mu + 1))
@@ -126,7 +129,7 @@ def mutation(
                     (1 << 64) - 1
             )
             if probability < mutation_rate:
-                rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                rand = rando()
                 rand_d = int.from_bytes(os.urandom(8), byteorder="big") / (
                         (1 << 64) - 1
                 )

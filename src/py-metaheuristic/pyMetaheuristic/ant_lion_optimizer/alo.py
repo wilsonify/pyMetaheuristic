@@ -31,6 +31,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_population(
         target_function, colony_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -59,7 +62,7 @@ def fitness_function(population):
 # Function: Selection
 def roulette_wheel(fitness):
     ix = 0
-    _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    _random = rando()
     for i in range(fitness.shape[0]):
         if _random <= fitness[i, 1]:
             ix = i
@@ -72,7 +75,7 @@ def random_walk(iterations):
     x_random_walk = [0] * (iterations + 1)
     x_random_walk[0] = 0
     for k in range(1, len(x_random_walk)):
-        rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        rand = rando()
         if rand > 0.5:
             rand = 1
         else:
@@ -132,7 +135,7 @@ def update_ants(
             elite_antlion[0, j] = antlions[antlions[:, -1].argsort()][0, j]
             minimum_c_e[0, j] = antlions[antlions[:, -1].argsort()][0, j] / i_ratio
             maximum_d_e[0, j] = antlions[antlions[:, -1].argsort()][-1, j] / i_ratio
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             if rand < 0.5:
                 minimum_c_i[0, j] = minimum_c_i[0, j] + antlions[ant_lion, j]
                 minimum_c_e[0, j] = minimum_c_e[0, j] + elite_antlion[0, j]
@@ -140,7 +143,7 @@ def update_ants(
                 minimum_c_i[0, j] = -minimum_c_i[0, j] + antlions[ant_lion, j]
                 minimum_c_e[0, j] = -minimum_c_e[0, j] + elite_antlion[0, j]
 
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             if rand >= 0.5:
                 maximum_d_i[0, j] = maximum_d_i[0, j] + antlions[ant_lion, j]
                 maximum_d_e[0, j] = maximum_d_e[0, j] + elite_antlion[0, j]

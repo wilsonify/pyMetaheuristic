@@ -22,6 +22,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, flowers=3, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -35,8 +38,8 @@ def initial_position(
 
 # Function Levy Distribution
 def levy_flight(beta=1.5):
-    r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-    r2 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    r1 = rando()
+    r2 = rando()
     sig_num = gamma(1 + beta) * np.sin((np.pi * beta) / 2.0)
     sig_den = gamma((1 + beta) / 2) * beta * 2 ** ((beta - 1) / 2)
     sigma = (sig_num / sig_den) ** (1 / beta)
@@ -82,7 +85,7 @@ def pollination_local(
 ):
     x = np.copy(best_global)
     for j in range(len(min_values)):
-        r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        r = rando()
         x[j] = np.clip(
             (
                     position[flower, j]
@@ -136,7 +139,7 @@ def flower_pollination_algorithm(
             nb_flower_2 = int(np.random.randint(position.shape[0], size=1))
             while nb_flower_1 == nb_flower_2:
                 nb_flower_1 = int(np.random.randint(position.shape[0], size=1))
-            r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r = rando()
             if r < p:
                 x = pollination_global(
                     target_function=target_function,

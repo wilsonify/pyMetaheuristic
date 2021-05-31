@@ -22,6 +22,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -34,7 +37,7 @@ def initial_position(
         for j in range(len(min_values)):
             position[i, j] = random.uniform(min_values[j], max_values[j])
         position[i, -1] = target_function(position[i, 0: position.shape[1] - 1])
-        rate[i, 0] = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        rate[i, 0] = rando()
         loudness[i, 0] = random.uniform(1, 2)
     return position, velocity, frequency, rate, loudness
 
@@ -58,7 +61,7 @@ def update_position(
 ):
     position_temp = np.zeros((position.shape[0], position.shape[1]))
     for i in range(position.shape[0]):
-        beta = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        beta = rando()
         frequency[i, 0] = fmin + (fmax - fmin) * beta
         for j in range(len(max_values)):
             velocity[i, j] = (
@@ -73,7 +76,7 @@ def update_position(
                 position_temp[i, k] = min_values[k]
                 velocity[i, k] = 0
         position_temp[i, -1] = target_function(position_temp[i, 0: len(max_values)])
-        rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        rand = rando()
         if rand > rate[i, 0]:
             for L in range(len(max_values)):
                 position_temp[i, L] = (
@@ -88,7 +91,7 @@ def update_position(
             position_temp[i, -1] = target_function(
                 position_temp[i, 0: len(max_values)]
             )
-        rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        rand = rando()
         if rand < position[i, -1] and position_temp[i, -1] <= position[i, -1]:
             for m in range(len(max_values)):
                 position[i, m] = position_temp[i, m]

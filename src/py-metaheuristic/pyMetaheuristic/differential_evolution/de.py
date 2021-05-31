@@ -21,6 +21,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(target_function, n=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((n, len(min_values) + 1))
     for i in range(n):
@@ -45,7 +48,7 @@ def velocity(
 ):
     v = np.copy(best_global)
     for i in range(len(best_global)):
-        ri = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        ri = rando()
         if ri <= Cr:
             v[i] = best_global[i] + F * (position[k1, i] - position[k2, i])
         else:

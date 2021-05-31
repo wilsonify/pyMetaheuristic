@@ -21,6 +21,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, solutions=3, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -37,7 +40,7 @@ def update_position(target_function, position, min_values=(-5, -5), max_values=(
     updated_position = np.copy(position)
     for i in range(updated_position.shape[0]):
         for j in range(len(min_values)):
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             updated_position[i, j] = np.clip(
                 min_values[j] + (max_values[j] - min_values[j]) * rand,
                 min_values[j],

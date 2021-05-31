@@ -27,6 +27,7 @@ import os
 import random
 
 import numpy as np
+from pyMetaheuristic import rando
 
 
 class ArtificialBeeColony():
@@ -118,7 +119,7 @@ class ArtificialBeeColony():
     def roulette_wheel(self):
         """Selection"""
         ix = 0
-        _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        _random = rando()
         for i in range(self.fitness.shape[0]):
             if _random <= self.fitness[i, 1]:
                 ix = i

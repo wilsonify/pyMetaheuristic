@@ -22,6 +22,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(target_function, birds=3, min_values=(-5, -5), max_values=(5, 5)):
     position = np.zeros((birds, len(min_values) + 1))
     for i in range(birds):
@@ -66,7 +69,7 @@ def replace_bird(
             + alpha_value
             * levy_flight(lambda_value)
             * position[random_bird, j]
-            * (int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)),
+            * (rando()),
             min_values[j],
             max_values[j],
         )
@@ -95,7 +98,7 @@ def update_positions(
     nest_list = list(position.argsort()[-(abandoned_nests - 1):][::-1][0])
     for i in range(updated_position.shape[0]):
         for j in range(len(nest_list)):
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             if i == nest_list[j] and rand > discovery_rate:
                 for k in range(updated_position.shape[1] - 1):
                     rand = int.from_bytes(os.urandom(8), byteorder="big") / (

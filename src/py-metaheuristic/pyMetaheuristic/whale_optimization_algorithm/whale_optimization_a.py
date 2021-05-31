@@ -26,6 +26,7 @@ import os
 import random
 
 import numpy as np
+from pyMetaheuristic import rando
 
 
 class WOA:
@@ -118,9 +119,9 @@ class WOA:
         :return:
         """
         for i in range(self.position.shape[0]):
-            r1_leader = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            r2_leader = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            p_value = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r1_leader = rando()
+            r2_leader = rando()
+            p_value = rando()
 
             a_leader = 2 * a_linear_component * r1_leader - a_linear_component
             c_leader = 2 * r2_leader

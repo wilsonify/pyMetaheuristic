@@ -32,6 +32,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, swarm_size=5, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -68,8 +71,8 @@ def update_position(
     for i in range(position.shape[0]):
         if i <= position.shape[0] / 2:
             for j in range(len(min_values)):
-                c2 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-                c3 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                c2 = rando()
+                c3 = rando()
                 if c3 >= 0.5:  # c3 < 0.5
                     position[i, j] = np.clip(
                         (

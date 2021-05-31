@@ -19,6 +19,7 @@ import random
 
 # Required Libraries
 import numpy as np
+from pyMetaheuristic import rando
 
 
 def initial_position(
@@ -42,7 +43,7 @@ def step(
         for j in range(position.shape[1] - 1):
             minimun = min(min_values[j], position[i, j] + step_size[i][j])
             maximum = max(max_values[j], position[i, j] - step_size[i][j])
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             position_temp[i, j] = np.clip(
                 minimun + (maximum - minimun) * rand, min_values[j], max_values[j]
             )
@@ -78,7 +79,7 @@ def large_step(
         for j in range(position.shape[1] - 1):
             minimun = min(min_values[j], position[i, j] + step_size[i][j])
             maximum = max(max_values[j], position[i, j] - step_size[i][j])
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             position_temp[i, j] = np.clip(
                 minimun + (maximum - minimun) * rand, min_values[j], max_values[j]
             )

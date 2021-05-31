@@ -33,6 +33,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -66,8 +69,8 @@ def individual_best_matrix(position, i_b_matrix):
 def velocity_vector(
         position, init_velocity, i_b_matrix, best_global, w=0.5, c1=2, c2=2
 ):
-    r1 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-    r2 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+    r1 = rando()
+    r2 = rando()
     velocity = np.zeros((position.shape[0], init_velocity.shape[1]))
     for i in range(init_velocity.shape[0]):
         for j in range(init_velocity.shape[1]):

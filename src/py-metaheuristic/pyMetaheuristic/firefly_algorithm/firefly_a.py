@@ -22,6 +22,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_fireflies(
         target_function, swarm_size=3, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -69,7 +72,7 @@ def update_position(
         max_values=(5, 5),
 ):
     for j in range(len(x)):
-        epson = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1) - (
+        epson = rando() - (
                 1 / 2
         )
         position[firefly, j] = np.clip(

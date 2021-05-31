@@ -37,6 +37,7 @@ import os
 import random
 
 import numpy as np
+from pyMetaheuristic import rando
 
 
 class Memetic():
@@ -91,6 +92,9 @@ class Memetic():
         self.generations = generations
         self.population = np.zeros((self.population_size, len(self.min_values) + 1))
         self.fitness = np.zeros((self.population.shape[0], 2))
+        self.offspring_xhc = np.zeros((2, len(self.min_values) + 1))
+        self.b_offspring = 0
+
         self.offspring = self.breeding()
 
     def initial_population(self):
@@ -118,7 +122,7 @@ class Memetic():
     def roulette_wheel(self):
         """Selection"""
         ix = 0
-        _random = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+        _random = rando()
         for i in range(self.fitness.shape[0]):
             if _random <= self.fitness[i, 1]:
                 ix = i
@@ -139,8 +143,8 @@ class Memetic():
             while parent_1 == parent_2:
                 parent_2 = np.random.choice(range(len(self.population) - 1), 1)[0]
             for j in range(offspring.shape[1] - 1):
-                rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-                rand_b = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                rand = rando()
+                rand_b = rando()
                 if rand <= 0.5:
                     b_offspring = 2 * (rand_b)
                     b_offspring = b_offspring ** (1 / (self.mu + 1))
@@ -171,22 +175,21 @@ class Memetic():
 
     def xhc(self):
         """Crossover Hill Clibing"""
-        offspring_xhc = np.zeros((2, len(self.min_values) + 1))
-        b_offspring = 0
+
         for _ in range(self.offspring.shape[0]):
             parent_1, parent_2 = self.roulette_wheel(), self.roulette_wheel()
             while parent_1 == parent_2:
                 parent_2 = np.random.choice(range(len(self.offspring) - 1), 1)[0]
             for j in range(self.offspring.shape[1] - 1):
-                rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-                rand_b = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                rand = rando()
+                rand_b = rando()
                 if rand <= 0.5:
                     b_offspring = 2 * (rand_b)
                     b_offspring = b_offspring ** (1 / (self.mu + 1))
                 elif rand > 0.5:
                     b_offspring = 1 / (2 * (1 - rand_b))
                     b_offspring = b_offspring ** (1 / (self.mu + 1))
-                offspring_xhc[0, j] = np.clip(
+                self.offspring_xhc[0, j] = np.clip(
                     (
                             (1 + b_offspring) * self.offspring[parent_1, j]
                             + (1 - b_offspring) * self.offspring[parent_2, j]
@@ -195,7 +198,7 @@ class Memetic():
                     self.min_values[j],
                     self.max_values[j],
                 )
-                offspring_xhc[1, j] = np.clip(
+                self.offspring_xhc[1, j] = np.clip(
                     (
                             (1 - b_offspring) * self.offspring[parent_1, j]
                             + (1 + b_offspring) * self.offspring[parent_2, j]
@@ -204,23 +207,23 @@ class Memetic():
                     self.min_values[j],
                     self.max_values[j],
                 )
-            offspring_xhc[0, -1] = self.target_function(
-                offspring_xhc[0, 0: offspring_xhc.shape[1] - 1]
+            self.offspring_xhc[0, -1] = self.target_function(
+                self.offspring_xhc[0, 0: self.offspring_xhc.shape[1] - 1]
             )
-            offspring_xhc[1, -1] = self.target_function(
-                offspring_xhc[1, 0: offspring_xhc.shape[1] - 1]
+            self.offspring_xhc[1, -1] = self.target_function(
+                self.offspring_xhc[1, 0: self.offspring_xhc.shape[1] - 1]
             )
-            if offspring_xhc[1, -1] < offspring_xhc[0, -1]:
+            if self.offspring_xhc[1, -1] < self.offspring_xhc[0, -1]:
                 for k in range(self.offspring.shape[1]):
-                    offspring_xhc[0, k] = offspring_xhc[1, k]
+                    self.offspring_xhc[0, k] = self.offspring_xhc[1, k]
             if self.offspring[parent_1, -1] < self.offspring[parent_2, -1]:
-                if offspring_xhc[0, -1] < self.offspring[parent_1, -1]:
+                if self.offspring_xhc[0, -1] < self.offspring[parent_1, -1]:
                     for k in range(self.offspring.shape[1]):
-                        self.offspring[parent_1, k] = offspring_xhc[0, k]
+                        self.offspring[parent_1, k] = self.offspring_xhc[0, k]
             elif self.offspring[parent_2, -1] < self.offspring[parent_1, -1]:
-                if offspring_xhc[0, -1] < self.offspring[parent_2, -1]:
+                if self.offspring_xhc[0, -1] < self.offspring[parent_2, -1]:
                     for k in range(self.offspring.shape[1]):
-                        self.offspring[parent_2, k] = offspring_xhc[0, k]
+                        self.offspring[parent_2, k] = self.offspring_xhc[0, k]
         return self.offspring
 
     def mutation(self):
@@ -234,7 +237,7 @@ class Memetic():
                         (1 << 64) - 1
                 )
                 if probability < self.mutation_rate:
-                    rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+                    rand = rando()
                     rand_d = int.from_bytes(os.urandom(8), byteorder="big") / (
                             (1 << 64) - 1
                     )

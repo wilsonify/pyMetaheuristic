@@ -25,6 +25,7 @@ import random
 
 # Required Libraries
 import numpy as np
+from pyMetaheuristic import rando
 
 
 def initial_guess(target_function, min_values=(-5, -5), max_values=(5, 5)):
@@ -134,7 +135,7 @@ def simulated_annealing(
             )
             fx_new = new_guess[0, -1]
             delta = fx_new - fx_old
-            rand = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            rand = rando()
             p_value = np.exp(-delta / temperature)
             if delta < 0 or rand <= p_value:
                 guess = np.copy(new_guess)

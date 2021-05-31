@@ -22,6 +22,9 @@ import numpy as np
 
 
 # Function: Initialize Variables
+from pyMetaheuristic import rando
+
+
 def initial_position(
         target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5)
 ):
@@ -42,10 +45,10 @@ def update_position(
             r2 = (
                     2
                     * math.pi
-                    * (int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1))
+                    * (rando())
             )
-            r3 = 2 * (int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1))
-            r4 = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
+            r3 = 2 * (rando())
+            r4 = rando()
             if r4 < 0.5:
                 position[i, j] = np.clip(
                     (
