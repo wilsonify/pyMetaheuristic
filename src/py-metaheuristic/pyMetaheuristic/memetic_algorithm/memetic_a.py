@@ -132,41 +132,33 @@ class Memetic:
     def breeding(self):
         """Offspring"""
         offspring = np.copy(self.population)
-        b_offspring = 0
         if self.elite > 0:
             preserve = np.copy(self.population[self.population[:, -1].argsort()])
-            for i in range(self.elite):
-                for j in range(offspring.shape[1]):
-                    offspring[i, j] = preserve[i, j]
+            offspring[:self.elite, :] = preserve[:self.elite, :]
         for i in range(self.elite, offspring.shape[0]):
-            parent_1, parent_2 = self.roulette_wheel(), self.roulette_wheel()
+            parent_1 = self.roulette_wheel()
+            parent_2 = self.roulette_wheel()
             while parent_1 == parent_2:
                 parent_2 = np.random.choice(range(len(self.population) - 1), 1)[0]
             for j in range(offspring.shape[1] - 1):
                 rand = rando()
                 rand_b = rando()
+                b_offspring = 1 / (2 * (1 - rand_b))
                 if rand <= 0.5:
                     b_offspring = 2 * rand_b
-                    b_offspring = b_offspring ** (1 / (self.mu + 1))
-                elif rand > 0.5:
-                    b_offspring = 1 / (2 * (1 - rand_b))
-                    b_offspring = b_offspring ** (1 / (self.mu + 1))
+                b_offspring = b_offspring ** (1 / (self.mu + 1))
+                potential_offspring = (((1 + b_offspring) * self.population[parent_1, j] + (1 - b_offspring) *
+                                        self.population[parent_2, j]) / 2)
                 offspring[i, j] = np.clip(
-                    (
-                            (1 + b_offspring) * self.population[parent_1, j]
-                            + (1 - b_offspring) * self.population[parent_2, j]
-                    )
-                    / 2,
+                    potential_offspring,
                     self.min_values[j],
                     self.max_values[j],
                 )
                 if i < self.population.shape[0] - 1:
+                    potential_offspring = (((1 - b_offspring) * self.population[parent_1, j] + (1 + b_offspring) *
+                                            self.population[parent_2, j]) / 2)
                     offspring[i + 1, j] = np.clip(
-                        (
-                                (1 - b_offspring) * self.population[parent_1, j]
-                                + (1 + b_offspring) * self.population[parent_2, j]
-                        )
-                        / 2,
+                        potential_offspring,
                         self.min_values[j],
                         self.max_values[j],
                     )
@@ -277,6 +269,7 @@ class Memetic:
         return elite_ind
 
     def plot_target(self, front):
+        """plot target function"""
         from matplotlib import pyplot as plt
         # Target Function - Values
         front_1 = front[:, 0]
@@ -315,6 +308,7 @@ class Memetic:
         plt.savefig(f"{os.path.basename(__file__)}.png")
 
     def plot_solution(self, front_1, front_2, func_1_values, variables, minimum):
+        """plot solution from optimizer"""
         from matplotlib import pyplot as plt
         # MA - Plot Solution
         plt.style.use("bmh")
