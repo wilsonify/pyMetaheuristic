@@ -169,7 +169,8 @@ class Memetic:
         """Crossover Hill Clibing"""
 
         for _ in range(self.offspring.shape[0]):
-            parent_1, parent_2 = self.roulette_wheel(), self.roulette_wheel()
+            parent_1 = self.roulette_wheel()
+            parent_2 = self.roulette_wheel()
             while parent_1 == parent_2:
                 parent_2 = np.random.choice(range(len(self.offspring) - 1), 1)[0]
             for j in range(self.offspring.shape[1] - 1):
@@ -179,21 +180,17 @@ class Memetic:
                 if rand <= 0.5:
                     b_offspring = 2 * rand_b
                 b_offspring = b_offspring ** (1 / (self.mu + 1))
+                potential_offspring = (((1 + b_offspring) * self.offspring[parent_1, j] + (1 - b_offspring) *
+                                        self.offspring[parent_2, j]) / 2)
                 self.offspring_xhc[0, j] = np.clip(
-                    (
-                            (1 + b_offspring) * self.offspring[parent_1, j]
-                            + (1 - b_offspring) * self.offspring[parent_2, j]
-                    )
-                    / 2,
+                    potential_offspring,
                     self.min_values[j],
                     self.max_values[j],
                 )
+                potential_offspring = (((1 - b_offspring) * self.offspring[parent_1, j] + (1 + b_offspring) *
+                                        self.offspring[parent_2, j]) / 2)
                 self.offspring_xhc[1, j] = np.clip(
-                    (
-                            (1 - b_offspring) * self.offspring[parent_1, j]
-                            + (1 + b_offspring) * self.offspring[parent_2, j]
-                    )
-                    / 2,
+                    potential_offspring,
                     self.min_values[j],
                     self.max_values[j],
                 )
