@@ -19,8 +19,7 @@ to decrease defects, thus minimizing the system energy.
 # GitHub repository: <https://github.com/Valdecy/Metaheuristic-Simulated_Annealing>
 
 ############################################################################
-
-import os
+import logging
 import random
 
 # Required Libraries
@@ -95,7 +94,8 @@ def simulated_annealing(
     SA Function
 
     :param target_function:
-        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+    Target Function - It can be any function that needs to be minimize,
+    However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
 
     :param min_values:
     :param max_values:
@@ -108,9 +108,12 @@ def simulated_annealing(
     :return:
     """
     guess = initial_guess(
-        target_function=target_function, min_values=min_values, max_values=max_values
+        target_function=target_function,
+        min_values=min_values,
+        max_values=max_values
     )
     epson = epson_vector(guess, mu=mu, sigma=sigma)
+    logging.debug(f"epson = {epson}")
     best = np.copy(guess)
     fx_best = guess[0, -1]
     temperature = float(initial_temperature)

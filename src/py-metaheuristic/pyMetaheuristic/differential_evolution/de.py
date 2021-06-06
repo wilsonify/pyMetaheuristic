@@ -13,13 +13,10 @@
 
 ############################################################################
 
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 
@@ -41,16 +38,16 @@ def velocity(
         k0=0,
         k1=1,
         k2=2,
-        F=0.9,
+        f=0.9,
         min_values=(-5, -5),
         max_values=(5, 5),
-        Cr=0.2,
+        cr=0.2,
 ):
     v = np.copy(best_global)
     for i in range(len(best_global)):
         ri = rando()
-        if ri <= Cr:
-            v[i] = best_global[i] + F * (position[k1, i] - position[k2, i])
+        if ri <= cr:
+            v[i] = best_global[i] + f * (position[k1, i] - position[k2, i])
         else:
             v[i] = position[k0, i]
         if i < len(min_values) and v[i] > max_values[i]:
@@ -67,8 +64,8 @@ def differential_evolution(
         min_values=(-5, -5),
         max_values=(5, 5),
         iterations=50,
-        F=0.9,
-        Cr=0.2,
+        f=0.9,
+        cr=0.2,
 ):
     """
     DE Function. DE/Best/1/Bin Scheme.
@@ -80,8 +77,8 @@ def differential_evolution(
     :param min_values:
     :param max_values:
     :param iterations:
-    :param F:
-    :param Cr:
+    :param f:
+    :param cr:
     :return:
     """
     count = 0
@@ -106,10 +103,10 @@ def differential_evolution(
                 k0=i,
                 k1=k1,
                 k2=k2,
-                F=F,
+                f=f,
                 min_values=min_values,
                 max_values=max_values,
-                Cr=Cr,
+                cr=cr,
             )
             if vi[-1] <= position[i, -1]:
                 for j in range(position.shape[1]):

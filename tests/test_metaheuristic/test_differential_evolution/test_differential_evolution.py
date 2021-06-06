@@ -81,8 +81,8 @@ def test_differential_evolution(front):
         min_values=minv,
         max_values=maxv,
         iterations=iterations,
-        F=par_f,
-        Cr=par_c,
+        f=par_f,
+        cr=par_c,
     )
 
     # DE - Solution

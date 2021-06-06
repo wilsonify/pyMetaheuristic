@@ -14,6 +14,7 @@
 ############################################################################
 
 import copy
+import logging
 import os
 import random
 
@@ -34,13 +35,12 @@ def initial_position(
     return position
 
 
-def step(
-        target_function, position, min_values=(-5, -5), max_values=(5, 5), step_size=(0, 0)
-):
+def step(target_function, step_size, position, min_values=(-5, -5), max_values=(5, 5)):
     """non-large Steps"""
     position_temp = np.copy(position)
     for i in range(position.shape[0]):
         for j in range(position.shape[1] - 1):
+            logging.debug(f"step_size[i][j] = {step_size[i][j]}")
             minimun = min(min_values[j], position[i, j] + step_size[i][j])
             maximum = max(max_values[j], position[i, j] - step_size[i][j])
             rand = rando()
@@ -66,6 +66,7 @@ def large_step(
 ):
     """Large Steps"""
     factor = 0
+    logging.debug(f"factor = {factor}")
     position_temp = np.copy(position)
     step_size_temp = copy.deepcopy(step_size)
     for i in range(position.shape[0]):
@@ -136,13 +137,8 @@ def adaptive_random_search(
             step_size[i][j] = (max_values[j] - min_values[j]) * step_size_factor
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_solution[-1])
-        position_step = step(
-            target_function=target_function,
-            position=position,
-            min_values=min_values,
-            max_values=max_values,
-            step_size=step_size,
-        )
+        position_step = step(target_function=target_function, step_size=step_size, position=position,
+                             min_values=min_values, max_values=max_values)
         step_large, position_large_step = large_step(
             target_function=target_function,
             position=position,

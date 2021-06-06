@@ -23,13 +23,10 @@ a moth flies by maintaining a fixed angle with respect to the moon:
 ############################################################################
 
 import math
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 

@@ -89,7 +89,7 @@ class WOA:
     def initial_leader_position(self):
         """
         Initialize Alpha
-        :param dimension:
+
         :return:
         """
         for j in range(self.dimension):

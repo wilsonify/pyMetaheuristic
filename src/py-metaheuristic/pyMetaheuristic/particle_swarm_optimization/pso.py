@@ -25,13 +25,10 @@ This vector defines the magnitude and direction of step size for each dimension 
 
 ############################################################################
 
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 

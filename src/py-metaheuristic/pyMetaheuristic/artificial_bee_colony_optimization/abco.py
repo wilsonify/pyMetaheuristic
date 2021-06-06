@@ -23,7 +23,6 @@ randomly chosen from the solution pool.
 
 ############################################################################
 
-import os
 import random
 
 import numpy as np

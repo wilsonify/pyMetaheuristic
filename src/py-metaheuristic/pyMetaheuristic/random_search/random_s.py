@@ -13,13 +13,10 @@
 
 ############################################################################
 
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 
@@ -56,10 +53,11 @@ def random_search(
         target_function, solutions=5, min_values=(-5, -5), max_values=(5, 5), iterations=50
 ):
     """
-    # RS Function
+    RS Function
 
     :param target_function:
-        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+    Target Function - It can be any function that needs to be minimize,
+    However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
 
     :param solutions:
     :param min_values:

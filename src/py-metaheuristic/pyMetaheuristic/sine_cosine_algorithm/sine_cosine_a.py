@@ -14,13 +14,10 @@
 ############################################################################
 
 import math
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 
@@ -89,9 +86,9 @@ def sine_cosine_algorithm(
         iterations=50,
 ):
     """
-
     :param target_function:
-    # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+    Target Function - It can be any function that needs to be minimize,
+    However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
 
     :param solutions:
     :param a_linear_component:

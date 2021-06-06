@@ -23,13 +23,10 @@ Five main steps:
 
 ############################################################################
 
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 

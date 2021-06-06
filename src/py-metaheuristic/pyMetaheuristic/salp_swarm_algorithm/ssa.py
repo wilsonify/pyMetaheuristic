@@ -24,13 +24,10 @@ that this is done for achieving better locomotion using rapid coordinated change
 ############################################################################
 
 import math
-import os
 import random
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 
@@ -66,7 +63,7 @@ def update_food(position, food):
 
 # Function: Update Position
 def update_position(
-        target_function, position, food, c1=1, min_values=(-5, -5), max_values=(5, 5)
+        target_function, position, food, c1=1.0, min_values=(-5, -5), max_values=(5, 5)
 ):
     for i in range(position.shape[0]):
         if i <= position.shape[0] / 2:
@@ -111,7 +108,8 @@ def salp_swarm_algorithm(
     """
 
     :param target_function:
-        # Target Function - It can be any function that needs to be minimize, However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
+    Target Function - It can be any function that needs to be minimize,
+    However it has to have only one argument: 'variables_values'. This Argument must be a list of variables.
 
     :param swarm_size:
     :param min_values:

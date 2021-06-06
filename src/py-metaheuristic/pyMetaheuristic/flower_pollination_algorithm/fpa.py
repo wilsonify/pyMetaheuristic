@@ -12,15 +12,12 @@
 # GitHub repository: <https://github.com/Valdecy/Metaheuristic-Flower_Pollination_Algorithm>
 
 ############################################################################
-
-import os
+import logging
 import random
 from math import gamma
 
 # Required Libraries
 import numpy as np
-
-
 # Function: Initialize Variables
 from pyMetaheuristic import rando
 
@@ -132,6 +129,7 @@ def flower_pollination_algorithm(
     )
     best_global = np.copy(position[position[:, -1].argsort()][0, :])
     x = np.copy(best_global)
+    logging.debug(f"x = {x}")
     while count <= iterations:
         print("Iteration = ", count, " f(x) = ", best_global[-1])
         for i in range(position.shape[0]):
