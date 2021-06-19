@@ -167,7 +167,7 @@ class Memetic:
         return offspring
 
     def xhc(self):
-        """Crossover Hill Clibing"""
+        """Crossover Hill Climbing"""
         n_rows = self.offspring.shape[0]
         n_cols = self.offspring.shape[1]
         for _ in range(n_rows):
