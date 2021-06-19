@@ -168,13 +168,14 @@ class Memetic:
 
     def xhc(self):
         """Crossover Hill Clibing"""
-
-        for _ in range(self.offspring.shape[0]):
+        n_rows = self.offspring.shape[0]
+        n_cols = self.offspring.shape[1]
+        for _ in range(n_rows):
             parent_1 = self.roulette_wheel()
             parent_2 = self.roulette_wheel()
             while parent_1 == parent_2:
-                parent_2 = np.random.choice(range(len(self.offspring) - 1), 1)[0]
-            for j in range(self.offspring.shape[1] - 1):
+                parent_2 = np.random.choice(range(n_rows - 1), 1)[0]
+            for j in range(n_cols - 1):
                 rand = rando()
                 rand_b = rando()
                 b_offspring = 1 / (2 * (1 - rand_b))
@@ -203,7 +204,7 @@ class Memetic:
             )
             xhc1_less_xhc0 = self.offspring_xhc[1, -1] < self.offspring_xhc[0, -1]
             if xhc1_less_xhc0:
-                for k in range(self.offspring.shape[1]):
+                for k in range(n_cols):
                     self.offspring_xhc[0, k] = self.offspring_xhc[1, k]
             p1_less_2 = self.offspring[parent_1, -1] < self.offspring[parent_2, -1]
             p2_less_p1 = (self.offspring[parent_2, -1] < self.offspring[parent_1, -1])
@@ -211,10 +212,10 @@ class Memetic:
             xhc0_less_p1 = self.offspring_xhc[0, -1] < self.offspring[parent_1, -1]
             xhc0_less_p2 = (self.offspring_xhc[0, -1] < self.offspring[parent_2, -1])
             if p1_less_2 and xhc0_less_p1:
-                for k in range(self.offspring.shape[1]):
+                for k in range(n_cols):
                     self.offspring[parent_1, k] = self.offspring_xhc[0, k]
             elif p2_less_p1 and xhc0_less_p2:
-                for k in range(self.offspring.shape[1]):
+                for k in range(n_cols):
                     self.offspring[parent_2, k] = self.offspring_xhc[0, k]
         return self.offspring
 
